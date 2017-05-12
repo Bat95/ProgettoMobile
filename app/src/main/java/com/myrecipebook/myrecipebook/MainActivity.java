@@ -3,6 +3,9 @@ package com.myrecipebook.myrecipebook;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        drawer.openDrawer(Gravity.LEFT);
     }
 
     @Override
@@ -72,18 +77,24 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        Fragment fragment = null;
 
-        } else if (id == R.id.nav_slideshow) {
+        if (id == R.id.nav_search) {
+            fragment = new Search();
+        } else if (id == R.id.nav_favourites) {
+            fragment = new Favourite();
+        } else if (id == R.id.nav_suggestions) {
+            fragment = new Suggestion();
+        } else if (id == R.id.nav_allergies) {
+            fragment = new Allergies();
+        } else if (id == R.id.nav_help) {
+            fragment = new Help();
+        }
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main, fragment);
+            ft.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
