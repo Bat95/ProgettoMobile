@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        displaySelectedScreen(R.id.nav_suggestions);
         drawer.openDrawer(Gravity.LEFT);
     }
 
@@ -56,41 +57,34 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    /**
+     * Metodo per il cambio delle fragment
+     * @param itemId l'id della nuova fragment da caricare
+     */
+    private void displaySelectedScreen(int itemId) {
 
         Fragment fragment = null;
 
-        if (id == R.id.nav_search) {
-            fragment = new Search();
-        } else if (id == R.id.nav_favourites) {
-            fragment = new Favourite();
-        } else if (id == R.id.nav_suggestions) {
-            fragment = new Suggestion();
-        } else if (id == R.id.nav_allergies) {
-            fragment = new Allergies();
-        } else if (id == R.id.nav_help) {
-            fragment = new Help();
+        //initializing the fragment object which is selected
+        switch (itemId) {
+            case R.id.nav_search:
+                fragment = new Search();
+                break;
+            case R.id.nav_favourites:
+                fragment = new Favourite();
+                break;
+            case R.id.nav_suggestions:
+                fragment = new Suggestion();
+                break;
+            case R.id.nav_allergies:
+                fragment = new Allergies();
+                break;
+            case R.id.nav_help:
+                fragment = new Help();
+                break;
         }
 
+        //replacing the fragment
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_main, fragment);
@@ -99,6 +93,14 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        displaySelectedScreen(item.getItemId());
         return true;
     }
 }

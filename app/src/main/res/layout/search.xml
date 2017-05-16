@@ -1,15 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/nav_search"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/search"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="14dp"
+        android:text="@string/select_ingredients"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/input_ingredients"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:ems="16"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/input_ingredients"
+        android:layout_below="@+id/input_ingredients"
+        android:layout_marginTop="30dp"
+        android:text="@string/filter_by"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <CheckBox
+        android:id="@+id/difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="14dp"
+        android:text="@string/difficulty" />
+
+    <CheckBox
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/difficulty"
+        android:layout_below="@+id/difficulty"
+        android:layout_centerVertical="true"
+        android:text="@string/time" />
+
+    <CheckBox
+        android:id="@+id/apply_intolerances"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/time"
+        android:layout_below="@+id/time"
+        android:checked="true"
+        android:text="@string/apply_intolerances" />
+
+    <CheckBox
+        android:id="@+id/apply_storeroom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/apply_intolerances"
+        android:layout_below="@+id/apply_intolerances"
+        android:text="@string/apply_storeroom" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_alignEnd="@+id/input_ingredients"
+        android:layout_alignStart="@+id/apply_storeroom"
+        android:layout_below="@+id/apply_storeroom"
+        android:background="#FF0000FF" />
+
+    <CheckBox
+        android:id="@+id/appetizers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/difficulty"
+        android:layout_below="@+id/view"
+        android:text="@string/appetizers" />
+
+    <CheckBox
+        android:id="@+id/first_dishes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/appetizers"
+        android:layout_toEndOf="@+id/appetizers"
+        android:text="@string/first_dishes" />
+
+    <CheckBox
+        android:id="@+id/second_dishes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/first_dishes"
+        android:layout_toEndOf="@+id/first_dishes"
+        android:text="@string/second_dishes" />
+
+    <CheckBox
+        android:id="@+id/desserts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/second_dishes"
+        android:layout_toEndOf="@+id/second_dishes"
+        android:text="@string/desserts" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/appetizers"
+        android:layout_below="@+id/appetizers"
+        android:layout_marginTop="12dp"
+        android:text="@string/recipe_name"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/recipe_name_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/view"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/textView5"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Search" />
+        android:text="" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_below="@+id/recipe_name_input"
+        android:layout_marginTop="18dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="Cerca"
+        android:textColorLink="@android:color/black" />
+
 </RelativeLayout>

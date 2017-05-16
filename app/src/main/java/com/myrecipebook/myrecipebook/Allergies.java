@@ -23,6 +23,6 @@ public class Allergies extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Allegies");
+        getActivity().setTitle("Gestione allergie");
     }
 }
