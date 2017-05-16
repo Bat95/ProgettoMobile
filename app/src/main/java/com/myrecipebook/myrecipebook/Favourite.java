@@ -23,6 +23,6 @@ public class Favourite extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Favourites");
+        getActivity().setTitle("Preferiti");
     }
 }

@@ -23,6 +23,6 @@ public class Search extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("search");
+        getActivity().setTitle("Ricerca ricette");
     }
 }
