@@ -29,6 +29,7 @@ public class Help extends Fragment {
 
         final Chronometer cr = (Chronometer) view.findViewById(R.id.chronometer);
 
+
         final TextView tv = (TextView) view.findViewById(R.id.testTV);
 
         Button start = (Button) view.findViewById(R.id.start);
