@@ -7,17 +7,16 @@
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="67dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="54dp"
-        android:layout_marginTop="28dp" />
+        android:layout_alignStart="@+id/start" />
 
     <Button
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="25dp"
         android:text="Start"
         android:layout_below="@+id/chronometer"
         android:layout_alignParentStart="true" />
@@ -39,7 +38,7 @@
         android:layout_marginStart="35dp"
         android:layout_toEndOf="@+id/stop"
         android:text="Test" />
-    
+
 
     <TextView
         android:id="@+id/testTV"
@@ -49,4 +48,38 @@
         android:layout_marginTop="46dp"
         android:layout_toStartOf="@+id/test"
         android:text="" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/start"
+        android:layout_alignStart="@+id/chronometer"
+        android:layout_marginBottom="21dp"
+        android:text="Prova cronometro:" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/start"
+        android:layout_below="@+id/testTV"
+        android:text="Prova cronometro al contrario:" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_centerVertical="true"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/startreverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView9"
+        android:layout_below="@+id/textView9"
+        android:layout_marginTop="13dp"
+        android:text="Start" />
 </RelativeLayout>

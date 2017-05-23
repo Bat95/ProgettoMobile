@@ -2,6 +2,7 @@ package com.myrecipebook.myrecipebook;
 
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ public class Help extends Fragment {
 
 
         final TextView tv = (TextView) view.findViewById(R.id.testTV);
+        final TextView reverse = (TextView) view.findViewById(R.id.textView9);
 
         Button start = (Button) view.findViewById(R.id.start);
         start.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +69,27 @@ public class Help extends Fragment {
                     }
 
                 });
+            }
+
+
+        });
+
+        final CountDownTimer cd = new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                reverse.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                reverse.setText("done!");
+            }
+        };
+
+        final Button srev = (Button) view.findViewById(R.id.startreverse);
+        srev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cd.start();
             }
 
 
