@@ -43,12 +43,12 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/input_ingredients"
-        android:layout_below="@+id/input_ingredients"
-        android:layout_marginTop="30dp"
         android:text="@string/filter_by"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_below="@+id/recipe_name_input"
+        android:layout_alignStart="@+id/input_ingredients"
+        android:layout_marginTop="23dp" />
 
     <CheckBox
         android:id="@+id/difficulty"
@@ -130,12 +130,12 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/appetizers"
-        android:layout_below="@+id/appetizers"
-        android:layout_marginTop="12dp"
         android:text="@string/recipe_name"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_below="@+id/input_ingredients"
+        android:layout_alignEnd="@+id/difficulty"
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/recipe_name_input"
@@ -152,11 +152,11 @@
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_below="@+id/recipe_name_input"
-        android:layout_marginTop="18dp"
         android:background="@android:color/holo_blue_light"
         android:text="Cerca"
-        android:textColorLink="@android:color/black" />
+        android:textColorLink="@android:color/black"
+        android:layout_below="@+id/first_dishes"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp" />
 
 </RelativeLayout>

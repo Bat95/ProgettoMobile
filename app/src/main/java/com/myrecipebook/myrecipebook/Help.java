@@ -28,53 +28,10 @@ public class Help extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Aiuto");
 
-        final Chronometer cr = (Chronometer) view.findViewById(R.id.chronometer);
-
-
-        final TextView tv = (TextView) view.findViewById(R.id.testTV);
         final TextView reverse = (TextView) view.findViewById(R.id.textView9);
 
-        Button start = (Button) view.findViewById(R.id.start);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cr.start();
-            }
-        });
 
-        final Button stop = (Button) view.findViewById(R.id.stop);
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cr.stop();
-                cr.setBase(SystemClock.elapsedRealtime()); //serve per resettare a 0
-            }
-        });
-
-        Button test = (Button) view.findViewById(R.id.test);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cr.start();
-                cr.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                    @Override
-                    public void onChronometerTick(Chronometer chronometer) {
-                        //Mettere le condizioni, per esempio a TOT time fare qualcosa
-                        if (chronometer.getText().toString().equals("00:10")) {
-                            tv.setText("Teminato!");
-                            cr.stop();
-                            cr.setText("00:00");
-                            cr.setBase(SystemClock.elapsedRealtime());
-                        }
-                    }
-
-                });
-            }
-
-
-        });
-
-        final CountDownTimer cd = new CountDownTimer(30000, 1000) {
+        final CountDownTimer cd = new CountDownTimer(10000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 reverse.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -89,10 +46,18 @@ public class Help extends Fragment {
         srev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cd.start();
+                if(srev.getText().equals("Start")){
+                    cd.start();
+                    srev.setText("Stop");
+                } else if (srev.getText().equals("Stop")){
+                    cd.cancel();
+                    reverse.setText("seconds remaining: 0");
+                    srev.setText("Start");
+                }
             }
 
 
         });
+
     }
 }
