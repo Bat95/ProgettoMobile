@@ -1,5 +1,7 @@
 package com.myrecipebook.myrecipebook;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -81,6 +83,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_help:
                 fragment = new Help();
+                break;
+            case R.id.provatts:
+                final Intent i = new Intent(this,ProvaTTS.class);
+                startActivity(i);
                 break;
         }
 

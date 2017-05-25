@@ -22,6 +22,10 @@
             android:id="@+id/nav_help"
             android:icon="@drawable/help_icon"
             android:title="Aiuto" />
+        <item
+            android:id="@+id/provatts"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Prova TextToSpeech" />
     </group>
 
 </menu>
