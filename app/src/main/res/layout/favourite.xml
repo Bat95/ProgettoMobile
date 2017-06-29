@@ -3,13 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/nav_favourites"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
+
+    <Button
+        android:id="@+id/sendRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Favourites" />
+        android:text="Send Request"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="103dp" />
+
+    <TextView
+        android:id="@+id/textResponse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@+id/sendRequest"
+        android:layout_toStartOf="@+id/sendRequest"
+        android:layout_marginTop="37dp" />
 </RelativeLayout>
