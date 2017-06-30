@@ -23,8 +23,6 @@ public class Favourite extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Preferiti");
 
-        Button sendRequest = (Button) view.findViewById(R.id.sendRequest);
-        TextView textResponse = (TextView) view.findViewById(R.id.textResponse);
     }
 
 }

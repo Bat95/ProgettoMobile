@@ -14,6 +14,8 @@
     <string name="second_dishes">Secondi</string>
     <string name="desserts">Dessert</string>
     <string name="recipe_name">Nome ricetta</string>
+    <string name="search_button">Cerca</string>
+    <string name="recipe_search_title">Ricerca Ricette</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

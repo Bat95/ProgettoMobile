@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/search_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,29 +18,31 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/select_ingred_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/search_title"
         android:layout_marginStart="17dp"
         android:layout_marginTop="14dp"
         android:text="@string/select_ingredients"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/input_ingredients"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/select_ingred_title"
         android:layout_centerHorizontal="true"
         android:ems="16"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        tools:ignore="LabelFor"
+        android:completionThreshold="1" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/filter_by_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/filter_by"
@@ -54,8 +56,8 @@
         android:id="@+id/difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/filter_by_title"
+        android:layout_below="@+id/filter_by_title"
         android:layout_marginTop="14dp"
         android:text="@string/difficulty" />
 
@@ -127,7 +129,7 @@
         android:text="@string/desserts" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/recipe_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/recipe_name"
@@ -137,23 +139,25 @@
         android:layout_alignEnd="@+id/difficulty"
         android:layout_marginTop="16dp" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/recipe_name_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/view"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/recipe_name_title"
+        android:layout_below="@+id/recipe_name_title"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        tools:ignore="LabelFor"
+        android:completionThreshold="1" />
 
     <Button
         android:id="@+id/search_button"
+        android:text="@string/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_light"
-        android:text="Cerca"
         android:textColorLink="@android:color/black"
         android:layout_below="@+id/first_dishes"
         android:layout_centerHorizontal="true"
