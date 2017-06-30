@@ -41,19 +41,39 @@ public class Search extends Fragment {
 
         // initialize variables
         search_button = (Button) view.findViewById(R.id.search_button);
-        final InfoDto infoRecipe = new InfoDto();
+        final InfoDto[] infoRecipe = {new InfoDto()};
 
         // autocomplete for the ingredients
         AutoCompleteTextView input_ingredients = (AutoCompleteTextView) view.findViewById(R.id.input_ingredients);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, ingredientsList);
         input_ingredients.setAdapter(adapter);
 
-        // http get request on search button clicked
+        // http post and get request on search button clicked
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                HttpHelper.Get(
+                InfoDto info = new InfoDto();
+                info.origin = "Inviato";
+
+                HttpHelper.Post(
+                        getActivity().getApplicationContext(),
+                        "http://192.168.43.155:5000/api/values/info",
+                        info,
+                        new BaseHttpResponseHandler<InfoDto>(InfoDto.class) {
+
+                            @Override
+                            public void handleResponse(InfoDto response) {
+                                infoRecipe[0] = response;
+                            }
+
+                            @Override
+                            public void handleError(String errorMessage) {
+                                super.handleError(errorMessage);
+                            }
+                        });
+
+                /*HttpHelper.Get(
                         getActivity().getApplicationContext(),
                         "http://192.168.43.155:5000/api/values/5",
                         new BaseHttpResponseHandler<String>(String.class) {
@@ -68,7 +88,7 @@ public class Search extends Fragment {
                                 super.handleError(errorMessage);
                             }
                         }
-                );
+                );*/
 
             }
         });
