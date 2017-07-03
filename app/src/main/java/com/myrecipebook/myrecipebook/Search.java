@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
@@ -48,10 +50,60 @@ public class Search extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, ingredientsList);
         input_ingredients.setAdapter(adapter);
 
+        //Variabili delle checkbox
+        final TextView apply_intolerances = (TextView) view.findViewById(R.id.apply_intolerances);
+        final TextView apply_storeroom = (TextView) view.findViewById(R.id.apply_storeroom);
+        final TextView appetizers = (TextView) view.findViewById(R.id.appetizers);
+        final TextView first_dishes = (TextView) view.findViewById(R.id.first_dishes);
+        final TextView second_dishes = (TextView) view.findViewById(R.id.second_dishes);
+        final TextView desserts = (TextView) view.findViewById(R.id.desserts);
+        final Spinner timesp = (Spinner) view.findViewById(R.id.timespinner);
+        final Spinner difficultysp = (Spinner) view.findViewById(R.id.difficultyspinner);
+
+
+
+        Spinner needed_time = (Spinner) view.findViewById(R.id.spinner);
+
         // http post and get request on search button clicked
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //Prendo i valori
+                boolean isApetizer = appetizers.isEnabled();
+                boolean isFDish = first_dishes.isEnabled();
+                boolean isSDish = second_dishes.isEnabled();
+                boolean isDessert = desserts.isEnabled();
+                boolean intolerances = apply_intolerances.isEnabled();
+                boolean storeroom = apply_storeroom.isEnabled();
+
+                int selectedTime = 0;
+                switch (timesp.getSelectedItem().toString()){
+                    case "nessun limite":
+                        selectedTime = 0;
+                    case "meno di 30 minuti":
+                        selectedTime = 1;
+                    case "meno di 1 ora":
+                        selectedTime = 2;
+                    case "meno di 2 ore":
+                        selectedTime = 3;
+                    case "meno di 3 ore":
+                        selectedTime = 4;
+                    case "oltre 3 ore":
+                        selectedTime = 5;
+                }
+
+                int selectedDifficulty = 0;
+                switch (difficultysp.getSelectedItem().toString()){
+                    case "tutte":
+                        selectedDifficulty = 0;
+                    case "1":
+                        selectedDifficulty = 1;
+                    case "2":
+                        selectedDifficulty = 2;
+                    case "3":
+                        selectedDifficulty = 3;
+                }
 
                 InfoDto info = new InfoDto();
                 info.origin = "Inviato";
