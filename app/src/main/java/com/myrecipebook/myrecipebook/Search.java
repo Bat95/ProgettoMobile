@@ -26,6 +26,7 @@ public class Search extends Fragment {
 
     Button search_button;
 
+    // lista degli ingredienti tra cui un utente può scegliere
     private static final String[] ingredientsList = new String[] {
             "Latte", "Uova", "Pomodori", "Zucchero", "una lista di tutti gli ingredienti"
     };
@@ -45,6 +46,8 @@ public class Search extends Fragment {
         search_button = (Button) view.findViewById(R.id.search_button);
         final InfoDto[] infoRecipe = {new InfoDto()};
 
+        final TextView recipe_name_input = (TextView) view.findViewById(R.id.recipe_name_input);
+
         // autocomplete for the ingredients
         AutoCompleteTextView input_ingredients = (AutoCompleteTextView) view.findViewById(R.id.input_ingredients);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, ingredientsList);
@@ -61,8 +64,6 @@ public class Search extends Fragment {
         final Spinner difficultysp = (Spinner) view.findViewById(R.id.difficultyspinner);
 
 
-
-        Spinner needed_time = (Spinner) view.findViewById(R.id.spinner);
 
         // http post and get request on search button clicked
         search_button.setOnClickListener(new View.OnClickListener() {
@@ -110,13 +111,14 @@ public class Search extends Fragment {
 
                 HttpHelper.Post(
                         getActivity().getApplicationContext(),
-                        "http://192.168.43.155:5000/api/values/info",
+                        "http://646ffb06.ngrok.io/api/values/info",
                         info,
                         new BaseHttpResponseHandler<InfoDto>(InfoDto.class) {
 
                             @Override
                             public void handleResponse(InfoDto response) {
                                 infoRecipe[0] = response;
+                                recipe_name_input.setText(response.origin);
                             }
 
                             @Override
