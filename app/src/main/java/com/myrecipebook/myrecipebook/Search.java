@@ -35,7 +35,7 @@ public class Search extends Fragment {
 
         int selectedDifficulty = 0;
 
-        Recipe resultRecipes;
+        Recipe[] resultRecipes;
     }
 
     class Recipe {
@@ -52,7 +52,7 @@ public class Search extends Fragment {
     }
 
     Button search_button;
-    Recipe resultedRecipes;
+    Recipe[] resultedRecipes;
 
     // lista degli ingredienti tra cui un utente può scegliere
     private static final String[] ingredientsList = new String[] {
@@ -72,7 +72,7 @@ public class Search extends Fragment {
 
         // initialize variables
         search_button = (Button) view.findViewById(R.id.search_button);
-        resultedRecipes = new Recipe();
+        resultedRecipes[0] = new Recipe();
 
         final TextView recipe_name_input = (TextView) view.findViewById(R.id.recipe_name_input);
 
