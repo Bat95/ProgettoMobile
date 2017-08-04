@@ -1,11 +1,12 @@
 package com.myrecipebook.myrecipebook;
 
 /**
- * Created by Sonia on 12/05/17.
+ * Created by Sonia
  */
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +21,38 @@ import android.widget.TextView;
 
 public class Search extends Fragment {
 
-    class InfoDto {
-        public String origin;
+
+    class  InfoDto {
+
+        boolean isApetizer;
+        boolean isFDish;
+        boolean isSDish;
+        boolean isDessert;
+        boolean intolerances;
+        boolean storeroom;
+
+        int selectedTime = 0;
+
+        int selectedDifficulty = 0;
+
+        Recipe resultRecipes;
+    }
+
+    class Recipe {
+        public String Name;
+        public String MainPic;
+        public int DosePerPerson;
+        public String[] Steps;
+        public String[] StepImages;
+        public String[] Ingredients;
+        public int Difficulty;
+        public int Duration;
+        public int Category;
+        public String[] Tag;
     }
 
     Button search_button;
+    Recipe resultedRecipes;
 
     // lista degli ingredienti tra cui un utente può scegliere
     private static final String[] ingredientsList = new String[] {
@@ -44,7 +72,7 @@ public class Search extends Fragment {
 
         // initialize variables
         search_button = (Button) view.findViewById(R.id.search_button);
-        final InfoDto[] infoRecipe = {new InfoDto()};
+        resultedRecipes = new Recipe();
 
         final TextView recipe_name_input = (TextView) view.findViewById(R.id.recipe_name_input);
 
@@ -70,55 +98,51 @@ public class Search extends Fragment {
             @Override
             public void onClick(View view) {
 
-                //Prendo i valori
-                boolean isApetizer = appetizers.isEnabled();
-                boolean isFDish = first_dishes.isEnabled();
-                boolean isSDish = second_dishes.isEnabled();
-                boolean isDessert = desserts.isEnabled();
-                boolean intolerances = apply_intolerances.isEnabled();
-                boolean storeroom = apply_storeroom.isEnabled();
+                InfoDto filterInfo = new InfoDto();
 
-                int selectedTime = 0;
+                //Prendo i valori
+                filterInfo.isApetizer = appetizers.isEnabled();
+                filterInfo.isFDish = first_dishes.isEnabled();
+                filterInfo.isSDish = second_dishes.isEnabled();
+                filterInfo.isDessert = desserts.isEnabled();
+                filterInfo.intolerances = apply_intolerances.isEnabled();
+                filterInfo.storeroom = apply_storeroom.isEnabled();
+
                 switch (timesp.getSelectedItem().toString()){
                     case "nessun limite":
-                        selectedTime = 0;
+                        filterInfo.selectedTime = 0;
                     case "meno di 30 minuti":
-                        selectedTime = 1;
+                        filterInfo.selectedTime = 1;
                     case "meno di 1 ora":
-                        selectedTime = 2;
+                        filterInfo.selectedTime = 2;
                     case "meno di 2 ore":
-                        selectedTime = 3;
+                        filterInfo.selectedTime = 3;
                     case "meno di 3 ore":
-                        selectedTime = 4;
+                        filterInfo.selectedTime = 4;
                     case "oltre 3 ore":
-                        selectedTime = 5;
+                        filterInfo.selectedTime = 5;
                 }
 
-                int selectedDifficulty = 0;
                 switch (difficultysp.getSelectedItem().toString()){
                     case "tutte":
-                        selectedDifficulty = 0;
+                        filterInfo.selectedDifficulty = 0;
                     case "1":
-                        selectedDifficulty = 1;
+                        filterInfo.selectedDifficulty = 1;
                     case "2":
-                        selectedDifficulty = 2;
+                        filterInfo.selectedDifficulty = 2;
                     case "3":
-                        selectedDifficulty = 3;
+                        filterInfo.selectedDifficulty = 3;
                 }
-
-                InfoDto info = new InfoDto();
-                info.origin = "Inviato";
 
                 HttpHelper.Post(
                         getActivity().getApplicationContext(),
-                        "http://646ffb06.ngrok.io/api/values/info",
-                        info,
+                        "http://646ffb06.ngrok.io/api/values/filterInfo",
+                        filterInfo,
                         new BaseHttpResponseHandler<InfoDto>(InfoDto.class) {
 
                             @Override
                             public void handleResponse(InfoDto response) {
-                                infoRecipe[0] = response;
-                                recipe_name_input.setText(response.origin);
+                                resultedRecipes = response.resultRecipes;
                             }
 
                             @Override

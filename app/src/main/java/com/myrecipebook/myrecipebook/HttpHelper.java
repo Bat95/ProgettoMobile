@@ -11,6 +11,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+/**
+ * Created by Sonia
+ */
+
 public class HttpHelper {
     public static <T> void Get(Context context, String url, HttpResponseHandler<T> responseHandler) {
         SendRequest(context, Request.Method.GET, url, null, responseHandler);
