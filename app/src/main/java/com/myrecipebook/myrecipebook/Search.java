@@ -18,6 +18,9 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Search extends Fragment {
 
@@ -35,7 +38,7 @@ public class Search extends Fragment {
 
         int selectedDifficulty = 0;
 
-        Recipe[] resultRecipes;
+        List<Recipe> resultRecipes;
     }
 
     class Recipe {
@@ -52,7 +55,7 @@ public class Search extends Fragment {
     }
 
     Button search_button;
-    Recipe[] resultedRecipes;
+    List<Recipe> resultedRecipes;
 
     // lista degli ingredienti tra cui un utente può scegliere
     private static final String[] ingredientsList = new String[] {
@@ -72,7 +75,6 @@ public class Search extends Fragment {
 
         // initialize variables
         search_button = (Button) view.findViewById(R.id.search_button);
-        resultedRecipes[0] = new Recipe();
 
         final TextView recipe_name_input = (TextView) view.findViewById(R.id.recipe_name_input);
 
@@ -142,7 +144,7 @@ public class Search extends Fragment {
 
                             @Override
                             public void handleResponse(InfoDto response) {
-                                resultedRecipes = response.resultRecipes;
+                                resultedRecipes = new ArrayList<>(response.resultRecipes);
                             }
 
                             @Override
