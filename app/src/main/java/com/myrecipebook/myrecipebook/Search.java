@@ -59,6 +59,8 @@ public class Search extends Fragment {
         public String[] Tag;
     }
 
+    // comment
+
     Button search_button;
     List<Recipe> resultedRecipes;
 
