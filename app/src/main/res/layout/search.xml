@@ -9,25 +9,24 @@
         android:id="@+id/search_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="17dp"
         android:text="@string/search"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/select_ingred_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/search_title"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="11dp"
         android:text="@string/select_ingredients"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_below="@+id/search_title"
+        android:layout_alignStart="@+id/input_ingredients" />
 
     <AutoCompleteTextView
         android:id="@+id/input_ingredients"
@@ -36,10 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/select_ingred_title"
         android:layout_centerHorizontal="true"
+        android:autoText="false"
+        android:completionThreshold="1"
         android:ems="16"
         android:inputType="textFilter"
-        tools:ignore="LabelFor"
-        android:completionThreshold="1" />
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/filter_by_title"
@@ -48,9 +48,8 @@
         android:text="@string/filter_by"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        android:layout_below="@+id/recipe_name_input"
-        android:layout_alignStart="@+id/input_ingredients"
-        android:layout_marginTop="23dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/recipe_name_title" />
 
 
 
@@ -86,32 +85,41 @@
         android:layout_height="wrap_content"
         android:text="@string/appetizers"
         android:layout_below="@+id/view"
-        android:layout_alignStart="@+id/select_ingred_title" />
+        android:layout_alignStart="@+id/select_ingred_title"
+        android:layout_toStartOf="@+id/difficultyspinner"
+        android:layout_alignEnd="@+id/recipe_name_title" />
 
     <CheckBox
         android:id="@+id/first_dishes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/first_dishes"
-        android:layout_alignBaseline="@+id/appetizers"
-        android:layout_alignBottom="@+id/appetizers"
-        android:layout_toEndOf="@+id/appetizers" />
+        android:layout_below="@+id/apply_storeroom"
+        android:layout_alignEnd="@+id/apply_intolerances" />
 
     <CheckBox
         android:id="@+id/second_dishes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/first_dishes"
-        android:layout_toEndOf="@+id/first_dishes"
-        android:text="@string/second_dishes" />
+        android:text="@string/second_dishes"
+        android:layout_alignTop="@+id/view"
+        android:layout_toEndOf="@+id/first_dishes" />
 
     <CheckBox
         android:id="@+id/desserts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/second_dishes"
-        android:layout_toEndOf="@+id/second_dishes"
-        android:text="@string/desserts" />
+        android:text="@string/desserts"
+        android:layout_below="@+id/appetizers"
+        android:layout_alignStart="@+id/appetizers" />
+
+    <CheckBox
+        android:id="@+id/unique"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Piatto Unico"
+        android:layout_below="@+id/first_dishes"
+        android:layout_toEndOf="@+id/desserts" />
 
     <TextView
         android:id="@+id/recipe_name_title"
@@ -120,7 +128,7 @@
         android:text="@string/recipe_name"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="47dp"
         android:layout_below="@+id/input_ingredients"
         android:layout_alignStart="@+id/input_ingredients" />
 
@@ -142,9 +150,8 @@
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_light"
         android:textColorLink="@android:color/black"
-        android:layout_below="@+id/first_dishes"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp" />
+        android:layout_below="@+id/unique"
+        android:layout_centerHorizontal="true" />
     <TextView
         android:id="@+id/timetext"
         android:layout_width="wrap_content"
@@ -168,27 +175,30 @@
         android:textSize="15sp" />
 
     <Spinner
-        android:id="@+id/difficultyspinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/timeSpinnerItems"
-        android:layout_alignTop="@+id/difficulty"
-        android:layout_alignEnd="@+id/timespinner"
-        android:layout_toEndOf="@+id/difficulty"
-        android:layout_above="@+id/apply_intolerances" />
-
-    <Spinner
         android:id="@+id/timespinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/timetext"
-        android:entries="@array/difficultySpinnerItems"
-        android:layout_above="@+id/difficulty"
-        android:layout_alignEnd="@+id/recipe_name_input"
-        android:layout_toEndOf="@+id/timetext" />
+        android:layout_alignBaseline="@+id/timetext"
+        android:layout_alignBottom="@+id/timetext"
+        android:layout_toEndOf="@+id/timetext"
+        android:entries="@array/timeSpinnerItems" />
 
+    <Spinner
+        android:id="@+id/difficultyspinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/difficulty"
+        android:layout_alignBottom="@+id/difficulty"
+        android:layout_toEndOf="@+id/difficulty"
+        android:entries="@array/difficultySpinnerItems" />
 
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_below="@+id/input_ingredients"
+        android:layout_alignStart="@+id/input_ingredients"
+        android:layout_alignEnd="@+id/input_ingredients" />
 
 
 </RelativeLayout>
