@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,10 @@ public class Search extends Fragment {
         int selectedTime = 0;
 
         int selectedDifficulty = 0;
+
+        String recipeName;
+
+        List<String> ingredientsList;
 
         List<Recipe> resultRecipes;
     }
@@ -134,6 +139,10 @@ public class Search extends Fragment {
                         filterInfo.selectedDifficulty = 2;
                     case "3":
                         filterInfo.selectedDifficulty = 3;
+                }
+
+                if (!TextUtils.isEmpty(recipe_name_input.getText())) {
+                    filterInfo.recipeName = recipe_name_input.getText().toString();
                 }
 
                 HttpHelper.Post(
