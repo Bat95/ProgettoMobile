@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -110,8 +111,9 @@ public class Search extends Fragment {
             public void onClick(View view) {
 
                 InfoDto filterInfo = new InfoDto();
+                HashSet<String> ingredSet = new HashSet<>();
 
-                filterInfo.ingredientsList.addAll(ingredSelected);
+                ingredSet.addAll(ingredSelected);
 
                 //Prendo i valori
                 filterInfo.isApetizer = appetizers.isEnabled();
@@ -121,7 +123,7 @@ public class Search extends Fragment {
                 filterInfo.intolerances = apply_intolerances.isEnabled();
 
                 if(apply_storeroom.isEnabled()) {
-                    filterInfo.ingredientsList.addAll(pantry);
+                    ingredSet.addAll(pantry);
                 }
 
                 switch (timesp.getSelectedItem().toString()){
@@ -136,7 +138,7 @@ public class Search extends Fragment {
                     case "meno di 3 ore":
                         filterInfo.selectedTime = 180;
                     case "oltre 3 ore":
-                        filterInfo.selectedTime = 181;
+                        filterInfo.selectedTime = 300;
                 }
 
                 switch (difficultysp.getSelectedItem().toString()){
@@ -157,6 +159,8 @@ public class Search extends Fragment {
                 if (!TextUtils.isEmpty(recipe_name_input.getText())) {
                     filterInfo.recipeName = recipe_name_input.getText().toString();
                 }
+
+                filterInfo.ingredientsList = new ArrayList<>(ingredSet);
 
                 HttpHelper.Post(
                         getActivity().getApplicationContext(),
