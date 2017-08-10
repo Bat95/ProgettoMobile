@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -36,11 +37,15 @@ public class Search extends Fragment {
         boolean isSDish;
         boolean isDessert;
         boolean intolerances;
-        boolean storeroom;
 
         int selectedTime = 0;
 
         int selectedDifficulty = 0;
+
+        String recipeName;
+
+        List<String> ingredientsList;
+        List<String> intolerance;
 
         List<Recipe> resultRecipes;
     }
@@ -57,6 +62,10 @@ public class Search extends Fragment {
         public int Category;
         public String[] Tag;
     }
+
+    // Lista fittizia della dispensa e degli ingredienti
+    List<String> pantry;
+    List<String> ingredSelected;
 
     Button search_button;
     List<Recipe> resultedRecipes;
@@ -118,6 +127,9 @@ public class Search extends Fragment {
             public void onClick(View view) {
 
                 InfoDto filterInfo = new InfoDto();
+                HashSet<String> ingredSet = new HashSet<>();
+
+                ingredSet.addAll(ingredSelected);
 
                 //Prendo i valori
                 filterInfo.isApetizer = appetizers.isEnabled();
@@ -125,21 +137,24 @@ public class Search extends Fragment {
                 filterInfo.isSDish = second_dishes.isEnabled();
                 filterInfo.isDessert = desserts.isEnabled();
                 filterInfo.intolerances = apply_intolerances.isEnabled();
-                filterInfo.storeroom = apply_storeroom.isEnabled();
+
+                if(apply_storeroom.isEnabled()) {
+                    ingredSet.addAll(pantry);
+                }
 
                 switch (timesp.getSelectedItem().toString()){
                     case "nessun limite":
                         filterInfo.selectedTime = 0;
                     case "meno di 30 minuti":
-                        filterInfo.selectedTime = 1;
+                        filterInfo.selectedTime = 30;
                     case "meno di 1 ora":
-                        filterInfo.selectedTime = 2;
+                        filterInfo.selectedTime = 60;
                     case "meno di 2 ore":
-                        filterInfo.selectedTime = 3;
+                        filterInfo.selectedTime = 120;
                     case "meno di 3 ore":
-                        filterInfo.selectedTime = 4;
+                        filterInfo.selectedTime = 180;
                     case "oltre 3 ore":
-                        filterInfo.selectedTime = 5;
+                        filterInfo.selectedTime = 300;
                 }
 
                 switch (difficultysp.getSelectedItem().toString()){
@@ -151,7 +166,17 @@ public class Search extends Fragment {
                         filterInfo.selectedDifficulty = 2;
                     case "3":
                         filterInfo.selectedDifficulty = 3;
+                    case "4":
+                        filterInfo.selectedDifficulty = 4;
+                    case "5":
+                        filterInfo.selectedDifficulty = 5;
                 }
+
+                if (!TextUtils.isEmpty(recipe_name_input.getText())) {
+                    filterInfo.recipeName = recipe_name_input.getText().toString();
+                }
+
+                filterInfo.ingredientsList = new ArrayList<>(ingredSet);
 
                 HttpHelper.Post(
                         getActivity().getApplicationContext(),
