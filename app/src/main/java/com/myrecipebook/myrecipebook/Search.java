@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,10 +41,6 @@ public class Search extends Fragment {
         int selectedTime = 0;
 
         int selectedDifficulty = 0;
-
-        String recipeName;
-
-        List<String> ingredientsList;
 
         List<Recipe> resultRecipes;
     }
@@ -87,6 +86,19 @@ public class Search extends Fragment {
         AutoCompleteTextView input_ingredients = (AutoCompleteTextView) view.findViewById(R.id.input_ingredients);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, ingredientsList);
         input_ingredients.setAdapter(adapter);
+
+        //Creo un RecyclerView
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        ArrayList<String> ingredientArray = new ArrayList<>();
+        ingredientArray.add("Latte");
+        ingredientArray.add("Uova");
+        ingredientArray.add("Pomodori");
+        RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray);
+        mRecyclerView.setAdapter(mAdapter);
 
         //Variabili delle checkbox
         final TextView apply_intolerances = (TextView) view.findViewById(R.id.apply_intolerances);
@@ -139,10 +151,6 @@ public class Search extends Fragment {
                         filterInfo.selectedDifficulty = 2;
                     case "3":
                         filterInfo.selectedDifficulty = 3;
-                }
-
-                if (!TextUtils.isEmpty(recipe_name_input.getText())) {
-                    filterInfo.recipeName = recipe_name_input.getText().toString();
                 }
 
                 HttpHelper.Post(
