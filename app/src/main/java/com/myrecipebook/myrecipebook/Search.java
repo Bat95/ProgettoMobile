@@ -31,40 +31,6 @@ import java.util.List;
 
 public class Search extends Fragment {
 
-
-    class  InfoDto {
-
-        boolean isApetizer;
-        boolean isFDish;
-        boolean isSDish;
-        boolean isDessert;
-        boolean intolerances;
-
-        int selectedTime = 0;
-
-        int selectedDifficulty = 0;
-
-        String recipeName;
-
-        List<String> ingredientsList;
-        List<String> intolerance;
-
-        List<Recipe> resultRecipes;
-    }
-
-    class Recipe {
-        public String Name;
-        public String MainPic;
-        public int DosePerPerson;
-        public String[] Steps;
-        public String[] StepImages;
-        public String[] Ingredients;
-        public int Difficulty;
-        public int Duration;
-        public int Category;
-        public String[] Tag;
-    }
-
     // Lista fittizia della dispensa e degli ingredienti
     List<String> pantry;
     List<String> ingredSelected;
@@ -213,24 +179,6 @@ public class Search extends Fragment {
                                 super.handleError(errorMessage);
                             }
                         });
-
-                /*HttpHelper.Get(
-                        getActivity().getApplicationContext(),
-                        "http://192.168.43.155:5000/api/values/5",
-                        new BaseHttpResponseHandler<String>(String.class) {
-
-                            @Override
-                            public void handleResponse(String response) {
-                                infoRecipe.origin = response;
-                            }
-
-                            @Override
-                            public void handleError(String errorMessage) {
-                                super.handleError(errorMessage);
-                            }
-                        }
-                );*/
-
             }
         });
 

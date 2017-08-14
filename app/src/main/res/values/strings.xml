@@ -23,4 +23,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="app_icon">App Icon</string>
+    <string name="background_header_image">Background Header Image</string>
+    <string name="myrecipebook">MyRecipeBook</string>
 </resources>
