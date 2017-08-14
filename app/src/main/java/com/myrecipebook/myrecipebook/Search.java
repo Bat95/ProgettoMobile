@@ -4,6 +4,7 @@ package com.myrecipebook.myrecipebook;
  * Created by Sonia
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
@@ -76,6 +77,7 @@ public class Search extends Fragment {
             "Latte", "Uova", "Pomodori", "Zucchero", "una lista di tutti gli ingredienti"
     };
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -92,10 +94,30 @@ public class Search extends Fragment {
 
         final TextView recipe_name_input = (TextView) view.findViewById(R.id.recipe_name_input);
 
+        final ArrayList<String> available_ingredients = new ArrayList<String>();
+        for (String s : ingredientsList){
+            available_ingredients.add(s);
+        }
+
         // autocomplete for the ingredients
-        AutoCompleteTextView input_ingredients = (AutoCompleteTextView) view.findViewById(R.id.input_ingredients);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, ingredientsList);
+        final AutoCompleteTextView input_ingredients = (AutoCompleteTextView) view.findViewById(R.id.input_ingredients);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, available_ingredients);
         input_ingredients.setAdapter(adapter);
+        final ArrayList<String> ingredientArray = new ArrayList<>();
+        input_ingredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                input_ingredients.setText("");
+                input_ingredients.clearFocus();
+                Object o = adapterView.getItemAtPosition(i);
+                String ing = o.toString();
+                ingredientArray.add(ing);
+                available_ingredients.remove(ing);
+                adapter.remove(ing);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
 
         //Creo un RecyclerView
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -103,10 +125,6 @@ public class Search extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        ArrayList<String> ingredientArray = new ArrayList<>();
-        ingredientArray.add("Latte");
-        ingredientArray.add("Uova");
-        ingredientArray.add("Pomodori");
         RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray);
         mRecyclerView.setAdapter(mAdapter);
 
