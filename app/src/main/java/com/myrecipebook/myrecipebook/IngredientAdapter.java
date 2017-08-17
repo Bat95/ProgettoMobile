@@ -4,17 +4,14 @@ package com.myrecipebook.myrecipebook;
  * Created by Thomas on 09/08/2017.
  */
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
     private List<String> values;
@@ -26,14 +23,23 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recyclerview_item_row, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recyclerview_ingredients, viewGroup, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.txt.setText(ingredients.get(position));
+        holder.delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                int newPosition = holder.getAdapterPosition();
+                ingredients.remove(newPosition);
+                notifyItemRemoved(newPosition);
+                notifyItemRangeChanged(newPosition, ingredients.size());
+            }
+        });
     }
 
     @Override
@@ -52,10 +58,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView txt;
+        public ImageView delete;
 
         public ViewHolder(View v) {
             super(v);
             txt = (TextView) v.findViewById(R.id.chiptext);
+            delete = (ImageView) v.findViewById(R.id.delete);
         }
 
 

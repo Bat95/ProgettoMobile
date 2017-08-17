@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -65,6 +66,12 @@ public class Search extends Fragment {
             available_ingredients.add(s);
         }
 
+        //Creo un RecyclerView
+        final RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
         // autocomplete for the ingredients
         final AutoCompleteTextView input_ingredients = (AutoCompleteTextView) view.findViewById(R.id.input_ingredients);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, available_ingredients);
@@ -78,20 +85,13 @@ public class Search extends Fragment {
                 Object o = adapterView.getItemAtPosition(i);
                 String ing = o.toString();
                 ingredientArray.add(ing);
-                available_ingredients.remove(ing);
                 adapter.remove(ing);
                 adapter.notifyDataSetChanged();
             }
         });
 
 
-        //Creo un RecyclerView
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray);
+        final RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray);
         mRecyclerView.setAdapter(mAdapter);
 
         //Variabili delle checkbox
@@ -103,8 +103,6 @@ public class Search extends Fragment {
         final TextView desserts = (TextView) view.findViewById(R.id.desserts);
         final Spinner timesp = (Spinner) view.findViewById(R.id.timespinner);
         final Spinner difficultysp = (Spinner) view.findViewById(R.id.difficultyspinner);
-
-
 
         // http post and get request on search button clicked
         search_button.setOnClickListener(new View.OnClickListener() {
@@ -183,4 +181,5 @@ public class Search extends Fragment {
         });
 
     }
+
 }
