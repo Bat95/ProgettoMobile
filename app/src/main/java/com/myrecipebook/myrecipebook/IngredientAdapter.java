@@ -4,21 +4,27 @@ package com.myrecipebook.myrecipebook;
  * Created by Thomas on 09/08/2017.
  */
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
     private List<String> values;
-    List<String> ingredients;
+    List<Recipe> recipelist;
+    Bitmap img;
 
-    IngredientAdapter(List<String> ingredients){
-        this.ingredients = ingredients;
+    IngredientAdapter(List<Recipe> recipelist){
+        this.recipelist = recipelist;
     }
 
     @Override
@@ -30,21 +36,28 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.txt.setText(ingredients.get(position));
-        holder.delete.setOnClickListener(new View.OnClickListener(){
+        String pic = recipelist.get(position).MainPic;
+        try {
+            URL url = new URL(pic);
+            img = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch(IOException e) {
+            System.out.println(e);
+        }
+        holder.image.setImageBitmap(img);
+        holder.name.setText(recipelist.get(position).Name);
+        holder.time.setText(recipelist.get(position).Duration);
+
+        holder.layout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                int newPosition = holder.getAdapterPosition();
-                ingredients.remove(newPosition);
-                notifyItemRemoved(newPosition);
-                notifyItemRangeChanged(newPosition, ingredients.size());
+                //Codice per aprire la ricetta
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return ingredients.size();
+        return recipelist.size();
     }
 
     @Override
@@ -57,13 +70,18 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     // you provide access to all the views for a data item in a view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView txt;
-        public ImageView delete;
+
+        public ImageView image;
+        public TextView name, time;
+        public LinearLayout layout;
 
         public ViewHolder(View v) {
             super(v);
-            txt = (TextView) v.findViewById(R.id.chiptext);
-            delete = (ImageView) v.findViewById(R.id.delete);
+            image = (ImageView) v.findViewById(R.id.recipe_image);
+            name = (TextView) v.findViewById(R.id.recipe_name);
+            time = (TextView) v.findViewById(R.id.recipe_time);
+            layout = (LinearLayout) v.findViewById(R.id.recipelayout);
+
         }
 
 

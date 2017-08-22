@@ -6,9 +6,13 @@ package com.myrecipebook.myrecipebook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -30,7 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 
 
-public class Search extends Fragment {
+public class Search extends Fragment implements Parcelable {
 
     // Lista fittizia della dispensa e degli ingredienti
     List<String> pantry;
@@ -106,6 +110,8 @@ public class Search extends Fragment {
 
         // http post and get request on search button clicked
         search_button.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
 
@@ -177,9 +183,28 @@ public class Search extends Fragment {
                                 super.handleError(errorMessage);
                             }
                         });
+
+                //Replace fragment passing Recipe List
+                Bundle b = new Bundle();
+                b.putParcelableArrayList("recipelist",(ArrayList) resultedRecipes);
+                Fragment resultFragment = new Results();
+                resultFragment.setArguments(b);
+                FragmentTransaction trans = getActivity().getSupportFragmentManager().beginTransaction();
+                trans.replace(R.id.content_main, resultFragment);
+                trans.commit();
+
             }
         });
 
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeList(resultedRecipes);
+    }
 }
