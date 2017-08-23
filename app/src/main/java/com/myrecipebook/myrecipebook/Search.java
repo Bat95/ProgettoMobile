@@ -34,7 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 
 
-public class Search extends Fragment implements Parcelable {
+public class Search extends Fragment {
 
     // Lista fittizia della dispensa e degli ingredienti
     List<String> pantry;
@@ -196,15 +196,5 @@ public class Search extends Fragment implements Parcelable {
             }
         });
 
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeList(resultedRecipes);
     }
 }
