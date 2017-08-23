@@ -110,7 +110,7 @@ public class Search extends Fragment implements Serializable {
         });
 
 
-        final RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray);
+        final RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray,adapter);
         mRecyclerView.setAdapter(mAdapter);
 
         //Variabili delle checkbox
@@ -135,7 +135,7 @@ public class Search extends Fragment implements Serializable {
                 HashSet<String> ingredSet = new HashSet<>();
 
 
-                ingredSet.addAll(ingredSelected);
+                ingredSet.addAll(ingredientArray);
 
                 //Prendo i valori
                 filterInfo.isApetizer = appetizers.isChecked();
