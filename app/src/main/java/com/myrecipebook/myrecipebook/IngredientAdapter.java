@@ -20,11 +20,9 @@ import android.widget.TextView;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
     private List<String> values;
-    List<Recipe> recipelist;
-    Bitmap img;
+    List<String> ingredients;
 
-    IngredientAdapter(List<Recipe> recipelist){
-        this.recipelist = recipelist;
+    IngredientAdapter(List<String> ingredients){this.ingredients = ingredients;
     }
 
     @Override
@@ -36,28 +34,21 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        String pic = recipelist.get(position).MainPic;
-        try {
-            URL url = new URL(pic);
-            img = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        } catch(IOException e) {
-            System.out.println(e);
-        }
-        holder.image.setImageBitmap(img);
-        holder.name.setText(recipelist.get(position).Name);
-        holder.time.setText(recipelist.get(position).Duration);
-
-        holder.layout.setOnClickListener(new View.OnClickListener(){
+        holder.txt.setText(ingredients.get(position));
+        holder.delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //Codice per aprire la ricetta
+                int newPosition = holder.getAdapterPosition();
+                ingredients.remove(newPosition);
+                notifyItemRemoved(newPosition);
+                notifyItemRangeChanged(newPosition, ingredients.size());
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return recipelist.size();
+        return ingredients.size();
     }
 
     @Override
@@ -70,22 +61,16 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     // you provide access to all the views for a data item in a view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-
-        public ImageView image;
-        public TextView name, time;
-        public LinearLayout layout;
+        public TextView txt;
+        public ImageView delete;
 
         public ViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.recipe_image);
-            name = (TextView) v.findViewById(R.id.recipe_name);
-            time = (TextView) v.findViewById(R.id.recipe_time);
-            layout = (LinearLayout) v.findViewById(R.id.recipelayout);
-
+            txt = (TextView) v.findViewById(R.id.chiptext);
+            delete = (ImageView) v.findViewById(R.id.delete);
         }
 
 
     }
-
 
 }
