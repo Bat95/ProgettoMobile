@@ -13,6 +13,7 @@ public class  InfoDto {
     boolean isSDish;
     boolean isDessert;
     boolean intolerances;
+    boolean isUnique;
 
     int selectedTime = 0;
 

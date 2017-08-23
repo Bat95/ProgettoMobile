@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,21 +24,27 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static android.util.Log.*;
 
-public class Search extends Fragment {
+
+public class Search extends Fragment implements Serializable {
 
     // Lista fittizia della dispensa e degli ingredienti
     List<String> pantry;
+    List<String> intolerancesList;
+
     List<String> ingredSelected;
 
     Button search_button;
@@ -70,6 +77,14 @@ public class Search extends Fragment {
             available_ingredients.add(s);
         }
 
+        pantry = new ArrayList<>();
+        ingredSelected = new ArrayList<>();
+        intolerancesList = new ArrayList<>();
+        pantry.add("ingrediente1");
+        pantry.add("ingrediente2");
+        ingredSelected.add("ingrediente3");
+        ingredSelected.add("ingrediente4");
+
         //Creo un RecyclerView
         final RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -99,12 +114,13 @@ public class Search extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         //Variabili delle checkbox
-        final TextView apply_intolerances = (TextView) view.findViewById(R.id.apply_intolerances);
-        final TextView apply_storeroom = (TextView) view.findViewById(R.id.apply_storeroom);
-        final TextView appetizers = (TextView) view.findViewById(R.id.appetizers);
-        final TextView first_dishes = (TextView) view.findViewById(R.id.first_dishes);
-        final TextView second_dishes = (TextView) view.findViewById(R.id.second_dishes);
-        final TextView desserts = (TextView) view.findViewById(R.id.desserts);
+        final CheckBox apply_intolerances = (CheckBox) view.findViewById(R.id.apply_intolerances);
+        final CheckBox apply_storeroom = (CheckBox) view.findViewById(R.id.apply_storeroom);
+        final CheckBox appetizers = (CheckBox) view.findViewById(R.id.appetizers);
+        final CheckBox first_dishes = (CheckBox) view.findViewById(R.id.first_dishes);
+        final CheckBox second_dishes = (CheckBox) view.findViewById(R.id.second_dishes);
+        final CheckBox desserts = (CheckBox) view.findViewById(R.id.desserts);
+        final CheckBox unique = (CheckBox) view.findViewById(R.id.unique);
         final Spinner timesp = (Spinner) view.findViewById(R.id.timespinner);
         final Spinner difficultysp = (Spinner) view.findViewById(R.id.difficultyspinner);
 
@@ -118,47 +134,63 @@ public class Search extends Fragment {
                 InfoDto filterInfo = new InfoDto();
                 HashSet<String> ingredSet = new HashSet<>();
 
+
                 ingredSet.addAll(ingredSelected);
 
                 //Prendo i valori
-                filterInfo.isApetizer = appetizers.isEnabled();
-                filterInfo.isFDish = first_dishes.isEnabled();
-                filterInfo.isSDish = second_dishes.isEnabled();
-                filterInfo.isDessert = desserts.isEnabled();
-                filterInfo.intolerances = apply_intolerances.isEnabled();
+                filterInfo.isApetizer = appetizers.isChecked();
+                filterInfo.isFDish = first_dishes.isChecked();
+                filterInfo.isSDish = second_dishes.isChecked();
+                filterInfo.isDessert = desserts.isChecked();
+                filterInfo.intolerances = apply_intolerances.isChecked();
+                filterInfo.isUnique = unique.isChecked();
 
-                if(apply_storeroom.isEnabled()) {
+                filterInfo.intolerance = intolerancesList;
+
+                if(apply_storeroom.isChecked()) {
                     ingredSet.addAll(pantry);
                 }
 
                 switch (timesp.getSelectedItem().toString()){
                     case "nessun limite":
                         filterInfo.selectedTime = 0;
+                        break;
                     case "meno di 30 minuti":
                         filterInfo.selectedTime = 30;
+                        break;
                     case "meno di 1 ora":
                         filterInfo.selectedTime = 60;
+                        break;
                     case "meno di 2 ore":
                         filterInfo.selectedTime = 120;
+                        break;
                     case "meno di 3 ore":
                         filterInfo.selectedTime = 180;
+                        break;
                     case "oltre 3 ore":
                         filterInfo.selectedTime = 300;
+                        break;
                 }
 
                 switch (difficultysp.getSelectedItem().toString()){
                     case "tutte":
                         filterInfo.selectedDifficulty = 0;
+                        break;
                     case "1":
                         filterInfo.selectedDifficulty = 1;
+                        break;
                     case "2":
                         filterInfo.selectedDifficulty = 2;
+                        break;
                     case "3":
                         filterInfo.selectedDifficulty = 3;
+                        break;
                     case "4":
                         filterInfo.selectedDifficulty = 4;
+                        break;
                     case "5":
                         filterInfo.selectedDifficulty = 5;
+                        break;
                 }
 
                 if (!TextUtils.isEmpty(recipe_name_input.getText())) {
@@ -169,7 +201,7 @@ public class Search extends Fragment {
 
                 HttpHelper.Post(
                         getActivity().getApplicationContext(),
-                        "http://646ffb06.ngrok.io/api/values/filterInfo",
+                        "http://2cb8f52d.ngrok.io/api/values/filterInfo",
                         filterInfo,
                         new BaseHttpResponseHandler<InfoDto>(InfoDto.class) {
 
@@ -186,6 +218,7 @@ public class Search extends Fragment {
 
                 //Replace fragment passing Recipe List
                 Bundle b = new Bundle();
+                //b.putlis
                 b.putParcelableArrayList("recipelist",(ArrayList) resultedRecipes);
                 Fragment resultFragment = new Results();
                 resultFragment.setArguments(b);
