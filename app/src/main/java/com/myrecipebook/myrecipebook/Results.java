@@ -25,7 +25,7 @@ public class Results extends Fragment  {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
 
-    List<Recipe> resultedRecipes = (List) getArguments().getParcelableArrayList("recipelist");
+    ArrayList<Recipe> resultedRecipes;
 
     @Nullable
     @Override
@@ -37,6 +37,7 @@ public class Results extends Fragment  {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Risultati");
+        resultedRecipes  = (ArrayList) getArguments().getParcelableArrayList("recipelist");
 
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);

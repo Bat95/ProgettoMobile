@@ -9,7 +9,6 @@ public class Recipe {
     public String MainPic;
     public int DosePerPerson;
     public String[] Steps;
-    public String[] StepImages;
     public String[] Ingredients;
     public int Difficulty;
     public int Duration;

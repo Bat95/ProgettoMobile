@@ -26,4 +26,15 @@
     <string name="app_icon">App Icon</string>
     <string name="background_header_image">Background Header Image</string>
     <string name="myrecipebook">MyRecipeBook</string>
+    <string name="RecipeTitleDetail">Titolo Ricetta</string>
+    <string name="detail_difficulty">Difficoltà:</string>
+    <string name="detail_time">Tempo:</string>
+    <string name="detail_dose">Dosi per persona :</string>
+    <string name="detail_category">Categoria :</string>
+    <string name="detail_ingredients">Ingredienti:</string>
+    <string name="immagine_ricetta">Immagine ricetta</string>
+    <string name="detail_procedure">Procedimento:</string>
+    <string name="detail_recipe">Dettaglio ricetta</string>
+    <string name="unknown">- - -</string>
+    <string name="inizia_procedura_guidata">Inizia procedura guidata</string>
 </resources>
