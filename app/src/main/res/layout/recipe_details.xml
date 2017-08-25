@@ -27,6 +27,8 @@
             android:contentDescription="@string/immagine_ricetta"
             android:maxHeight="200dp"
             android:maxWidth="200dp"
+            android:minHeight="200dp"
+            android:minWidth="200dp"
             app:srcCompat="@drawable/image_not_available"
             android:padding="5dp" />
 
@@ -147,6 +149,7 @@
             android:layout_height="wrap_content"
             android:text="@string/detail_procedure"
             android:padding="5dp"
+            android:layout_marginStart="15dp"
             android:layout_centerVertical="true"/>
 
         <Button
