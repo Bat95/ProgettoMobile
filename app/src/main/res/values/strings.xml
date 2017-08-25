@@ -37,4 +37,13 @@
     <string name="detail_recipe">Dettaglio ricetta</string>
     <string name="unknown">- - -</string>
     <string name="inizia_procedura_guidata">Inizia procedura guidata</string>
+    <string name="latticini">Latticini</string>
+    <string name="allergie_o_intolleranze">Allergie o intolleranze:</string>
+    <string name="frutta_a_guscio">Frutta a guscio</string>
+    <string name="crostacei">Crostacei</string>
+    <string name="uova">Uova</string>
+    <string name="frumento_e_glutine">Frumento e glutine</string>
+    <string name="soia">Soia</string>
+    <string name="pesce">Pesce</string>
+    <string name="latticini_icon">latticini icon</string>
 </resources>

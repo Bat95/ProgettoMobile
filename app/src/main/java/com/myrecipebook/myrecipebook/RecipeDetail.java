@@ -39,6 +39,8 @@ public class RecipeDetail extends Fragment {
 
         ListView listIngred = (ListView) view.findViewById(R.id.list_ingredients);
 
+
+
         difficultyLabel.setText(detailRecipe.Difficulty);
         timeLabel.setText(detailRecipe.Duration);
         doseLabel.setText(detailRecipe.DosePerPerson);

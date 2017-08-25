@@ -72,7 +72,7 @@ public class Search extends Fragment implements Serializable {
 
         final TextView recipe_name_input = (TextView) view.findViewById(R.id.recipe_name_input);
 
-        final ArrayList<String> available_ingredients = new ArrayList<String>();
+        final ArrayList<String> available_ingredients = new ArrayList<>();
         for (String s : ingredientsList){
             available_ingredients.add(s);
         }
@@ -134,8 +134,9 @@ public class Search extends Fragment implements Serializable {
                 InfoDto filterInfo = new InfoDto();
                 HashSet<String> ingredSet = new HashSet<>();
 
-
                 ingredSet.addAll(ingredientArray);
+
+
 
                 //Prendo i valori
                 filterInfo.isApetizer = appetizers.isChecked();
@@ -218,12 +219,12 @@ public class Search extends Fragment implements Serializable {
 
                 //Replace fragment passing Recipe List
                 Bundle b = new Bundle();
-                //b.putlis
                 b.putParcelableArrayList("recipelist",(ArrayList) resultedRecipes);
                 Fragment resultFragment = new Results();
                 resultFragment.setArguments(b);
                 FragmentTransaction trans = getActivity().getSupportFragmentManager().beginTransaction();
                 trans.replace(R.id.content_main, resultFragment);
+                trans.addToBackStack("search");
                 trans.commit();
 
             }
