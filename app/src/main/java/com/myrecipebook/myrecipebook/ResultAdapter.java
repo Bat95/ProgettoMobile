@@ -36,7 +36,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        String pic = recipelist.get(position).MainPic;
+        String pic = recipelist.get(position).mainPic;
         try {
             URL url = new URL(pic);
             img = BitmapFactory.decodeStream(url.openConnection().getInputStream());
@@ -44,8 +44,8 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             System.out.println(e);
         }
         holder.image.setImageBitmap(img);
-        holder.name.setText(recipelist.get(position).Name);
-        holder.time.setText(recipelist.get(position).Duration);
+        holder.name.setText(recipelist.get(position).name);
+        holder.time.setText(recipelist.get(position).duration);
 
         holder.layout.setOnClickListener(new View.OnClickListener(){
             @Override

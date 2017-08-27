@@ -37,7 +37,7 @@ public class Results extends Fragment  {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Risultati");
-        resultedRecipes  = (ArrayList) getArguments().getParcelableArrayList("recipelist");
+        resultedRecipes  = getArguments().getParcelableArrayList("recipelist");
 
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);

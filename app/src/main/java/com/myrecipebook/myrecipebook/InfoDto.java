@@ -1,28 +1,25 @@
 package com.myrecipebook.myrecipebook;
-
 import java.util.List;
 
 /**
  * Created by Sonia on 11/08/17.
  */
 
-public class  InfoDto {
+public class InfoDto {
 
-    boolean isApetizer;
-    boolean isFDish;
-    boolean isSDish;
-    boolean isDessert;
-    boolean intolerances;
-    boolean isUnique;
+    public boolean isApetizer;
+    public boolean isFDish;
+    public boolean isSDish;
+    public boolean isDessert;
+    public boolean intolerances;
+    public boolean isUnique;
 
-    int selectedTime = 0;
+    public int selectedTime = 0;
 
-    int selectedDifficulty = 0;
+    public int selectedDifficulty = 0;
 
-    String recipeName;
+    public String recipeName;
 
-    List<String> ingredientsList;
-    List<String> intolerance;
-
-    List<Recipe> resultRecipes;
+    public List<String> ingredientsList;
+    public List<String> intolerance;
 }

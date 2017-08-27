@@ -4,6 +4,7 @@ package com.myrecipebook.myrecipebook;
  * Created by Sonia
  */
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -48,7 +49,6 @@ public class Search extends Fragment implements Serializable {
     List<String> ingredSelected;
 
     Button search_button;
-    List<Recipe> resultedRecipes;
 
     // lista degli ingredienti tra cui un utente può scegliere
     private static final String[] ingredientsList = new String[] {
@@ -200,35 +200,48 @@ public class Search extends Fragment implements Serializable {
 
                 filterInfo.ingredientsList = new ArrayList<>(ingredSet);
 
-                HttpHelper.Post(
-                        getActivity().getApplicationContext(),
-                        "http://2cb8f52d.ngrok.io/api/values/filterInfo",
-                        filterInfo,
-                        new BaseHttpResponseHandler<InfoDto>(InfoDto.class) {
+                final ProgressDialog pd = new ProgressDialog(getContext());
+                pd.setMessage("Ricerca ricette in corso...");
+                pd.show();
 
-                            @Override
-                            public void handleResponse(InfoDto response) {
-                                resultedRecipes = new ArrayList<>(response.resultRecipes);
-                            }
+                try {
+                    HttpHelper.Post(
+                            getActivity().getApplicationContext(),
+                            "http://2cb8f52d.ngrok.io/api/values/filterInfo",
+                            filterInfo,
+                            new BaseHttpResponseHandler<RecipesFilterResult>(RecipesFilterResult.class) {
 
-                            @Override
-                            public void handleError(String errorMessage) {
-                                super.handleError(errorMessage);
-                            }
-                        });
+                                @Override
+                                public void handleResponse(RecipesFilterResult response) {
+                                    pd.dismiss();
+                                    //Replace fragment passing Recipe List
+                                    presentResultsRecipesFragment(response.recipes);
+                                }
 
-                //Replace fragment passing Recipe List
-                Bundle b = new Bundle();
-                b.putParcelableArrayList("recipelist",(ArrayList) resultedRecipes);
-                Fragment resultFragment = new Results();
-                resultFragment.setArguments(b);
-                FragmentTransaction trans = getActivity().getSupportFragmentManager().beginTransaction();
-                trans.replace(R.id.content_main, resultFragment);
-                trans.addToBackStack("search");
-                trans.commit();
+                                @Override
+                                public void handleError(String errorMessage) {
+                                    pd.dismiss();
+                                    super.handleError(errorMessage);
+                                }
+                            });
+                }
+                catch (Exception e) {
+                    pd.dismiss();
+                }
 
             }
         });
 
+    }
+
+    void presentResultsRecipesFragment(List<Recipe> recipes) {
+        Bundle b = new Bundle();
+        b.putParcelableArrayList("recipelist", (ArrayList<Recipe>) recipes);
+        Fragment resultFragment = new Results();
+        resultFragment.setArguments(b);
+        FragmentTransaction trans = getActivity().getSupportFragmentManager().beginTransaction();
+        trans.replace(R.id.content_main, resultFragment);
+        trans.addToBackStack("search");
+        trans.commit();
     }
 }

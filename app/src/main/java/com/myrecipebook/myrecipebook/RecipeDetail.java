@@ -23,6 +23,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -44,14 +46,14 @@ public class RecipeDetail extends Fragment {
         Recipe detailRecipe = new Recipe();
 
         // fake info
-        detailRecipe.Name = "Pizza";
-        detailRecipe.Category = 5;
-        detailRecipe.Difficulty = 3;
-        detailRecipe.Duration = 330;
-        detailRecipe.DosePerPerson = 2;
-        detailRecipe.Ingredients = new String[]{"100g di pasta per pizza", "30g salsa di pomodoro"};
-        detailRecipe.MainPic = "https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg";
-        detailRecipe.Steps = new String[] {"fai passo1.", "fai passo 2.", "fai passo3.", "finisci.", "cucina.", "mangia."};
+        detailRecipe.name = "Pizza";
+        detailRecipe.category = 5;
+        detailRecipe.difficulty = 3;
+        detailRecipe.duration = 330;
+        detailRecipe.dosePerPerson = 2;
+        detailRecipe.ingredients = Arrays.asList(new String[]{"100g di pasta per pizza", "30g salsa di pomodoro"});
+        detailRecipe.mainPic = "https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg";
+        detailRecipe.steps = Arrays.asList(new String[] {"fai passo1.", "fai passo 2.", "fai passo3.", "finisci.", "cucina.", "mangia."});
 
         TextView titleRecipeLabel = (TextView) view.findViewById(R.id.titoloRicettaDettaglio);
         TextView difficultyLabel = (TextView) view.findViewById(R.id.difficulty_value);
@@ -64,23 +66,23 @@ public class RecipeDetail extends Fragment {
         ListView listIngred = (ListView) view.findViewById(R.id.list_ingredients);
 
         //recipe title
-        titleRecipeLabel.setText(detailRecipe.Name);
+        titleRecipeLabel.setText(detailRecipe.name);
 
         //difficulty
-        difficultyLabel.setText(Integer.toString(detailRecipe.Difficulty));
+        difficultyLabel.setText(Integer.toString(detailRecipe.difficulty));
 
         //time
-        int hours = detailRecipe.Duration / 60;
-        int minutes = detailRecipe.Duration % 60;
+        int hours = detailRecipe.duration / 60;
+        int minutes = detailRecipe.duration % 60;
         if (hours <= 0) timeLabel.setText(Integer.toString(minutes) + " minuti");
         else timeLabel.setText(Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
 
         // dose per person
-        if (detailRecipe.DosePerPerson == 1) doseLabel.setText(Integer.toString(detailRecipe.DosePerPerson) + " persona");
-        else doseLabel.setText(Integer.toString(detailRecipe.DosePerPerson) + " persone");
+        if (detailRecipe.dosePerPerson == 1) doseLabel.setText(Integer.toString(detailRecipe.dosePerPerson) + " persona");
+        else doseLabel.setText(Integer.toString(detailRecipe.dosePerPerson) + " persone");
 
         //category check
-        switch (detailRecipe.Category) {
+        switch (detailRecipe.category) {
             case 1 : categoryLabel.setText("Antipasti");
                 break;
             case 2: categoryLabel.setText("Primi piatti");
@@ -93,15 +95,15 @@ public class RecipeDetail extends Fragment {
                 break;
         }
 
-        listIngred.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, detailRecipe.Ingredients));
+        listIngred.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, detailRecipe.ingredients));
 
-        for (String item: detailRecipe.Steps) {
+        for (String item: detailRecipe.steps) {
             stepsLabel.append(item);
             stepsLabel.append(" ");
         }
 
         //loading image
-        new DownloadImageTask(imageRecipe).execute(detailRecipe.MainPic);
+        new DownloadImageTask(imageRecipe).execute(detailRecipe.mainPic);
 
     }
 }
