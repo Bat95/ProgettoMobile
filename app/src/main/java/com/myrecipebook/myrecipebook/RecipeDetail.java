@@ -2,12 +2,14 @@ package com.myrecipebook.myrecipebook;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -18,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,7 +46,8 @@ public class RecipeDetail extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle(R.string.detail_recipe);
 
-        Recipe detailRecipe = new Recipe();
+        final Recipe detailRecipe = new Recipe();
+        detailRecipe.steps = new ArrayList<>();
 
         // fake info
         detailRecipe.name = "Pizza";
@@ -53,7 +57,12 @@ public class RecipeDetail extends Fragment {
         detailRecipe.dosePerPerson = 2;
         detailRecipe.ingredients = Arrays.asList(new String[]{"100g di pasta per pizza", "30g salsa di pomodoro"});
         detailRecipe.mainPic = "https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg";
-        detailRecipe.steps = Arrays.asList(new String[] {"fai passo1.", "fai passo 2.", "fai passo3.", "finisci.", "cucina.", "mangia."});
+        detailRecipe.steps.add("fai passo1.");
+        detailRecipe.steps.add("fai passo 2.");
+        detailRecipe.steps.add("fai passo3.");
+        detailRecipe.steps.add("finisci.");
+        detailRecipe.steps.add("cucina.");
+        detailRecipe.steps.add("mangia.");
 
         TextView titleRecipeLabel = (TextView) view.findViewById(R.id.titoloRicettaDettaglio);
         TextView difficultyLabel = (TextView) view.findViewById(R.id.difficulty_value);
@@ -63,6 +72,16 @@ public class RecipeDetail extends Fragment {
         TextView stepsLabel = (TextView) view.findViewById(R.id.list_procedure);
         ImageView imageRecipe = (ImageView) view.findViewById(R.id.detail_image);
 
+        Button procedure = (Button) view.findViewById(R.id.procedure_button);
+        procedure.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), GuidedSteps.class);
+                i.putStringArrayListExtra("stepArray", (ArrayList<String>) detailRecipe.steps);
+                getActivity().startActivity(i);
+            }
+        });
         ListView listIngred = (ListView) view.findViewById(R.id.list_ingredients);
 
         //recipe title

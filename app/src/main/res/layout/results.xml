@@ -5,13 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/provatxt"
+        android:layout_width="match_parent"
+        android:text="Prova"
+        android:layout_height="20dp" />
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewResults"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/input_ingredients"
-        android:layout_alignStart="@+id/input_ingredients"
-        android:layout_alignEnd="@+id/input_ingredients"
+        android:layout_alignStart="@+id/provatxt"
+        android:layout_alignEnd="@+id/provatxt"
+        android:layout_below="@+id/provatxt"
         android:layout_alignParentBottom="true" />
 
 

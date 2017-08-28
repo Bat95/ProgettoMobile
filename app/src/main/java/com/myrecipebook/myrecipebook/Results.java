@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Thomas on 17/08/2017.
  */
 
-public class Results extends Fragment  {
+public class Results extends Fragment {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
