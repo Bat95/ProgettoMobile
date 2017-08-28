@@ -14,7 +14,7 @@
     <string name="first_dishes">Primi</string>
     <string name="second_dishes">Secondi</string>
     <string name="desserts">Dessert</string>
-    <string name="recipe_name">Nome ricetta</string>
+    <string name="recipe_name">Nome ricetta:</string>
     <string name="search_button">Cerca</string>
     <string name="recipe_search_title">Ricerca Ricette</string>
     <string name="descriptionDrawer">Cosa mangiamo oggi?</string>
@@ -47,4 +47,7 @@
     <string name="soia">Soia</string>
     <string name="pesce">Pesce</string>
     <string name="latticini_icon">latticini icon</string>
+    <string name="piatto_unico">Piatto Unico</string>
+    <string name="difficultyLabel">Difficoltà:</string>
+    <string name="timeLabel">Tempo:</string>
 </resources>
