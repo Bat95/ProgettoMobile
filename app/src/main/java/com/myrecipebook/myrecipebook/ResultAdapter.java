@@ -44,7 +44,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         //String pic = recipelist.get(position).mainPic;
-        holder.image.setImageBitmap(img);
+        //holder.image.setImageBitmap(img);
         holder.n.setText(recipelist.get(position).name);
         holder.time.setText("Tempo: " + recipelist.get(position).duration + " minuti");
 
@@ -54,6 +54,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                 Fragment f = new RecipeDetail(recipelist.get(position));
                 FragmentTransaction ft = mFragmentManager.beginTransaction();
                 ft.replace(R.id.content_main, f);
+                ft.addToBackStack("results");
                 ft.commit();
             }
         });
