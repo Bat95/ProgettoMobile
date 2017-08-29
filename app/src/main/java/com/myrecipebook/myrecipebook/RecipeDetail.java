@@ -35,6 +35,11 @@ import java.util.Arrays;
  */
 
 public class RecipeDetail extends Fragment {
+
+    private Recipe recipe;
+
+    public RecipeDetail(Recipe recipe){this.recipe = recipe;}
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +51,7 @@ public class RecipeDetail extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle(R.string.detail_recipe);
 
-        final Recipe detailRecipe = new Recipe();
+        /*final Recipe detailRecipe = new Recipe();
         detailRecipe.steps = new ArrayList<>();
 
         // fake info
@@ -62,7 +67,7 @@ public class RecipeDetail extends Fragment {
         detailRecipe.steps.add("fai passo3.");
         detailRecipe.steps.add("finisci.");
         detailRecipe.steps.add("cucina.");
-        detailRecipe.steps.add("mangia.");
+        detailRecipe.steps.add("mangia.");*/
 
         TextView titleRecipeLabel = (TextView) view.findViewById(R.id.titoloRicettaDettaglio);
         TextView difficultyLabel = (TextView) view.findViewById(R.id.difficulty_value);
@@ -78,30 +83,40 @@ public class RecipeDetail extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), GuidedSteps.class);
-                i.putStringArrayListExtra("stepArray", (ArrayList<String>) detailRecipe.steps);
+                //i.putStringArrayListExtra("stepArray", (ArrayList<String>) detailRecipe.steps);
+                i.putStringArrayListExtra("stepArray", (ArrayList<String>) recipe.steps);
                 getActivity().startActivity(i);
             }
         });
         ListView listIngred = (ListView) view.findViewById(R.id.list_ingredients);
 
         //recipe title
-        titleRecipeLabel.setText(detailRecipe.name);
+        //titleRecipeLabel.setText(detailRecipe.name);
+        titleRecipeLabel.setText(recipe.name);
 
         //difficulty
-        difficultyLabel.setText(Integer.toString(detailRecipe.difficulty));
+        //difficultyLabel.setText(Integer.toString(detailRecipe.difficulty));
+        difficultyLabel.setText(Integer.toString(recipe.difficulty));
+
 
         //time
-        int hours = detailRecipe.duration / 60;
-        int minutes = detailRecipe.duration % 60;
+        //int hours = detailRecipe.duration / 60;
+        int hours = recipe.duration / 60;
+        //int minutes = detailRecipe.duration % 60;
+        int minutes = recipe.duration % 60;
         if (hours <= 0) timeLabel.setText(Integer.toString(minutes) + " minuti");
         else timeLabel.setText(Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
 
         // dose per person
-        if (detailRecipe.dosePerPerson == 1) doseLabel.setText(Integer.toString(detailRecipe.dosePerPerson) + " persona");
-        else doseLabel.setText(Integer.toString(detailRecipe.dosePerPerson) + " persone");
+        //if (detailRecipe.dosePerPerson == 1) doseLabel.setText(Integer.toString(detailRecipe.dosePerPerson) + " persona");
+        //else doseLabel.setText(Integer.toString(detailRecipe.dosePerPerson) + " persone");
+        if (recipe.dosePerPerson == 1) doseLabel.setText(Integer.toString(recipe.dosePerPerson) + " persona");
+        else doseLabel.setText(Integer.toString(recipe.dosePerPerson) + " persone");
 
         //category check
-        switch (detailRecipe.category) {
+        //switch (detailRecipe.category) {
+        switch (recipe.category) {
+
             case 1 : categoryLabel.setText("Antipasti");
                 break;
             case 2: categoryLabel.setText("Primi piatti");
@@ -114,15 +129,20 @@ public class RecipeDetail extends Fragment {
                 break;
         }
 
-        listIngred.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, detailRecipe.ingredients));
+        //listIngred.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, detailRecipe.ingredients));
+        listIngred.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, recipe.ingredients));
 
-        for (String item: detailRecipe.steps) {
+
+        //for (String item: detailRecipe.steps) {
+        for (String item: recipe.steps) {
             stepsLabel.append(item);
             stepsLabel.append(" ");
         }
 
         //loading image
-        new DownloadImageTask(imageRecipe).execute(detailRecipe.mainPic);
+        //new DownloadImageTask(imageRecipe).execute(detailRecipe.mainPic);
+        new DownloadImageTask(imageRecipe).execute(recipe.mainPic);
+
 
     }
 }

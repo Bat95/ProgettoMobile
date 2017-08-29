@@ -5,19 +5,13 @@ package com.myrecipebook.myrecipebook;
  */
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +20,12 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import static android.util.Log.*;
 
 
 public class Search extends Fragment implements Serializable {
@@ -207,7 +195,7 @@ public class Search extends Fragment implements Serializable {
                 try {
                     HttpHelper.Post(
                             getActivity().getApplicationContext(),
-                            "http://2cb8f52d.ngrok.io/api/values/filterInfo",
+                            getString(R.string.serverIp),
                             filterInfo,
                             new BaseHttpResponseHandler<RecipesFilterResult>(RecipesFilterResult.class) {
 

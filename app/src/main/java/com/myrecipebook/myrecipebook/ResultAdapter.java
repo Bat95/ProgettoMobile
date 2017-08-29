@@ -5,59 +5,68 @@ package com.myrecipebook.myrecipebook;
  */
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 
+    private FragmentManager mFragmentManager;
     private List<String> values;
     List<Recipe> recipelist;
     Bitmap img;
 
-    ResultAdapter(List<Recipe> recipelist){
+    ResultAdapter(ArrayList<Recipe> recipelist, FragmentManager fm){
         this.recipelist = recipelist;
+        this.mFragmentManager = fm;
     }
 
     @Override
     public ResultAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recyclerview_ingredients, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recyclerview_recipe, viewGroup, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        String pic = recipelist.get(position).mainPic;
-        try {
-            URL url = new URL(pic);
-            img = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        } catch(IOException e) {
-            System.out.println(e);
-        }
+        //String pic = recipelist.get(position).mainPic;
         holder.image.setImageBitmap(img);
-        holder.name.setText(recipelist.get(position).name);
-        holder.time.setText(recipelist.get(position).duration);
+        holder.n.setText(recipelist.get(position).name);
+        holder.time.setText("Tempo: " + recipelist.get(position).duration + " minuti");
 
         holder.layout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //Codice per aprire la ricetta
+                Fragment f = new RecipeDetail(recipelist.get(position));
+                FragmentTransaction ft = mFragmentManager.beginTransaction();
+                ft.replace(R.id.content_main, f);
+                ft.commit();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return recipelist.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
 
@@ -65,15 +74,16 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         // each data item is just a string in this case
 
         public ImageView image;
-        public TextView name, time;
-        public LinearLayout layout;
+        public TextView n, time;
+        public RelativeLayout layout;
 
         public ViewHolder(View v) {
             super(v);
             image = (ImageView) v.findViewById(R.id.recipe_image);
-            name = (TextView) v.findViewById(R.id.recipe_name);
+            image.setImageResource(R.drawable.image_not_available);
+            n = (TextView) v.findViewById(R.id.recipe_name);
             time = (TextView) v.findViewById(R.id.recipe_time);
-            layout = (LinearLayout) v.findViewById(R.id.recipelayout);
+            layout = (RelativeLayout) v.findViewById(R.id.recipelayout);
         }
 
     }

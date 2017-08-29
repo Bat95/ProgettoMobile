@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_help:
                 //fragment = new Help();
-                fragment = new RecipeDetail();
+                //fragment = new RecipeDetail();
                 break;
             case R.id.provatts:
                 final Intent i = new Intent(this,ProvaTTS.class);

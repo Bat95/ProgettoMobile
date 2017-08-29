@@ -8,17 +8,19 @@
 
     <ImageView
         android:id="@+id/recipe_image"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:src="@drawable/image_not_available"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/recipe_name" />
+        app:srcCompat="@drawable/image_not_available"
+        android:layout_alignParentTop="true" />
     <TextView
         android:id="@+id/recipe_name"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|start"
