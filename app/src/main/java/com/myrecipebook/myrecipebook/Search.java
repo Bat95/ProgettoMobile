@@ -193,7 +193,7 @@ public class Search extends Fragment implements Serializable {
                 pd.show();
 
                 try {
-                    HttpHelper.Post(
+                   /* HttpHelper.Post(
                             getActivity().getApplicationContext(),
                             getString(R.string.serverIp),
                             filterInfo,
@@ -211,7 +211,15 @@ public class Search extends Fragment implements Serializable {
                                     pd.dismiss();
                                     super.handleError(errorMessage);
                                 }
-                            });
+                            });*/
+
+                   Recipe r = new Recipe();
+                    r.ingredients = new ArrayList<String>();
+
+                    List<Recipe> lista = new ArrayList<Recipe>();
+                    lista.add(r);
+
+                    presentResultsRecipesFragment(lista);
                 }
                 catch (Exception e) {
                     pd.dismiss();
