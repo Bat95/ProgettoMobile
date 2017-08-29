@@ -207,7 +207,7 @@ public class Search extends Fragment implements Serializable {
                 try {
                     HttpHelper.Post(
                             getActivity().getApplicationContext(),
-                            "http://2cb8f52d.ngrok.io/api/values/filterInfo",
+                            "http://019a6115.ngrok.io/api/values/filterInfo",
                             filterInfo,
                             new BaseHttpResponseHandler<RecipesFilterResult>(RecipesFilterResult.class) {
 

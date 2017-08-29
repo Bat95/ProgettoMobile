@@ -59,14 +59,19 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/repeat"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:text="Ripeti"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
+    <Button
         android:id="@+id/exit"
         android:layout_width="174dp"
         android:layout_height="wrap_content"
         android:text="Esci"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_below="@+id/repeat"
+        android:layout_alignStart="@+id/repeat" />
 
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.myrecipebook.myrecipebook;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,8 +25,11 @@ public class Results extends Fragment {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
+    private GridLayoutManager mGrid;
 
     ArrayList<Recipe> resultedRecipes;
+    TextView provatxt;
+
 
     @Nullable
     @Override
@@ -39,11 +43,15 @@ public class Results extends Fragment {
         getActivity().setTitle("Risultati");
         resultedRecipes  = getArguments().getParcelableArrayList("recipelist");
 
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewResults);
+        //LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false);
+        mGrid = new GridLayoutManager(getContext(), 2);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mGrid);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        final RecyclerView.Adapter mAdapter = new ResultAdapter(resultedRecipes);
+        mRecyclerView.setAdapter(mAdapter);
+
     }
-
 
 }
