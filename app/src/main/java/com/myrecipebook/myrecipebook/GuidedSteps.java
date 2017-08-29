@@ -58,7 +58,6 @@ public class GuidedSteps extends AppCompatActivity {
         stepN.setText("Passo "+ (currentStep+1));
         stepT.setText(steplist.get(currentStep));
 
-
         reproduceText(tts,stepT.getText().toString());
 
         prev.setClickable(false);
@@ -131,7 +130,7 @@ public class GuidedSteps extends AppCompatActivity {
             public void run() {
                 tts.speak(s, TextToSpeech.QUEUE_FLUSH, null);
             }
-        }, 500);
+        }, 1000);
 
     }
 }

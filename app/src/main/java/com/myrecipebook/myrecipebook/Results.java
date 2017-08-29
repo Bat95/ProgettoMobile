@@ -3,6 +3,7 @@ package com.myrecipebook.myrecipebook;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,7 +50,7 @@ public class Results extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mGrid);
 
-        final RecyclerView.Adapter mAdapter = new ResultAdapter(resultedRecipes);
+        final RecyclerView.Adapter mAdapter = new ResultAdapter(resultedRecipes, getFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
     }

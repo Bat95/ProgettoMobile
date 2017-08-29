@@ -10,6 +10,9 @@ import java.util.List;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +24,14 @@ import android.widget.TextView;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 
+    private FragmentManager mFragmentManager;
     private List<String> values;
     List<Recipe> recipelist;
     Bitmap img;
 
-    ResultAdapter(ArrayList<Recipe> recipelist){
+    ResultAdapter(ArrayList<Recipe> recipelist, FragmentManager fm){
         this.recipelist = recipelist;
+        this.mFragmentManager = fm;
     }
 
     @Override
@@ -46,7 +51,10 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         holder.layout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //Codice per aprire la ricetta
+                Fragment f = new RecipeDetail(recipelist.get(position));
+                FragmentTransaction ft = mFragmentManager.beginTransaction();
+                ft.replace(R.id.content_main, f);
+                ft.commit();
             }
         });
     }
@@ -72,6 +80,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         public ViewHolder(View v) {
             super(v);
             image = (ImageView) v.findViewById(R.id.recipe_image);
+            image.setImageResource(R.drawable.image_not_available);
             n = (TextView) v.findViewById(R.id.recipe_name);
             time = (TextView) v.findViewById(R.id.recipe_time);
             layout = (RelativeLayout) v.findViewById(R.id.recipelayout);
