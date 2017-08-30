@@ -1,19 +1,20 @@
 package com.myrecipebook.myrecipebook;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +24,17 @@ import java.util.Locale;
  * Created by Thomas on 28/08/2017.
  */
 
-public class GuidedSteps extends AppCompatActivity {
+public class GuidedSteps extends AppCompatActivity implements DialogInterface {
 
     List<String> steplist = new ArrayList<>();
     int currentStep;
     TextToSpeech tts;
+    Button prev;
+    Button next;
+    Button exit;
+    AlertDialog alertDialog;
+    boolean useSpeechRecognizer = true;
+    private SpeechRecognizerManager mSpeechManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,80 +46,185 @@ public class GuidedSteps extends AppCompatActivity {
 
         final TextView stepN = (TextView) findViewById(R.id.stepNumber);
         final TextView stepT = (TextView) findViewById(R.id.stepText);
-        final Button prev = (Button) findViewById(R.id.previous);
-        final Button next = (Button) findViewById(R.id.next);
+        prev = (Button) findViewById(R.id.previous);
+        next = (Button) findViewById(R.id.next);
         final Button repeat = (Button) findViewById(R.id.repeat);
-        final Button exit = (Button) findViewById(R.id.exit);
+        exit = (Button) findViewById(R.id.exit);
 
-        tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    tts.setLanguage(Locale.ITALIAN);
+
+        try {
+            // create alert dialog to make user choose if wants voice recognition
+            alertDialog = new AlertDialog.Builder(GuidedSteps.this).create();
+            //LayoutInflater inflater = getLayoutInflater();
+            //View alertLayout = inflater.inflate(R.layout.alert_dialog, null);
+
+            alertDialog.setMessage("Voice Recognition Use");
+            alertDialog.setMessage("Vuoi utilizzare il riconoscimento vocale?");
+
+            //alertDialog.setView(alertLayout);
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,"SI", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    useSpeechRecognizer = true;
+                    BeginSteps(repeat, stepT);
                 }
-            }
-        });
+            });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    useSpeechRecognizer = false;
+                    BeginSteps(repeat, stepT);
+                }
+            });
+
+            // show it
+            alertDialog.show();
+        } catch(Exception e) {
+
+        }
 
         currentStep = 0;
 
         stepN.setText("Passo "+ (currentStep+1));
         stepT.setText(steplist.get(currentStep));
 
-        reproduceText(tts,stepT.getText().toString());
+        if (useSpeechRecognizer) {
 
-        prev.setClickable(false);
-        prev.setVisibility(View.INVISIBLE);
-        prev.setOnClickListener(new View.OnClickListener(){
+            if(PermissionHandler.checkPermission(this,PermissionHandler.RECORD_AUDIO)) {
 
-            @Override
-            public void onClick(View view) {
-                if(currentStep>0) {
-                    currentStep--;
-                    stepN.setText("Passo " + (currentStep+1));
-                    stepT.setText(steplist.get(currentStep));
-                    next.setClickable(true);
-                    next.setVisibility(View.VISIBLE);
-                    reproduceText(tts,stepT.getText().toString());
-                } if (currentStep == 0){
-                    prev.setClickable(false);
-                    prev.setVisibility(View.INVISIBLE);
+                        if(mSpeechManager==null)
+                        {
+                            SetSpeechListener();
+                        }
+                        else if(!mSpeechManager.ismIsListening())
+                        {
+                            mSpeechManager.destroy();
+                            SetSpeechListener();
+                        }
+
+
+
+                        if(mSpeechManager!=null) {
+                            if(mSpeechManager.isInMuteMode()) {
+                                mSpeechManager.mute(false);
+                            }
+                            else
+                            {
+                                mSpeechManager.mute(true);
+                            }
+                        }
+
+            }
+            else
+            {
+                PermissionHandler.askForPermission(PermissionHandler.RECORD_AUDIO,this);
+            }
+        }
+
+
+            prev.setClickable(false);
+            prev.setVisibility(View.INVISIBLE);
+            prev.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        stepN.setText("Passo " + (currentStep + 1));
+                        stepT.setText(steplist.get(currentStep));
+                        next.setClickable(true);
+                        next.setVisibility(View.VISIBLE);
+                        if (useSpeechRecognizer) {
+                            reproduceText(tts, stepT.getText().toString());
+                        }
+                    }
+                    if (currentStep == 0) {
+                        prev.setClickable(false);
+                        prev.setVisibility(View.INVISIBLE);
+                    }
                 }
-            }
-        });
+            });
 
-        next.setOnClickListener(new View.OnClickListener(){
+            next.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                if(currentStep<steplist.size()-1) {
-                    currentStep++;
-                    stepN.setText("Passo " + (currentStep+1));
-                    stepT.setText(steplist.get(currentStep));
-                    prev.setClickable(true);
-                    prev.setVisibility(View.VISIBLE);
-                    reproduceText(tts,stepT.getText().toString());
-                } if (currentStep == steplist.size()-1){
-                    next.setClickable(false);
-                    next.setVisibility(View.INVISIBLE);
+                @Override
+                public void onClick(View view) {
+                    if (currentStep < steplist.size() - 1) {
+                        currentStep++;
+                        stepN.setText("Passo " + (currentStep + 1));
+                        stepT.setText(steplist.get(currentStep));
+                        prev.setClickable(true);
+                        prev.setVisibility(View.VISIBLE);
+                        if (useSpeechRecognizer) {
+                            reproduceText(tts, stepT.getText().toString());
+                        }
+                    }
+                    if (currentStep == steplist.size() - 1) {
+                        next.setClickable(false);
+                        next.setVisibility(View.INVISIBLE);
+                    }
                 }
+            });
+
+            exit.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    if (useSpeechRecognizer) {
+                        mSpeechManager.destroy();
+                        mSpeechManager = null;
+                    }
+                    onBackPressed();
+                }
+            });
+
+            if (useSpeechRecognizer) {
+                repeat.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        reproduceText(tts, stepT.getText().toString());
+                    }
+                });
             }
-        });
+    }
 
-        exit.setOnClickListener(new View.OnClickListener(){
+    void BeginSteps(Button repeat, TextView stepT) {
+        if (useSpeechRecognizer) {
+            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    if (status != TextToSpeech.ERROR) {
+                        tts.setLanguage(Locale.ITALIAN);
+                    }
+                }
+            });
+            repeat.setVisibility(View.INVISIBLE);
 
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+            reproduceText(tts, stepT.getText().toString());
+        }
+    }
 
-        repeat.setOnClickListener(new View.OnClickListener(){
+    @Override
+    protected void onStop() {
+        if (useSpeechRecognizer && tts != null) {
+            tts.stop();
+        }
+        super.onStop();
+    }
 
-            @Override
-            public void onClick(View view) {
-                reproduceText(tts,stepT.getText().toString());
-            }
-        });
+    @Override
+    protected void onPause() {
+        if (useSpeechRecognizer) {
+            tts.stop();
+        }
+        if(mSpeechManager!=null) {
+            mSpeechManager.destroy();
+            mSpeechManager=null;
+        }
+        super.onPause();
     }
 
     @Override
@@ -132,5 +244,84 @@ public class GuidedSteps extends AppCompatActivity {
             }
         }, 1000);
 
+    }
+
+    @Override
+    public void cancel() {
+
+    }
+
+    @Override
+    public void dismiss() {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch(requestCode)
+        {
+            case PermissionHandler.RECORD_AUDIO:
+                if(grantResults.length>0) {
+                    if(grantResults[0]== PackageManager.PERMISSION_GRANTED) {
+                        SetSpeechListener();
+                    }
+                }
+                break;
+
+        }
+    }
+
+    private void SetSpeechListener()
+    {
+        mSpeechManager=new SpeechRecognizerManager(this, new SpeechRecognizerManager.onResultsReady() {
+            @Override
+            public void onResults(ArrayList<String> results) {
+
+
+
+                if(results!=null && results.size()>0)
+                {
+
+                    if(results.size()==1)
+                    {
+                        if (results.get(0).contains("avanti")) {
+                            next.performClick();
+                        } else {
+                            if (results.get(0).contains("indietro")) {
+                                prev.performClick();
+                            } else {
+                                if (results.get(0).contains("esci")) {
+                                    exit.performClick();
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        StringBuilder sb = new StringBuilder();
+                        if (results.size() > 5) {
+                            results = (ArrayList<String>) results.subList(0, 5);
+                        }
+                        for (String result : results) {
+                            sb.append(result).append("\n");
+                        }
+                        sb.append(results.get(0));
+
+                        if (results.get(0).contains("avanti")) {
+                            next.performClick();
+                        } else {
+                            if (results.get(0).contains("indietro")) {
+                                prev.performClick();
+                            } else {
+                                if (results.get(0).contains("esce")) {
+                                    exit.performClick();
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        });
     }
 }
