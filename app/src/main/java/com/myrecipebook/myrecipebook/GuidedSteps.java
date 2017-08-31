@@ -93,36 +93,6 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
         stepN.setText("Passo "+ (currentStep+1));
         stepT.setText(steplist.get(currentStep));
 
-        if (useSpeechRecognizer) {
-
-            if(PermissionHandler.checkPermission(this,PermissionHandler.RECORD_AUDIO)) {
-
-                        if(mSpeechManager==null)
-                        {
-                            SetSpeechListener();
-                        }
-                        else if(!mSpeechManager.ismIsListening())
-                        {
-                            mSpeechManager.destroy();
-                            SetSpeechListener();
-                        }
-                        /*if(mSpeechManager!=null) {
-                            if(mSpeechManager.isInMuteMode()) {
-                                mSpeechManager.mute(false);
-                            }
-                            else
-                            {
-                                mSpeechManager.mute(true);
-                            }
-                        }*/
-            }
-            else
-            {
-                PermissionHandler.askForPermission(PermissionHandler.RECORD_AUDIO,this);
-            }
-        }
-
-
             prev.setClickable(false);
             prev.setVisibility(View.INVISIBLE);
             prev.setOnClickListener(new View.OnClickListener() {
@@ -200,8 +170,36 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                 }
             });
 
+            if(PermissionHandler.checkPermission(this,PermissionHandler.RECORD_AUDIO)) {
+
+                if(mSpeechManager==null)
+                {
+                    SetSpeechListener();
+                }
+                else if(!mSpeechManager.ismIsListening())
+                {
+                    mSpeechManager.destroy();
+                    SetSpeechListener();
+                }
+                        /*if(mSpeechManager!=null) {
+                            if(mSpeechManager.isInMuteMode()) {
+                                mSpeechManager.mute(false);
+                            }
+                            else
+                            {
+                                mSpeechManager.mute(true);
+                            }
+                        }*/
+            }
+            else
+            {
+                PermissionHandler.askForPermission(PermissionHandler.RECORD_AUDIO,this);
+            }
+
             reproduceText(tts, stepT.getText().toString());
+
         } else {
+
             repeat.setVisibility(View.INVISIBLE);
         }
     }
