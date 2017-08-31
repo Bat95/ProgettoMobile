@@ -197,7 +197,7 @@ public class Search extends Fragment implements Serializable {
                 try {
                     HttpHelper.Post(
                             getActivity().getApplicationContext(),
-                            getString(R.string.serverIp),
+                            getString(R.string.serverIp)+"filterInfo",
                             filterInfo,
                             new BaseHttpResponseHandler<RecipesFilterResult>(RecipesFilterResult.class) {
 

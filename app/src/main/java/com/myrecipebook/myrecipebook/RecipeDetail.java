@@ -25,6 +25,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.myrecipebook.myrecipebook.utilities.Preferences;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -123,7 +126,10 @@ public class RecipeDetail extends Fragment {
         imageRecipe.setImageBitmap(recipeimg);
 
         //add to favourite
-        star_icon_favourite.setTag(R.drawable.star_off);
+        boolean isInFavorite = isFavoriteRecipe(recipe);
+        star_icon_favourite.setTag(isInFavorite ? R.drawable.star_on : R.drawable.star_off);
+        star_icon_favourite.setImageDrawable(ContextCompat.getDrawable(getContext(), isInFavorite ? R.drawable.star_on : R.drawable.star_off));
+
         star_icon_favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,14 +137,67 @@ public class RecipeDetail extends Fragment {
                 if( tag == R.drawable.star_off ){
                     star_icon_favourite.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.star_on));
                     star_icon_favourite.setTag(R.drawable.star_on);
+                    addToFavorite(recipe);
                 }else{
                     star_icon_favourite.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.star_off));
                     star_icon_favourite.setTag(R.drawable.star_off);
+                    removeFromFavorite(recipe);
                 }
             }
         });
+    }
 
+    private boolean isFavoriteRecipe(Recipe recipe) {
+        if(recipe == null || recipe.id <= 0) {
+            return  false;
+        }
 
+        int[] favoriteRecipesIds = Preferences.get(getContext(), "favoriteRecipesIds", int[].class, new int[0]);
+        for(int recipeId : favoriteRecipesIds) {
+            if(recipe.id == recipeId) {
+                return  true;
+            }
+        }
+
+        return false;
+    }
+
+    private void removeFromFavorite(Recipe recipe) {
+        if(!isFavoriteRecipe(recipe) || recipe == null || recipe.id <= 0) {
+            return;
+        }
+
+        int[] favoriteRecipesIds = Preferences.get(getContext(), "favoriteRecipesIds", int[].class, new int[0]);
+        ArrayList<Integer> favoriteIds = new ArrayList();
+        for (int recipeId : favoriteRecipesIds) {
+            if(recipeId == recipe.id) {
+                continue;
+            }
+
+            favoriteIds.add(recipeId);
+        }
+
+        Preferences.store(getContext(), "favoriteRecipesIds", favoriteIds.toArray());
+
+        Toast.makeText(getContext(), "Rimossa dai preferiti", Toast.LENGTH_SHORT).show();
+    }
+
+    private void addToFavorite(Recipe recipe) {
+        if(isFavoriteRecipe(recipe) || recipe == null || recipe.id <= 0) {
+            return;
+        }
+
+        int[] favoriteRecipesIds = Preferences.get(getContext(), "favoriteRecipesIds", int[].class, new int[0]);
+        ArrayList<Integer> favoriteIds = new ArrayList();
+        for (int recipeId : favoriteRecipesIds) {
+            favoriteIds.add(recipeId);
+        }
+
+        favoriteIds.add(recipe.id);
+
+        Preferences.store(getContext(), "favoriteRecipesIds", favoriteIds.toArray());
+
+        Toast.makeText(getContext(), "Aggiunta ai preferiti", Toast.LENGTH_SHORT).show();
     }
 }
 

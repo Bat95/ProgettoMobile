@@ -13,6 +13,7 @@ import java.util.List;
 
 public class Recipe implements Parcelable {
 
+    int id;
     String name;
     String mainPic;
     int dosePerPerson;
@@ -27,6 +28,7 @@ public class Recipe implements Parcelable {
     }
 
     protected Recipe(Parcel in) {
+        id = in.readInt();
         name = in.readString();
         mainPic = in.readString();
         dosePerPerson = in.readInt();
@@ -64,6 +66,7 @@ public class Recipe implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(mainPic);
         dest.writeInt(dosePerPerson);
