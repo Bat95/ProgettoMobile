@@ -1,8 +1,10 @@
 package com.myrecipebook.myrecipebook;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import static android.content.Context.AUDIO_SERVICE;
 
 /**
  * Created by Thomas on 28/08/2017.
@@ -38,6 +42,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
     AlertDialog alertDialog;
     boolean useSpeechRecognizer = true;
     private SpeechRecognizerManager mSpeechManager;
+    private AudioManager myAudioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,8 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
         next = (Button) findViewById(R.id.next);
         repeat = (Button) findViewById(R.id.repeat);
         exit = (Button) findViewById(R.id.exit);
+
+        myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
 
         try {
@@ -197,6 +204,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
             }
 
             reproduceText(tts, stepT.getText().toString());
+            myAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
 
         } else {
 
