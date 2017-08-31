@@ -43,10 +43,18 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        //image
         //String pic = recipelist.get(position).mainPic;
         //holder.image.setImageBitmap(img);
+
+        //recipe name
         holder.n.setText(recipelist.get(position).name);
-        holder.time.setText("Tempo: " + recipelist.get(position).duration + " minuti");
+
+        //time
+        int hours = recipelist.get(position).duration / 60;
+        int minutes = recipelist.get(position).duration % 60;
+        if (hours <= 0) holder.time.setText("Tempo: " + Integer.toString(minutes) + " minuti");
+        else holder.time.setText("Tempo: " + Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
 
         holder.layout.setOnClickListener(new View.OnClickListener(){
             @Override

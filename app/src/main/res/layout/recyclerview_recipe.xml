@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -16,7 +17,8 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/image_not_available"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        tools:ignore="ContentDescription" />
     <TextView
         android:id="@+id/recipe_name"
         android:textStyle="bold"
@@ -39,7 +41,6 @@
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
             android:ellipsize="end"
             android:maxLines="5"/>
 
