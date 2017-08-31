@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 
 /**
@@ -28,30 +29,36 @@ public class Results extends Fragment {
     private LinearLayoutManager mLinearLayoutManager;
     private GridLayoutManager mGrid;
 
-    ArrayList<Recipe> resultedRecipes;
-    TextView provatxt;
+    ArrayList<Recipe> resultedRecipes ;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.results, container, false);
+        resultedRecipes  = getArguments().getParcelableArrayList("recipelist");
+        int resource =  R.layout.results;
+        if (resultedRecipes.size()==0){
+            resource = R.layout.noresults;
+        }
+        return inflater.inflate(resource,container,false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Risultati");
-        resultedRecipes  = getArguments().getParcelableArrayList("recipelist");
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewResults);
-        //LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false);
-        mGrid = new GridLayoutManager(getContext(), 2);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(mGrid);
 
-        final RecyclerView.Adapter mAdapter = new ResultAdapter(resultedRecipes, getFragmentManager());
-        mRecyclerView.setAdapter(mAdapter);
+        if(resultedRecipes.size()>0) {
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewResults);
+            //LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false);
+            mGrid = new GridLayoutManager(getContext(), 2);
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(mGrid);
+
+            final RecyclerView.Adapter mAdapter = new ResultAdapter(resultedRecipes, getFragmentManager());
+            mRecyclerView.setAdapter(mAdapter);
+        }
 
     }
 
