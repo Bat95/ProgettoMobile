@@ -32,6 +32,9 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
     Button prev;
     Button next;
     Button exit;
+    Button repeat;
+    TextView stepN;
+    TextView stepT;
     AlertDialog alertDialog;
     boolean useSpeechRecognizer = true;
     private SpeechRecognizerManager mSpeechManager;
@@ -44,11 +47,11 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
         Intent intent = getIntent();
         steplist = intent.getStringArrayListExtra("stepArray");
 
-        final TextView stepN = (TextView) findViewById(R.id.stepNumber);
-        final TextView stepT = (TextView) findViewById(R.id.stepText);
+        stepN = (TextView) findViewById(R.id.stepNumber);
+        stepT = (TextView) findViewById(R.id.stepText);
         prev = (Button) findViewById(R.id.previous);
         next = (Button) findViewById(R.id.next);
-        final Button repeat = (Button) findViewById(R.id.repeat);
+        repeat = (Button) findViewById(R.id.repeat);
         exit = (Button) findViewById(R.id.exit);
 
 
@@ -67,7 +70,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     useSpeechRecognizer = true;
-                    BeginSteps(repeat, stepT);
+                    BeginSteps();
                 }
             });
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
@@ -75,7 +78,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     useSpeechRecognizer = false;
-                    BeginSteps(repeat, stepT);
+                    BeginSteps();
                 }
             });
 
@@ -103,10 +106,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                             mSpeechManager.destroy();
                             SetSpeechListener();
                         }
-
-
-
-                        if(mSpeechManager!=null) {
+                        /*if(mSpeechManager!=null) {
                             if(mSpeechManager.isInMuteMode()) {
                                 mSpeechManager.mute(false);
                             }
@@ -114,8 +114,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                             {
                                 mSpeechManager.mute(true);
                             }
-                        }
-
+                        }*/
             }
             else
             {
@@ -180,18 +179,17 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                 }
             });
 
-            if (useSpeechRecognizer) {
-                repeat.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View view) {
-                        reproduceText(tts, stepT.getText().toString());
-                    }
-                });
-            }
+            repeat.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    reproduceText(tts, stepT.getText().toString());
+                }
+            });
     }
 
-    void BeginSteps(Button repeat, TextView stepT) {
+    void BeginSteps() {
         if (useSpeechRecognizer) {
             tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
@@ -201,9 +199,10 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                     }
                 }
             });
-            repeat.setVisibility(View.INVISIBLE);
 
             reproduceText(tts, stepT.getText().toString());
+        } else {
+            repeat.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -217,7 +216,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
 
     @Override
     protected void onPause() {
-        if (useSpeechRecognizer) {
+        if (useSpeechRecognizer && tts != null) {
             tts.stop();
         }
         if(mSpeechManager!=null) {
@@ -287,15 +286,17 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                     {
                         if (results.get(0).contains("avanti")) {
                             next.performClick();
-                        } else {
-                            if (results.get(0).contains("indietro")) {
-                                prev.performClick();
-                            } else {
-                                if (results.get(0).contains("esci")) {
-                                    exit.performClick();
-                                }
-                            }
                         }
+                        if (results.get(0).contains("indietro")) {
+                                prev.performClick();
+                        }
+                        if (results.get(0).contains("esci")) {
+                            exit.performClick();
+                        }
+                        if (results.get(0).contains("ripeti")) {
+                                        repeat.performClick();
+                         }
+
                     }
                     else {
                         StringBuilder sb = new StringBuilder();
@@ -309,14 +310,15 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
 
                         if (results.get(0).contains("avanti")) {
                             next.performClick();
-                        } else {
-                            if (results.get(0).contains("indietro")) {
-                                prev.performClick();
-                            } else {
-                                if (results.get(0).contains("esce")) {
-                                    exit.performClick();
-                                }
-                            }
+                        }
+                        if (results.get(0).contains("indietro")) {
+                            prev.performClick();
+                        }
+                        if (results.get(0).contains("esci")) {
+                            exit.performClick();
+                        }
+                        if (results.get(0).contains("ripeti")) {
+                            repeat.performClick();
                         }
                     }
                 }
