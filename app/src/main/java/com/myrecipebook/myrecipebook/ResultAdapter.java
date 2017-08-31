@@ -10,6 +10,7 @@ import java.util.List;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -47,6 +48,8 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         //String pic = recipelist.get(position).mainPic;
         //holder.image.setImageBitmap(img);
 
+        new DownloadImageTask(holder.image).execute(recipelist.get(position).mainPic);
+
         //recipe name
         holder.n.setText(recipelist.get(position).name);
 
@@ -59,7 +62,8 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         holder.layout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Fragment f = new RecipeDetail(recipelist.get(position));
+                img = ((BitmapDrawable)holder.image.getDrawable()).getBitmap();;
+                Fragment f = new RecipeDetail(recipelist.get(position),img);
                 FragmentTransaction ft = mFragmentManager.beginTransaction();
                 ft.replace(R.id.content_main, f);
                 ft.addToBackStack("results");

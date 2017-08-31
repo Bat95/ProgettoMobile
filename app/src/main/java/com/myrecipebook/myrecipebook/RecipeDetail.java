@@ -38,10 +38,13 @@ import java.util.Arrays;
 public class RecipeDetail extends Fragment {
 
     private Recipe recipe;
+    private Bitmap recipeimg;
 
     public RecipeDetail() {}
 
-    public RecipeDetail(Recipe recipe){this.recipe = recipe;}
+    public RecipeDetail(Recipe recipe, Bitmap recipeimg){
+        this.recipe = recipe;
+        this.recipeimg = recipeimg;}
 
     @Nullable
     @Override
@@ -117,7 +120,7 @@ public class RecipeDetail extends Fragment {
         }
 
         //loading image
-        new DownloadImageTask(imageRecipe).execute(recipe.mainPic);
+        imageRecipe.setImageBitmap(recipeimg);
 
         //add to favourite
         star_icon_favourite.setTag(R.drawable.star_off);
@@ -139,29 +142,3 @@ public class RecipeDetail extends Fragment {
     }
 }
 
-class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-    ImageView bmImage;
-
-    public DownloadImageTask(ImageView bmImage) {
-        this.bmImage = bmImage;
-    }
-
-    protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        Bitmap mIcon11 = null;
-        try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
-            Log.e("Error", e.getMessage());
-            e.printStackTrace();
-        }
-        return mIcon11;
-    }
-
-    protected void onPostExecute(Bitmap result) {
-        if (result != null) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-}
