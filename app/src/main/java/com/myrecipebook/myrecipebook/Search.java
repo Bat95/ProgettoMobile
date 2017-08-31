@@ -94,8 +94,10 @@ public class Search extends Fragment implements Serializable {
                 ingredientArray.add(ing);
                 adapter.remove(ing);
                 adapter.notifyDataSetChanged();
+
             }
         });
+
 
 
         final RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray,adapter);
@@ -222,6 +224,8 @@ public class Search extends Fragment implements Serializable {
         });
 
     }
+
+
 
     void presentResultsRecipesFragment(List<Recipe> recipes) {
         Bundle b = new Bundle();

@@ -39,7 +39,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:text="@string/myrecipebook"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:layout_above="@+id/SubtitleApp"
         android:layout_alignParentStart="true"
