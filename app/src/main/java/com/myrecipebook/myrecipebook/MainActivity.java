@@ -91,10 +91,6 @@ public class MainActivity extends AppCompatActivity
                 //fragment = new Help();
                 //fragment = new RecipeDetail();
                 break;
-            case R.id.provatts:
-                final Intent i = new Intent(this,ProvaTTS.class);
-                startActivity(i);
-                break;
         }
 
         //replacing the fragment

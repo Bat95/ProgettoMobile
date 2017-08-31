@@ -8,21 +8,16 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
-import android.support.design.widget.BaseTransientBottomBar;
-import android.support.v4.app.DialogFragment;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import static android.content.Context.AUDIO_SERVICE;
 
 /**
  * Created by Thomas on 28/08/2017.
@@ -43,6 +38,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
     boolean useSpeechRecognizer = true;
     private SpeechRecognizerManager mSpeechManager;
     private AudioManager myAudioManager;
+    int currentVolume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +56,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
         exit = (Button) findViewById(R.id.exit);
 
         myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        currentVolume = myAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
 
         try {
@@ -168,14 +165,6 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
 
     void BeginSteps() {
         if (useSpeechRecognizer) {
-            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                @Override
-                public void onInit(int status) {
-                    if (status != TextToSpeech.ERROR) {
-                        tts.setLanguage(Locale.ITALIAN);
-                    }
-                }
-            });
 
             if(PermissionHandler.checkPermission(this,PermissionHandler.RECORD_AUDIO)) {
 
@@ -188,20 +177,42 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
                     mSpeechManager.destroy();
                     SetSpeechListener();
                 }
-                        /*if(mSpeechManager!=null) {
-                            if(mSpeechManager.isInMuteMode()) {
-                                mSpeechManager.mute(false);
-                            }
-                            else
-                            {
-                                mSpeechManager.mute(true);
-                            }
-                        }*/
             }
             else
             {
                 PermissionHandler.askForPermission(PermissionHandler.RECORD_AUDIO,this);
             }
+
+
+            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    if (status != TextToSpeech.ERROR) {
+                        tts.setLanguage(Locale.ITALIAN);
+                    }
+                    if (status == TextToSpeech.SUCCESS) {
+                        tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                            @Override
+                            public void onDone(String utteranceId) {
+                                if (mSpeechManager == null) {
+                                    SetSpeechListener();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String utteranceId) {
+                            }
+
+                            @Override
+                            public void onStart(String utteranceId) {
+                                if (mSpeechManager != null) {
+                                    mSpeechManager.destroy();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
 
             reproduceText(tts, stepT.getText().toString());
             myAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
@@ -215,15 +226,16 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
     @Override
     protected void onStop() {
         if (useSpeechRecognizer && tts != null) {
-            tts.stop();
+            tts.shutdown();
         }
+        myAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, AudioManager.FLAG_SHOW_UI);
         super.onStop();
     }
 
     @Override
     protected void onPause() {
         if (useSpeechRecognizer && tts != null) {
-            tts.stop();
+            tts.shutdown();
         }
         if(mSpeechManager!=null) {
             mSpeechManager.destroy();
@@ -242,13 +254,13 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
     }
 
     public void reproduceText(final TextToSpeech tts, final String s){
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 tts.speak(s, TextToSpeech.QUEUE_FLUSH, null);
             }
         }, 1000);
-
     }
 
     @Override
@@ -282,8 +294,6 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
         mSpeechManager=new SpeechRecognizerManager(this, new SpeechRecognizerManager.onResultsReady() {
             @Override
             public void onResults(ArrayList<String> results) {
-
-
 
                 if(results!=null && results.size()>0)
                 {
