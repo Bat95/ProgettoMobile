@@ -28,7 +28,7 @@ public class Allergies extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Gestione allergie");
+        getActivity().setTitle(getString(R.string.allergies_title));
 
         CheckedTextView latticini = (CheckedTextView) view.findViewById(R.id.Latticini);
         CheckedTextView frutta_a_guscio = (CheckedTextView) view.findViewById(R.id.Frutta_a_guscio);
@@ -40,20 +40,20 @@ public class Allergies extends Fragment {
 
         Context context = getContext();
 
-        readAllergenePreference(context, latticini, "latticini");
-        readAllergenePreference(context, frutta_a_guscio, "frutta");
-        readAllergenePreference(context, crostacei, "crostacei");
-        readAllergenePreference(context, uova, "uova");
-        readAllergenePreference(context, soia, "soia");
-        readAllergenePreference(context, frumento_e_glutine, "frumento");
-        readAllergenePreference(context, pesce, "pesce");
+        readAllergenePreference(context, latticini, getString(R.string.latticini_prefKey));
+        readAllergenePreference(context, frutta_a_guscio, getString(R.string.frutta_a_guscio_prefKey));
+        readAllergenePreference(context, crostacei, getString(R.string.crostacei_prefKey));
+        readAllergenePreference(context, uova, getString(R.string.uova_prefKey));
+        readAllergenePreference(context, soia, getString(R.string.soia_prefKey));
+        readAllergenePreference(context, frumento_e_glutine, getString(R.string.frumento_e_glutine_prefKey));
+        readAllergenePreference(context, pesce, getString(R.string.pesce_prefKey));
 
 
 
         latticini.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAllergenePreference(v, "latticini");
+                updateAllergenePreference(v, getString(R.string.latticini_prefKey));
             }
 
         });
@@ -61,7 +61,7 @@ public class Allergies extends Fragment {
         frutta_a_guscio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAllergenePreference(v, "frutta");
+                updateAllergenePreference(v, getString(R.string.frutta_a_guscio_prefKey));
             }
 
         });
@@ -69,7 +69,7 @@ public class Allergies extends Fragment {
         crostacei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAllergenePreference(v, "crostacei");
+                updateAllergenePreference(v, getString(R.string.crostacei_prefKey));
             }
 
         });
@@ -77,7 +77,7 @@ public class Allergies extends Fragment {
         uova.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAllergenePreference(v, "uova");
+                updateAllergenePreference(v, getString(R.string.uova_prefKey));
             }
 
         });
@@ -85,7 +85,7 @@ public class Allergies extends Fragment {
         soia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAllergenePreference(v, "soia");
+                updateAllergenePreference(v, getString(R.string.soia_prefKey));
             }
 
         });
@@ -93,7 +93,7 @@ public class Allergies extends Fragment {
         frumento_e_glutine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAllergenePreference(v, "frumento");
+                updateAllergenePreference(v, getString(R.string.frumento_e_glutine_prefKey));
             }
 
         });
@@ -101,7 +101,7 @@ public class Allergies extends Fragment {
         pesce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAllergenePreference(v, "pesce");
+                updateAllergenePreference(v, getString(R.string.pesce_prefKey));
             }
 
         });

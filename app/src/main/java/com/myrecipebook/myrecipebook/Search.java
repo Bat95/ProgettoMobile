@@ -7,6 +7,7 @@ package com.myrecipebook.myrecipebook;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,7 +40,7 @@ public class Search extends Fragment implements Serializable {
 
     List<String> ingredSelected;
 
-    Button search_button;
+    FloatingActionButton search_button;
 
     // lista degli ingredienti tra cui un utente può scegliere
     private static final String[] ingredientsList = new String[] {
@@ -59,7 +60,7 @@ public class Search extends Fragment implements Serializable {
         getActivity().setTitle(R.string.recipe_search_title);
 
         // initialize variables
-        search_button = (Button) view.findViewById(R.id.search_button);
+        search_button = (FloatingActionButton) view.findViewById(R.id.search_button);
 
         final TextView recipe_name_input = (TextView) view.findViewById(R.id.recipe_name_input);
 
@@ -87,6 +88,10 @@ public class Search extends Fragment implements Serializable {
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, available_ingredients);
         input_ingredients.setAdapter(adapter);
         final ArrayList<String> ingredientArray = new ArrayList<>();
+
+        final RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray,adapter);
+        mRecyclerView.setAdapter(mAdapter);
+
         input_ingredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -97,14 +102,9 @@ public class Search extends Fragment implements Serializable {
                 ingredientArray.add(ing);
                 adapter.remove(ing);
                 adapter.notifyDataSetChanged();
-
+                mAdapter.notifyDataSetChanged();
             }
         });
-
-
-
-        final RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray,adapter);
-        mRecyclerView.setAdapter(mAdapter);
 
         //Variabili delle checkbox
         final CheckBox apply_intolerances = (CheckBox) view.findViewById(R.id.apply_intolerances);

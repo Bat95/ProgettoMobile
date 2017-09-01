@@ -1,208 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/search_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/search"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"/>
-
-    <TextView
-        android:id="@+id/select_ingred_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="@string/select_ingredients"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"/>
-
-    <AutoCompleteTextView
-        android:id="@+id/input_ingredients"
-        style="@style/Widget.AppCompat.AutoCompleteTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:completionThreshold="1"
-        android:ems="16"
-        android:inputType="textFilter"
-        tools:ignore="LabelFor" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"/>
-
-    <TextView
-        android:id="@+id/recipe_name_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_name"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"/>
-
-    <EditText
-        android:id="@+id/recipe_name_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textFilter"
-        android:text=""
-        tools:ignore="LabelFor"/>
-
-    <TextView
-        android:id="@+id/filter_by_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/filter_by"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"/>
     <LinearLayout
+        android:id="@+id/search_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/timetext"
+            android:id="@+id/select_ingred_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/timeLabel"
+            android:layout_marginTop="11dp"
+            android:text="@string/select_ingredients"
             android:textColor="@android:color/black"
-            android:textSize="16sp"/>
+            android:textSize="18sp"/>
 
-        <Spinner
-            android:id="@+id/timespinner"
+        <AutoCompleteTextView
+            android:id="@+id/input_ingredients"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/timeSpinnerItems" />
+            android:completionThreshold="1"
+            android:ems="16"
+            android:inputType="textFilter"
+            tools:ignore="LabelFor" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingTop="5dp">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
 
         <TextView
-            android:id="@+id/difficulty"
+            android:id="@+id/recipe_name_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/difficultyLabel"
+            android:text="@string/recipe_name"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"/>
 
-        <Spinner
-            android:id="@+id/difficultyspinner"
+        <EditText
+            android:id="@+id/recipe_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/difficultySpinnerItems" />
+            android:inputType="textFilter"
+            android:text=""
+            tools:ignore="LabelFor"/>
+
+        <TextView
+            android:id="@+id/filter_by_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_by"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/timetext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timeLabel"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
+
+            <Spinner
+                android:id="@+id/timespinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/timeSpinnerItems" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/difficultyLabel"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/difficultyspinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/difficultySpinnerItems" />
+
+        </LinearLayout>
+
+
+
+        <CheckBox
+            android:id="@+id/apply_intolerances"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/apply_intolerances"
+            android:textSize="16sp"/>
+
+        <CheckBox
+            android:id="@+id/apply_storeroom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apply_storeroom"
+            android:textSize="16sp"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"
+            android:layout_margin="5dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/appetizers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/appetizers"
+                android:layout_weight="1"
+                android:textSize="16sp"/>
+
+            <CheckBox
+                android:id="@+id/first_dishes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/first_dishes"
+                android:layout_weight="1"
+                android:textSize="16sp"/>
+
+            <CheckBox
+                android:id="@+id/second_dishes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/second_dishes"
+                android:layout_weight="1"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/desserts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/desserts"
+                android:layout_weight="1"
+                android:textSize="16sp"/>
+
+            <CheckBox
+                android:id="@+id/unique"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/piatto_unico"
+                android:layout_weight="2.5"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/search_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_search_white_24dp"
+            app:layout_anchor="@id/search_container"
+            app:layout_anchorGravity="bottom|right|end"/>
 
-
-    <CheckBox
-        android:id="@+id/apply_intolerances"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="@string/apply_intolerances"
-        android:textSize="16sp"/>
-
-    <CheckBox
-        android:id="@+id/apply_storeroom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/apply_storeroom"
-        android:textSize="16sp"/>
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:background="@color/colorAccent"
-        android:layout_margin="5dp"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/appetizers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/appetizers"
-            android:layout_weight="1"
-            android:textSize="16sp"/>
-
-        <CheckBox
-            android:id="@+id/first_dishes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/first_dishes"
-            android:layout_weight="1"
-            android:textSize="16sp"/>
-
-        <CheckBox
-            android:id="@+id/second_dishes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/second_dishes"
-            android:layout_weight="1"
-            android:textSize="16sp"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/desserts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/desserts"
-            android:layout_weight="1"
-            android:textSize="16sp"/>
-
-        <CheckBox
-            android:id="@+id/unique"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/piatto_unico"
-            android:layout_weight="2.5"
-            android:textSize="16sp"/>
-
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/search_button"
-        android:text="@string/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_light"
-        android:textColorLink="@android:color/black"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"/>
-
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

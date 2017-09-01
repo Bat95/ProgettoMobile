@@ -13,10 +13,10 @@
     <TextView
         android:id="@+id/txtNoFavorite"
         android:gravity="center"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Nessun risultato trovato"
+        android:text="@string/no_results"
         android:visibility="gone"/>
 
 

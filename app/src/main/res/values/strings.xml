@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MyRecipeBook</string>
-    <string name="serverIp">http://f9fb64f3.ngrok.io/api/values/</string>
+    <string name="serverIp">http://192.168.43.155:5000/api/values/</string>
 
     <!-- Strings used in the search.xml file -->
     <string name="search">Ricerca</string>
@@ -39,7 +39,7 @@
     <string name="unknown">- - -</string>
     <string name="inizia_procedura_guidata">Avvia procedura guidata</string>
     <string name="latticini">Latticini</string>
-    <string name="allergie_o_intolleranze">Allergie o intolleranze:</string>
+    <string name="allergie_o_intolleranze_descr">Seleziona le tue allergie o intolleranze:</string>
     <string name="frutta_a_guscio">Frutta a guscio</string>
     <string name="crostacei">Crostacei</string>
     <string name="uova">Uova</string>
@@ -56,5 +56,16 @@
     <string name="immagine_stella_preferenze">Immagine stella preferenze</string>
     <string name="alert_message">Vuoi utilizzare la lettura del testo e il riconoscimento vocale?</string>
     <string name="icona_difficolta">icona_difficolta</string>
+    <string name="no_results">Nessun risultato trovato</string>
+    <string name="suggested_API">suggested</string>
+    <string name="loading_message">Ricerca ricette in corso...</string>
+    <string name="latticini_prefKey">latticini</string>
+    <string name="allergies_title">Allergie</string>
+    <string name="frutta_a_guscio_prefKey">frutta</string>
+    <string name="crostacei_prefKey">crostacei</string>
+    <string name="uova_prefKey">uova</string>
+    <string name="soia_prefKey">soia</string>
+    <string name="pesce_prefKey">pesce</string>
+    <string name="frumento_e_glutine_prefKey">frumento</string>
 
 </resources>

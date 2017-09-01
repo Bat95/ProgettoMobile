@@ -4,27 +4,37 @@ package com.myrecipebook.myrecipebook;
  * Created by Sonia on 12/05/17.
  */
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
-        import android.view.LayoutInflater;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.myrecipebook.myrecipebook.utilities.Preferences;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class Suggestion extends Fragment {
 
-    List<Recipe> NewRecipes;
-
-    //ad esempio quante ricette vuoi ricevere
-    int number = 6;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private GridLayoutManager mGrid;
+    private ArrayList<Recipe> suggestedRecipes;
+    private TextView txtNoSuggestion;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        suggestedRecipes = new ArrayList<>();
+
         return inflater.inflate(R.layout.suggestion, container, false);
     }
 
@@ -33,21 +43,67 @@ public class Suggestion extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Ricette suggerite");
 
-        // temporary! chiedo al server le news sulle nuove ricette aggiunte :) in pratica sono solo tot random
-        /*HttpHelper.Get(
-                        getActivity().getApplicationContext(),
-                        "http://646ffb06.ngrok.io/api/values/number",
-                        new BaseHttpResponseHandler<InfoDto>(InfoDto.class) {
+        txtNoSuggestion = (TextView) view.findViewById(R.id.txtNoSuggestion);
 
-                            @Override
-                            public void handleResponse(InfoDto response) {
-                                NewRecipes = new ArrayList<>(response.);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerSuggested);
+        mGrid = new GridLayoutManager(getContext(), 2);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mGrid);
+
+        mAdapter = new ResultAdapter(suggestedRecipes, getFragmentManager());
+        mRecyclerView.setAdapter(mAdapter);
+
+        getSuggestedRecipes();
+
+
+        }
+
+    private void getSuggestedRecipes() {
+
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setMessage(getString(R.string.loading_message));
+        pd.setCancelable(false);
+        pd.show();
+
+        try {
+
+            HttpHelper.Get(
+                    getActivity().getApplicationContext(),
+                    getString(R.string.serverIp) + getString(R.string.suggested_API),
+                    new BaseHttpResponseHandler<Recipe[]>(Recipe[].class) {
+
+                        @Override
+                        public void handleResponse(Recipe[] response) {
+                            suggestedRecipes.clear();
+
+                            if (response != null) {
+                                suggestedRecipes.addAll(Arrays.asList(response));
                             }
 
-                            @Override
-                            public void handleError(String errorMessage) {
-                                super.handleError(errorMessage);
-                            }
-                        });*/
+                            mAdapter.notifyDataSetChanged();
+                            handleNoResults();
+                            pd.dismiss();
+                        }
+
+                        @Override
+                        public void handleError(String errorMessage) {
+                            super.handleError(errorMessage);
+                            handleNoResults();
+                            pd.dismiss();
+                        }
+                    });
+        } catch (Exception e) {
+            if(pd.isShowing()) {
+                pd.dismiss();
+            }
+
+            handleNoResults();
+        }
     }
+
+    private void handleNoResults() {
+        boolean hasSuggestion = suggestedRecipes != null && suggestedRecipes.size() > 0;
+        txtNoSuggestion.setVisibility(hasSuggestion ? View.GONE : View.VISIBLE);
+    }
+
 }
