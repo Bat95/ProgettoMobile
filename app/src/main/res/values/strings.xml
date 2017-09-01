@@ -55,5 +55,6 @@
     <string name="vocal_recognition">Riconoscimento vocale</string>
     <string name="immagine_stella_preferenze">Immagine stella preferenze</string>
     <string name="alert_message">Vuoi utilizzare la lettura del testo e il riconoscimento vocale?</string>
+    <string name="icona_difficolta">icona_difficolta</string>
 
 </resources>

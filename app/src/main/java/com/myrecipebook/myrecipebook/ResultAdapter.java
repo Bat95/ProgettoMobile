@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import static com.myrecipebook.myrecipebook.R.id.view;
+
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 
     private FragmentManager mFragmentManager;
@@ -59,6 +61,30 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         if (hours <= 0) holder.time.setText("Tempo: " + Integer.toString(minutes) + " minuti");
         else holder.time.setText("Tempo: " + Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
 
+        //difficulty
+        switch (recipelist.get(position).difficulty) {
+            case 1 : holder.icon_difficulty1.setVisibility(View.VISIBLE);
+                break;
+            case 2 : holder.icon_difficulty1.setVisibility(View.VISIBLE);
+                holder.icon_difficulty2.setVisibility(View.VISIBLE);
+                break;
+            case 3 : holder.icon_difficulty1.setVisibility(View.VISIBLE);
+                holder.icon_difficulty2.setVisibility(View.VISIBLE);
+                holder.icon_difficulty3.setVisibility(View.VISIBLE);
+                break;
+            case 4 : holder.icon_difficulty1.setVisibility(View.VISIBLE);
+                holder.icon_difficulty2.setVisibility(View.VISIBLE);
+                holder.icon_difficulty3.setVisibility(View.VISIBLE);
+                holder.icon_difficulty4.setVisibility(View.VISIBLE);
+                break;
+            case 5 : holder.icon_difficulty1.setVisibility(View.VISIBLE);
+                holder.icon_difficulty2.setVisibility(View.VISIBLE);
+                holder.icon_difficulty3.setVisibility(View.VISIBLE);
+                holder.icon_difficulty4.setVisibility(View.VISIBLE);
+                holder.icon_difficulty5.setVisibility(View.VISIBLE);
+                break;
+        }
+
         holder.layout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -89,6 +115,11 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         public ImageView image;
         public TextView n, time;
         public RelativeLayout layout;
+        public ImageView icon_difficulty1;
+        public ImageView icon_difficulty2;
+        public ImageView icon_difficulty3;
+        public ImageView icon_difficulty4;
+        public ImageView icon_difficulty5;
 
         public ViewHolder(View v) {
             super(v);
@@ -97,6 +128,11 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             n = (TextView) v.findViewById(R.id.recipe_name);
             time = (TextView) v.findViewById(R.id.recipe_time);
             layout = (RelativeLayout) v.findViewById(R.id.recipelayout);
+            icon_difficulty1 = (ImageView) v.findViewById(R.id.difficulty_icon_1);
+            icon_difficulty2 = (ImageView) v.findViewById(R.id.difficulty_icon_2);
+            icon_difficulty3 = (ImageView) v.findViewById(R.id.difficulty_icon_3);
+            icon_difficulty4 = (ImageView) v.findViewById(R.id.difficulty_icon_4);
+            icon_difficulty5 = (ImageView) v.findViewById(R.id.difficulty_icon_5);
         }
 
     }

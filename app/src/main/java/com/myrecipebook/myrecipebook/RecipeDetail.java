@@ -62,7 +62,6 @@ public class RecipeDetail extends Fragment {
 
 
         TextView titleRecipeLabel = (TextView) view.findViewById(R.id.titoloRicettaDettaglio);
-        TextView difficultyLabel = (TextView) view.findViewById(R.id.difficulty_value);
         TextView timeLabel = (TextView) view.findViewById(R.id.time_value);
         TextView doseLabel = (TextView) view.findViewById(R.id.dose_value);
         TextView categoryLabel = (TextView) view.findViewById(R.id.category_value);
@@ -86,7 +85,28 @@ public class RecipeDetail extends Fragment {
         titleRecipeLabel.setText(recipe.name);
 
         //difficulty
-        difficultyLabel.setText(Integer.toString(recipe.difficulty));
+        switch (recipe.difficulty) {
+            case 1 : view.findViewById(R.id.difficulty_icon_1).setVisibility(view.VISIBLE);
+                break;
+            case 2 : view.findViewById(R.id.difficulty_icon_1).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_2).setVisibility(view.VISIBLE);
+                break;
+            case 3 : view.findViewById(R.id.difficulty_icon_1).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_2).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_3).setVisibility(view.VISIBLE);
+                break;
+            case 4 : view.findViewById(R.id.difficulty_icon_1).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_2).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_3).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_4).setVisibility(view.VISIBLE);
+                break;
+            case 5 : view.findViewById(R.id.difficulty_icon_1).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_2).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_3).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_4).setVisibility(view.VISIBLE);
+                view.findViewById(R.id.difficulty_icon_5).setVisibility(view.VISIBLE);
+                break;
+        }
 
 
         //time
