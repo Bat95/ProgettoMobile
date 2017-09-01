@@ -23,8 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import static com.myrecipebook.myrecipebook.R.id.view;
-
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 
     private FragmentManager mFragmentManager;

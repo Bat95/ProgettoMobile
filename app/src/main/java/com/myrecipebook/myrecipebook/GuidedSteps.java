@@ -67,6 +67,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
 
             alertDialog.setMessage("Voice Recognition Use");
             alertDialog.setMessage("Vuoi utilizzare il riconoscimento vocale?");
+            alertDialog.setCancelable(false);
 
             //alertDialog.setView(alertLayout);
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,"SI", new DialogInterface.OnClickListener() {

@@ -3,27 +3,30 @@
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:background="@drawable/shape_chip_drawable"
-    android:paddingBottom="10px"
-    android:paddingTop="10px"
-    android:layout_marginRight="10px"
+    android:padding="4dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginStart="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:src="@drawable/cancel" />
 
         <TextView
             android:id="@+id/chiptext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5px"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_centerVertical="true"
             android:text="Example chip"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:textColor="#757575"
+            android:layout_toEndOf="@id/delete"/>
 
-        <ImageView
-            android:id="@+id/delete"
-            android:layout_width="40px"
-            android:layout_height="40px"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/chiptext"
-            android:contentDescription="@null"
-            android:src="@drawable/cancel" />
+
     </RelativeLayout>

@@ -4,7 +4,7 @@
 
     <!-- Strings used in the search.xml file -->
     <string name="search">Ricerca</string>
-    <string name="select_ingredients">Seleziona gli ingredienti:</string>
+    <string name="select_ingredients">Digita qui gli ingredienti...</string>
     <string name="filter_by">Filtra per:</string>
     <string name="difficulty">Difficoltà</string>
     <string name="time">Tempo</string>

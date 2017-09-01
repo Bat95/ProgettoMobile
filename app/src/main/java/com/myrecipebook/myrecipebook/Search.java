@@ -79,8 +79,7 @@ public class Search extends Fragment implements Serializable {
 
         //Creo un RecyclerView
         final RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // autocomplete for the ingredients
@@ -96,7 +95,6 @@ public class Search extends Fragment implements Serializable {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 input_ingredients.setText("");
-                input_ingredients.clearFocus();
                 Object o = adapterView.getItemAtPosition(i);
                 String ing = o.toString();
                 ingredientArray.add(ing);
