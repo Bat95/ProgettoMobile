@@ -22,6 +22,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.myrecipebook.myrecipebook.utilities.Preferences;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -136,6 +139,35 @@ public class Search extends Fragment implements Serializable {
                 filterInfo.intolerances = apply_intolerances.isChecked();
                 filterInfo.isUnique = unique.isChecked();
 
+                // Allergies
+                if (Preferences.get(getContext(), "latticini", boolean.class, false))
+                {
+                    intolerancesList.add("latticini");
+                }
+                if (Preferences.get(getContext(), "frutta", boolean.class, false))
+                {
+                    intolerancesList.add("frutta a guscio");
+                }
+                if (Preferences.get(getContext(), "crostacei", boolean.class, false))
+                {
+                    intolerancesList.add("crostacei");
+                }
+                if (Preferences.get(getContext(), "uova", boolean.class, false))
+                {
+                    intolerancesList.add("uova");
+                }
+                if (Preferences.get(getContext(), "soia", boolean.class, false))
+                {
+                    intolerancesList.add("soia");
+                }
+                if (Preferences.get(getContext(), "frumento", boolean.class, false))
+                {
+                    intolerancesList.add("frumento e glutine");
+                }
+                if (Preferences.get(getContext(), "pesce", boolean.class, false))
+                {
+                    intolerancesList.add("pesce");
+                }
                 filterInfo.intolerance = intolerancesList;
 
                 if(apply_storeroom.isChecked()) {
