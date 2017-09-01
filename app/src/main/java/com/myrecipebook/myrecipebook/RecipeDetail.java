@@ -65,6 +65,7 @@ public class RecipeDetail extends Fragment {
         TextView timeLabel = (TextView) view.findViewById(R.id.time_value);
         TextView doseLabel = (TextView) view.findViewById(R.id.dose_value);
         TextView categoryLabel = (TextView) view.findViewById(R.id.category_value);
+        TextView ingredientList = (TextView) view.findViewById(R.id.ingredientlist);
         TextView stepsLabel = (TextView) view.findViewById(R.id.list_procedure);
         ImageView imageRecipe = (ImageView) view.findViewById(R.id.detail_image);
         final ImageView star_icon_favourite = (ImageView) view.findViewById(R.id.star_icon_preferences);
@@ -79,7 +80,7 @@ public class RecipeDetail extends Fragment {
                 getActivity().startActivity(i);
             }
         });
-        ListView listIngred = (ListView) view.findViewById(R.id.list_ingredients);
+        //ListView listIngred = (ListView) view.findViewById(R.id.list_ingredients);
 
         //recipe title
         titleRecipeLabel.setText(recipe.name);
@@ -134,8 +135,10 @@ public class RecipeDetail extends Fragment {
                 break;
         }
 
-        listIngred.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, recipe.ingredients));
-
+        //listIngred.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, recipe.ingredients));
+        for (String s : recipe.ingredients){
+            ingredientList.setText(ingredientList.getText()+ "- " + s + "\n");
+        }
 
         for (String item: recipe.steps) {
             stepsLabel.append(item);

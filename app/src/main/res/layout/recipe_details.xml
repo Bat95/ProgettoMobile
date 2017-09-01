@@ -231,12 +231,24 @@
         android:textStyle="bold"
         android:padding="5dp" />
 
-    <ListView
+        <TextView
+            android:id="@+id/ingredientlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:text=""
+            android:textSize="15sp"
+            android:padding="5dp" />
+
+
+        <!--
+        <ListView
         android:id="@+id/list_ingredients"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:padding="5dp"
         tools:ignore="NestedScrolling" />
+        -->
 
     <RelativeLayout
         android:layout_width="fill_parent"
