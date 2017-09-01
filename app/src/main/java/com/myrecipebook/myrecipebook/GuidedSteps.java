@@ -215,7 +215,11 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
             });
 
             reproduceText(tts, stepT.getText().toString());
-            myAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+            if (myAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) == myAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
+                myAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+            } else {
+                myAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+            }
 
         } else {
 
@@ -227,8 +231,8 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
     protected void onStop() {
         if (useSpeechRecognizer && tts != null) {
             tts.shutdown();
+            myAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, AudioManager.FLAG_SHOW_UI);
         }
-        myAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, AudioManager.FLAG_SHOW_UI);
         super.onStop();
     }
 
