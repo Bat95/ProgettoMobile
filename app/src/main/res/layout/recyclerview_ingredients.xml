@@ -1,21 +1,26 @@
-<RelativeLayout android:id="@+id/chip_layout"
-    android:layout_width="wrap_content"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chip_layout"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:background="@drawable/shape_chip_drawable"
-    android:padding="4dp"
-    android:layout_marginTop="2dp"
-    android:layout_marginBottom="2dp"
-    android:layout_marginStart="8dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    >
 
-    <ImageView
-        android:id="@+id/delete"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_centerVertical="true"
-        android:contentDescription="@null"
-        android:src="@drawable/cancel" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_chip_drawable"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp"
+        android:padding="4dp"
+        >
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@null"
+            android:src="@drawable/cancel"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/chiptext"
@@ -23,10 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_centerVertical="true"
             android:text="Example chip"
             android:textColor="#757575"
-            android:layout_toEndOf="@id/delete"/>
-
-
+            android:layout_toEndOf="@id/delete"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
+
+    </LinearLayout>
