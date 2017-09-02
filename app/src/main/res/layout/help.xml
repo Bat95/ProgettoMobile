@@ -1,40 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryBackground">
 
-    <TextView
-        android:id="@+id/testTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/testTV"
-        android:text="Prova cronometro al contrario:" />
+<LinearLayout
+    android:id="@+id/help_main_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    >
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_below="@+id/textView8"
-        android:layout_toEndOf="@+id/testTV"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="31dp" />
+        android:layout_gravity="center_horizontal"
+        android:text="@string/help_descr"
+        android:layout_marginBottom="8dp"/>
 
-    <Button
-        android:id="@+id/startreverse"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:maxLines="1"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+    <EditText
+        android:id="@+id/txtMessage"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Start"
-        android:layout_below="@+id/textView9"
-        android:layout_alignStart="@+id/textView9" />
+        android:hint="@string/inizia_a_scrivere_una_domanda_o_feedback"
+        android:textSize="17sp"
+        android:maxLines="10"/>
 
-</RelativeLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnSendFeedback"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_send_white_24dp"
+        app:layout_anchor="@id/help_main_container"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+    </android.support.design.widget.CoordinatorLayout>

@@ -88,8 +88,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new Allergies();
                 break;
             case R.id.nav_help:
-                //fragment = new Help();
-                //fragment = new RecipeDetail();
+                fragment = new Help();
                 break;
         }
 

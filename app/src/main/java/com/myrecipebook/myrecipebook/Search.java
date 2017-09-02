@@ -19,10 +19,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myrecipebook.myrecipebook.utilities.Preferences;
 
@@ -35,10 +35,9 @@ import java.util.List;
 public class Search extends Fragment implements Serializable {
 
     // Lista fittizia della dispensa e degli ingredienti
-    List<String> pantry;
     List<String> intolerancesList;
 
-    List<String> ingredSelected;
+    final ArrayList<String> ingredientArray = new ArrayList<>();
 
     FloatingActionButton search_button;
 
@@ -69,13 +68,7 @@ public class Search extends Fragment implements Serializable {
             available_ingredients.add(s);
         }
 
-        pantry = new ArrayList<>();
-        ingredSelected = new ArrayList<>();
         intolerancesList = new ArrayList<>();
-        pantry.add("ingrediente1");
-        pantry.add("ingrediente2");
-        ingredSelected.add("ingrediente3");
-        ingredSelected.add("ingrediente4");
 
         //Creo un RecyclerView
         final RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -86,9 +79,8 @@ public class Search extends Fragment implements Serializable {
         final AutoCompleteTextView input_ingredients = (AutoCompleteTextView) view.findViewById(R.id.input_ingredients);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, available_ingredients);
         input_ingredients.setAdapter(adapter);
-        final ArrayList<String> ingredientArray = new ArrayList<>();
 
-        final RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray,adapter);
+        final RecyclerView.Adapter mAdapter = new IngredientAdapter(ingredientArray, adapter);
         mRecyclerView.setAdapter(mAdapter);
 
         input_ingredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,7 +98,6 @@ public class Search extends Fragment implements Serializable {
 
         //Variabili delle checkbox
         final CheckBox apply_intolerances = (CheckBox) view.findViewById(R.id.apply_intolerances);
-        final CheckBox apply_storeroom = (CheckBox) view.findViewById(R.id.apply_storeroom);
         final CheckBox appetizers = (CheckBox) view.findViewById(R.id.appetizers);
         final CheckBox first_dishes = (CheckBox) view.findViewById(R.id.first_dishes);
         final CheckBox second_dishes = (CheckBox) view.findViewById(R.id.second_dishes);
@@ -168,10 +159,6 @@ public class Search extends Fragment implements Serializable {
                 }
                 filterInfo.intolerance = intolerancesList;
 
-                if(apply_storeroom.isChecked()) {
-                    ingredSet.addAll(pantry);
-                }
-
                 switch (timesp.getSelectedItem().toString()){
                     case "nessun limite":
                         filterInfo.selectedTime = 0;
@@ -222,6 +209,7 @@ public class Search extends Fragment implements Serializable {
 
                 final ProgressDialog pd = new ProgressDialog(getContext());
                 pd.setMessage("Ricerca ricette in corso...");
+                pd.setCancelable(false);
                 pd.show();
 
                 try {
@@ -248,6 +236,7 @@ public class Search extends Fragment implements Serializable {
                 }
                 catch (Exception e) {
                     pd.dismiss();
+                    Toast.makeText(getContext(), "errore durante la connessione al server", Toast.LENGTH_SHORT).show();
                 }
 
             }

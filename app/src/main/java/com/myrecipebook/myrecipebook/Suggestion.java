@@ -60,11 +60,6 @@ public class Suggestion extends Fragment {
 
     private void getSuggestedRecipes() {
 
-        final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage(getString(R.string.loading_message));
-        pd.setCancelable(false);
-        pd.show();
-
         try {
 
             HttpHelper.Get(
@@ -82,20 +77,15 @@ public class Suggestion extends Fragment {
 
                             mAdapter.notifyDataSetChanged();
                             handleNoResults();
-                            pd.dismiss();
                         }
 
                         @Override
                         public void handleError(String errorMessage) {
                             super.handleError(errorMessage);
                             handleNoResults();
-                            pd.dismiss();
                         }
                     });
         } catch (Exception e) {
-            if(pd.isShowing()) {
-                pd.dismiss();
-            }
 
             handleNoResults();
         }
