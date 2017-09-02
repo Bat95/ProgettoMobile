@@ -147,6 +147,8 @@ public class RecipeDetail extends Fragment {
 
         //loading image
         imageRecipe.setImageBitmap(recipeimg);
+        new DownloadImageTask(imageRecipe).execute(recipe.mainPic);
+
 
         //add to favourite
         boolean isInFavorite = isFavoriteRecipe(recipe);

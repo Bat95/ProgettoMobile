@@ -256,7 +256,6 @@ public class Search extends Fragment implements Serializable {
     }
 
 
-
     void presentResultsRecipesFragment(List<Recipe> recipes) {
         Bundle b = new Bundle();
         b.putParcelableArrayList("recipelist", (ArrayList<Recipe>) recipes);

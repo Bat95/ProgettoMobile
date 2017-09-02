@@ -39,6 +39,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
     private SpeechRecognizerManager mSpeechManager;
     private AudioManager myAudioManager;
     int currentVolume;
+    Boolean wasPaused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +62,8 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
 
         try {
             // create alert dialog to make user choose if wants voice recognition
-            alertDialog = new AlertDialog.Builder(GuidedSteps.this).create();
-            //LayoutInflater inflater = getLayoutInflater();
-            //View alertLayout = inflater.inflate(R.layout.alert_dialog, null);
+            alertDialog = new AlertDialog.Builder(GuidedSteps.this, R.style.AppCompatAlertDialogStyle).create();
+
 
             alertDialog.setMessage("Voice Recognition Use");
             alertDialog.setMessage("Vuoi utilizzare il riconoscimento vocale?");
@@ -239,6 +239,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
 
     @Override
     protected void onPause() {
+        wasPaused = true;
         if (useSpeechRecognizer && tts != null) {
             tts.shutdown();
         }
@@ -247,6 +248,14 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
             mSpeechManager=null;
         }
         super.onPause();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(wasPaused) {
+            BeginSteps();
+        }
     }
 
     @Override
