@@ -64,9 +64,8 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
             // create alert dialog to make user choose if wants voice recognition
             alertDialog = new AlertDialog.Builder(GuidedSteps.this, R.style.AppCompatAlertDialogStyle).create();
 
-
             alertDialog.setMessage("Voice Recognition Use");
-            alertDialog.setMessage("Vuoi utilizzare il riconoscimento vocale?");
+            alertDialog.setMessage("Vuoi utilizzare la lettura automatica del testo ed il riconoscimento vocale?");
             alertDialog.setCancelable(false);
 
             //alertDialog.setView(alertLayout);
