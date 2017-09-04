@@ -1,4 +1,4 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,8 +11,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.myrecipebook.myrecipebook.utilities.BaseHttpResponseHandler;
+import com.myrecipebook.myrecipebook.utilities.HttpHelper;
+import com.myrecipebook.myrecipebook.R;
+import com.myrecipebook.myrecipebook.models.Feedback;
 
-public class Help extends Fragment {
+
+public class HelpFragment extends Fragment {
 
     private EditText _txtEmail;
     private EditText _txtMessage;

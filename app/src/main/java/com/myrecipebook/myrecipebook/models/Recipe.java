@@ -1,10 +1,9 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,16 +12,16 @@ import java.util.List;
 
 public class Recipe implements Parcelable {
 
-    int id;
-    String name;
-    String mainPic;
-    int dosePerPerson;
-    List<String> steps;
-    List<String> ingredients;
-    int difficulty;
-    int duration;
-    int category;
-    List<String> tag;
+    public int id;
+    public String name;
+    public String mainPic;
+    public int dosePerPerson;
+    public List<String> steps;
+    public List<String> ingredients;
+    public int difficulty;
+    public int duration;
+    public int category;
+    public List<String> tag;
 
     public Recipe() {
     }

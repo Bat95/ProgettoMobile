@@ -1,4 +1,4 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.adapters;
 
 
 import java.util.ArrayList;
@@ -17,6 +17,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.myrecipebook.myrecipebook.utilities.DownloadImageTask;
+import com.myrecipebook.myrecipebook.R;
+import com.myrecipebook.myrecipebook.fragments.RecipeDetailFragment;
+import com.myrecipebook.myrecipebook.models.Recipe;
+
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 
     private FragmentManager mFragmentManager;
@@ -24,7 +29,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     List<Recipe> recipelist;
     Bitmap img;
 
-    ResultAdapter(ArrayList<Recipe> recipelist, FragmentManager fm){
+    public ResultAdapter(ArrayList<Recipe> recipelist, FragmentManager fm){
         this.recipelist = recipelist;
         this.mFragmentManager = fm;
     }
@@ -78,7 +83,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 img = ((BitmapDrawable)holder.image.getDrawable()).getBitmap();;
-                Fragment f = new RecipeDetail(recipelist.get(position),img);
+                Fragment f = new RecipeDetailFragment(recipelist.get(position),img);
                 FragmentTransaction ft = mFragmentManager.beginTransaction();
                 ft.replace(R.id.content_main, f);
                 ft.addToBackStack("results");

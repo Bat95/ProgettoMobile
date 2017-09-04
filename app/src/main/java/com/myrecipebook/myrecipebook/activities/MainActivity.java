@@ -1,4 +1,4 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.myrecipebook.myrecipebook.R;
+import com.myrecipebook.myrecipebook.fragments.AllergiesFragment;
+import com.myrecipebook.myrecipebook.fragments.FavouriteFragment;
+import com.myrecipebook.myrecipebook.fragments.HelpFragment;
+import com.myrecipebook.myrecipebook.fragments.SearchFragment;
+import com.myrecipebook.myrecipebook.fragments.SuggestionFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
@@ -75,19 +82,19 @@ public class MainActivity extends AppCompatActivity
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_search:
-                fragment = new Search();
+                fragment = new SearchFragment();
                 break;
             case R.id.nav_favourites:
-                fragment = new Favourite();
+                fragment = new FavouriteFragment();
                 break;
             case R.id.nav_suggestions:
-                fragment = new Suggestion();
+                fragment = new SuggestionFragment();
                 break;
             case R.id.nav_allergies:
-                fragment = new Allergies();
+                fragment = new AllergiesFragment();
                 break;
             case R.id.nav_help:
-                fragment = new Help();
+                fragment = new HelpFragment();
                 break;
         }
 

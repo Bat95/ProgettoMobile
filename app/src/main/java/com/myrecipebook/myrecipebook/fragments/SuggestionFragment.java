@@ -1,106 +1,103 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.fragments;
 
-import android.app.ProgressDialog;
+/**
+ * Created by Sonia on 12/05/17.
+ */
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+        import android.support.annotation.Nullable;
+        import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+        import android.view.View;
+        import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.myrecipebook.myrecipebook.utilities.Preferences;
+import com.myrecipebook.myrecipebook.utilities.BaseHttpResponseHandler;
+import com.myrecipebook.myrecipebook.utilities.HttpHelper;
+import com.myrecipebook.myrecipebook.R;
+import com.myrecipebook.myrecipebook.models.Recipe;
+import com.myrecipebook.myrecipebook.adapters.ResultAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class Favourite extends Fragment {
+public class SuggestionFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private GridLayoutManager mGrid;
-    private ArrayList<Recipe> favouriteRecipes;
-    private TextView txtNoFavorite;
+    private ArrayList<Recipe> suggestedRecipes;
+    private TextView txtNoSuggestion;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        suggestedRecipes = new ArrayList<>();
 
-        favouriteRecipes = new ArrayList<>();
         container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primaryBackground));
-        return inflater.inflate(R.layout.favourite, container, false);
+        return inflater.inflate(R.layout.suggestion, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Preferiti");
+        getActivity().setTitle("Ricette suggerite");
 
-        txtNoFavorite = (TextView) view.findViewById(R.id.txtNoFavorite);
+        txtNoSuggestion = (TextView) view.findViewById(R.id.txtNoSuggestion);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerFavourite);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerSuggested);
         mGrid = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mGrid);
 
-        mAdapter = new ResultAdapter(favouriteRecipes, getFragmentManager());
+        mAdapter = new ResultAdapter(suggestedRecipes, getFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
-        getFavouriteRecipes();
-    }
+        getSuggestedRecipes();
 
-    private void getFavouriteRecipes() {
 
-        final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage("Ricerca ricette in corso...");
-        pd.setCancelable(false);
-        pd.show();
+        }
+
+    private void getSuggestedRecipes() {
 
         try {
-            int[] favoriteRecipesIds = Preferences.get(getContext(), "favoriteRecipesIds", int[].class, new int[0]);
 
-            HttpHelper.Post(
+            HttpHelper.Get(
                     getActivity().getApplicationContext(),
-                    getString(R.string.serverIp) + "favorite",
-                    favoriteRecipesIds,
+                    getString(R.string.serverIp) + getString(R.string.suggested_API),
                     new BaseHttpResponseHandler<Recipe[]>(Recipe[].class) {
 
                         @Override
                         public void handleResponse(Recipe[] response) {
-                            favouriteRecipes.clear();
+                            suggestedRecipes.clear();
 
                             if (response != null) {
-                                favouriteRecipes.addAll(Arrays.asList(response));
+                                suggestedRecipes.addAll(Arrays.asList(response));
                             }
 
                             mAdapter.notifyDataSetChanged();
                             handleNoResults();
-                            pd.dismiss();
                         }
 
                         @Override
                         public void handleError(String errorMessage) {
                             super.handleError(errorMessage);
                             handleNoResults();
-                            pd.dismiss();
                         }
                     });
         } catch (Exception e) {
-            if(pd.isShowing()) {
-                pd.dismiss();
-            }
 
             handleNoResults();
         }
     }
 
     private void handleNoResults() {
-        boolean hasFavorites = favouriteRecipes != null && favouriteRecipes.size() > 0;
-        txtNoFavorite.setVisibility(hasFavorites ? View.GONE : View.VISIBLE);
+        boolean hasSuggestion = suggestedRecipes != null && suggestedRecipes.size() > 0;
+        txtNoSuggestion.setVisibility(hasSuggestion ? View.GONE : View.VISIBLE);
     }
 
 }

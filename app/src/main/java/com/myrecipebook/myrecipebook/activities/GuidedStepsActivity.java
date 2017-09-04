@@ -1,4 +1,4 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +15,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.myrecipebook.myrecipebook.utilities.PermissionHandler;
+import com.myrecipebook.myrecipebook.R;
+import com.myrecipebook.myrecipebook.utilities.SpeechRecognizerManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -23,7 +27,7 @@ import java.util.Locale;
  * Created by Thomas on 28/08/2017.
  */
 
-public class GuidedSteps extends AppCompatActivity implements DialogInterface {
+public class GuidedStepsActivity extends AppCompatActivity implements DialogInterface {
 
     List<String> steplist = new ArrayList<>();
     int currentStep;
@@ -62,7 +66,7 @@ public class GuidedSteps extends AppCompatActivity implements DialogInterface {
 
         try {
             // create alert dialog to make user choose if wants voice recognition
-            alertDialog = new AlertDialog.Builder(GuidedSteps.this, R.style.AppCompatAlertDialogStyle).create();
+            alertDialog = new AlertDialog.Builder(GuidedStepsActivity.this, R.style.AppCompatAlertDialogStyle).create();
 
             alertDialog.setMessage("Voice Recognition Use");
             alertDialog.setMessage("Vuoi utilizzare la lettura automatica del testo ed il riconoscimento vocale?");

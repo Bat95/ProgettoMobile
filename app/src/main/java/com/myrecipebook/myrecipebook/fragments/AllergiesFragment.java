@@ -1,4 +1,4 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.fragments;
 
 /**
  * Created by Sonia on 12/05/17.
@@ -14,10 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 
+import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.utilities.Preferences;
 
 
-public class Allergies extends Fragment {
+public class AllergiesFragment extends Fragment {
 
     @Nullable
     @Override

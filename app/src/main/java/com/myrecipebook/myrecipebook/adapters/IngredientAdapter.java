@@ -1,30 +1,27 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.adapters;
 
 /**
  * Created by Thomas on 09/08/2017.
  */
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.myrecipebook.myrecipebook.R;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
     private List<String> values;
     List<String> ingredients;
     ArrayAdapter<String> adapter;
 
-    IngredientAdapter(List<String> ingredients, ArrayAdapter<String> adapter){
+    public IngredientAdapter(List<String> ingredients, ArrayAdapter<String> adapter){
         this.ingredients = ingredients;
         this.adapter = adapter;
     }

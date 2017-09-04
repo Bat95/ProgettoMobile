@@ -1,4 +1,4 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.fragments;
 
 /**
  * Created by Sonia
@@ -24,6 +24,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.myrecipebook.myrecipebook.utilities.BaseHttpResponseHandler;
+import com.myrecipebook.myrecipebook.utilities.HttpHelper;
+import com.myrecipebook.myrecipebook.models.RecipeFilter;
+import com.myrecipebook.myrecipebook.adapters.IngredientAdapter;
+import com.myrecipebook.myrecipebook.data.IngredientsStore;
+import com.myrecipebook.myrecipebook.R;
+import com.myrecipebook.myrecipebook.models.Recipe;
+import com.myrecipebook.myrecipebook.models.RecipesFilterResult;
 import com.myrecipebook.myrecipebook.utilities.Preferences;
 
 import java.io.Serializable;
@@ -33,7 +41,7 @@ import java.util.HashSet;
 import java.util.List;
 
 
-public class Search extends Fragment implements Serializable {
+public class SearchFragment extends Fragment implements Serializable {
 
     List<String> intolerancesList;
 
@@ -41,7 +49,7 @@ public class Search extends Fragment implements Serializable {
 
     FloatingActionButton search_button;
 
-    IngredientsLIST ingredients = new IngredientsLIST();
+    IngredientsStore ingredients = new IngredientsStore();
 
     // lista degli ingredienti tra cui un utente può scegliere
     private ArrayList<String> ingredientsList;
@@ -117,7 +125,7 @@ public class Search extends Fragment implements Serializable {
             @Override
             public void onClick(View view) {
 
-                InfoDto filterInfo = new InfoDto();
+                RecipeFilter filterInfo = new RecipeFilter();
                 HashSet<String> ingredSet = new HashSet<>();
 
                 ingredSet.addAll(ingredientArray);
@@ -132,7 +140,7 @@ public class Search extends Fragment implements Serializable {
                 filterInfo.intolerances = apply_intolerances.isChecked();
                 filterInfo.isUnique = unique.isChecked();
 
-                // Allergies
+                // AllergiesFragment
                 if (Preferences.get(getContext(), "latticini", boolean.class, false))
                 {
                     intolerancesList.add("latticini");
@@ -252,7 +260,7 @@ public class Search extends Fragment implements Serializable {
     void presentResultsRecipesFragment(List<Recipe> recipes) {
         Bundle b = new Bundle();
         b.putParcelableArrayList("recipelist", (ArrayList<Recipe>) recipes);
-        Fragment resultFragment = new Results();
+        Fragment resultFragment = new ResultsFragment();
         resultFragment.setArguments(b);
         FragmentTransaction trans = getActivity().getSupportFragmentManager().beginTransaction();
         trans.replace(R.id.content_main, resultFragment);

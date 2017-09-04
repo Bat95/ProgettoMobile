@@ -1,4 +1,4 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.utilities;
 
 import android.Manifest;
 import android.app.Activity;
@@ -7,6 +7,8 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
+
+import com.myrecipebook.myrecipebook.R;
 
 /**
  * Created by Sonia on 30/08/17.

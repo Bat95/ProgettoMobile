@@ -1,4 +1,4 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.utilities;
 
 import java.lang.reflect.Type;
 

@@ -1,51 +1,40 @@
-package com.myrecipebook.myrecipebook;
+package com.myrecipebook.myrecipebook.fragments;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.myrecipebook.myrecipebook.utilities.DownloadImageTask;
+import com.myrecipebook.myrecipebook.R;
+import com.myrecipebook.myrecipebook.activities.GuidedStepsActivity;
+import com.myrecipebook.myrecipebook.models.Recipe;
 import com.myrecipebook.myrecipebook.utilities.Preferences;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
  * Created by Sonia on 23/08/17.
  */
 
-public class RecipeDetail extends Fragment {
+public class RecipeDetailFragment extends Fragment {
 
     private Recipe recipe;
     private Bitmap recipeimg;
 
-    public RecipeDetail() {}
+    public RecipeDetailFragment() {}
 
-    public RecipeDetail(Recipe recipe, Bitmap recipeimg){
+    public RecipeDetailFragment(Recipe recipe, Bitmap recipeimg){
         this.recipe = recipe;
         this.recipeimg = recipeimg;}
 
@@ -75,7 +64,7 @@ public class RecipeDetail extends Fragment {
 
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), GuidedSteps.class);
+                Intent i = new Intent(getActivity(), GuidedStepsActivity.class);
                 i.putStringArrayListExtra("stepArray", (ArrayList<String>) recipe.steps);
                 getActivity().startActivity(i);
             }
