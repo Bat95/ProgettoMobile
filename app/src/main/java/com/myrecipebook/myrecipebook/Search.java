@@ -28,28 +28,29 @@ import com.myrecipebook.myrecipebook.utilities.Preferences;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 
 public class Search extends Fragment implements Serializable {
 
-    // Lista fittizia della dispensa e degli ingredienti
     List<String> intolerancesList;
 
     final ArrayList<String> ingredientArray = new ArrayList<>();
 
     FloatingActionButton search_button;
 
+    IngredientsLIST ingredients = new IngredientsLIST();
+
     // lista degli ingredienti tra cui un utente può scegliere
-    private static final String[] ingredientsList = new String[] {
-            "Latte", "Uova", "Pomodori", "Zucchero", "una lista di tutti gli ingredienti"
-    };
+    private ArrayList<String> ingredientsList;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.search, container, false);
     }
 
@@ -60,6 +61,9 @@ public class Search extends Fragment implements Serializable {
 
         // initialize variables
         search_button = (FloatingActionButton) view.findViewById(R.id.search_button);
+
+        ingredientsList = new ArrayList<>();
+        ingredientsList.addAll(Arrays.asList(ingredients.ingredients));
 
         final TextView recipe_name_input = (TextView) view.findViewById(R.id.recipe_name_input);
 
