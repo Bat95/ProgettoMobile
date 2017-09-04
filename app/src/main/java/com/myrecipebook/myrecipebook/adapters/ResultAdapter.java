@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,14 +29,11 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     private Context context;
     private FragmentManager mFragmentManager;
     private List<Recipe> recipelist;
-    private Bitmap img;
 
     public ResultAdapter(Context context, ArrayList<Recipe> recipelist, FragmentManager fm){
         this.context = context;
         this.recipelist = recipelist;
         this.mFragmentManager = fm;
-
-        Picasso.with(context).setIndicatorsEnabled(true);
     }
 
     @Override
@@ -94,8 +92,12 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         holder.layout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                img = ((BitmapDrawable)holder.image.getDrawable()).getBitmap();;
-                Fragment f = new RecipeDetailFragment(recipelist.get(position),img);
+                Recipe recipe = recipelist.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("recipe", recipe);
+
+                Fragment f = new RecipeDetailFragment();
+                f.setArguments(bundle);
                 FragmentTransaction ft = mFragmentManager.beginTransaction();
                 ft.replace(R.id.content_main, f);
                 ft.addToBackStack("results");

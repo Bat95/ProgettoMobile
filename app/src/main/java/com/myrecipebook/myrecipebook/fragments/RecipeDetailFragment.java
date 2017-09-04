@@ -1,7 +1,6 @@
 package com.myrecipebook.myrecipebook.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,11 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myrecipebook.myrecipebook.utilities.DownloadImageTask;
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.activities.GuidedStepsActivity;
 import com.myrecipebook.myrecipebook.models.Recipe;
 import com.myrecipebook.myrecipebook.utilities.Preferences;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -30,13 +29,9 @@ import java.util.ArrayList;
 public class RecipeDetailFragment extends Fragment {
 
     private Recipe recipe;
-    private Bitmap recipeimg;
 
-    public RecipeDetailFragment() {}
-
-    public RecipeDetailFragment(Recipe recipe, Bitmap recipeimg){
-        this.recipe = recipe;
-        this.recipeimg = recipeimg;}
+    public RecipeDetailFragment() {
+    }
 
     @Nullable
     @Override
@@ -47,8 +42,10 @@ public class RecipeDetailFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle(R.string.detail_recipe);
 
+        recipe = getArguments().getParcelable("recipe");
+
+        getActivity().setTitle(R.string.detail_recipe);
 
         TextView titleRecipeLabel = (TextView) view.findViewById(R.id.titoloRicettaDettaglio);
         TextView timeLabel = (TextView) view.findViewById(R.id.time_value);
@@ -69,7 +66,6 @@ public class RecipeDetailFragment extends Fragment {
                 getActivity().startActivity(i);
             }
         });
-        //ListView listIngred = (ListView) view.findViewById(R.id.list_ingredients);
 
         //recipe title
         titleRecipeLabel.setText(recipe.name);
@@ -134,8 +130,10 @@ public class RecipeDetailFragment extends Fragment {
         }
 
         //loading image
-        imageRecipe.setImageBitmap(recipeimg);
-        new DownloadImageTask(imageRecipe).execute(recipe.mainPic);
+        Picasso.with(getContext())
+                .load(recipe.mainPic)
+                .placeholder(R.drawable.image_not_available)
+                .into(imageRecipe);
 
 
         //add to favourite
