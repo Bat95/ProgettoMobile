@@ -44,7 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:inputType="textEmailAddress" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -69,7 +70,7 @@
         android:backgroundTint="@android:color/holo_blue_light"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_send_white_24dp"
+        android:src="@mipmap/ic_send_white_24dp"
         app:layout_anchor="@id/help_main_container"
         app:layout_anchorGravity="bottom|right|end"/>
 

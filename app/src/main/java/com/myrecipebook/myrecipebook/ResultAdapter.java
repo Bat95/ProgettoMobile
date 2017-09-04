@@ -1,16 +1,12 @@
 package com.myrecipebook.myrecipebook;
 
-/**
- * Created by Thomas on 22/08/2017.
- */
-import java.io.IOException;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
@@ -44,9 +38,6 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        //image
-        //String pic = recipelist.get(position).mainPic;
-        //holder.image.setImageBitmap(img);
 
         new DownloadImageTask(holder.image).execute(recipelist.get(position).mainPic);
 
@@ -56,8 +47,8 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         //time
         int hours = recipelist.get(position).duration / 60;
         int minutes = recipelist.get(position).duration % 60;
-        if (hours <= 0) holder.time.setText("Tempo: " + Integer.toString(minutes) + " minuti");
-        else holder.time.setText("Tempo: " + Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
+        if (hours <= 0) holder.time.setText(Integer.toString(minutes) + " minuti");
+        else holder.time.setText(Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
 
         //difficulty
         switch (recipelist.get(position).difficulty) {
@@ -112,7 +103,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
         public ImageView image;
         public TextView n, time;
-        public RelativeLayout layout;
+        public CoordinatorLayout layout;
         public ImageView icon_difficulty1;
         public ImageView icon_difficulty2;
         public ImageView icon_difficulty3;
@@ -124,8 +115,8 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             image = (ImageView) v.findViewById(R.id.recipe_image);
             image.setImageResource(R.drawable.image_not_available);
             n = (TextView) v.findViewById(R.id.recipe_name);
-            time = (TextView) v.findViewById(R.id.recipe_time);
-            layout = (RelativeLayout) v.findViewById(R.id.recipelayout);
+            time = (TextView) v.findViewById(R.id.recipe_time_value);
+            layout = (CoordinatorLayout) v.findViewById(R.id.recipe_layout);
             icon_difficulty1 = (ImageView) v.findViewById(R.id.difficulty_icon_1);
             icon_difficulty2 = (ImageView) v.findViewById(R.id.difficulty_icon_2);
             icon_difficulty3 = (ImageView) v.findViewById(R.id.difficulty_icon_3);

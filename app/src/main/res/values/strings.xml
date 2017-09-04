@@ -30,8 +30,8 @@
     <string name="RecipeTitleDetail">Titolo Ricetta</string>
     <string name="detail_difficulty">Difficoltà:</string>
     <string name="detail_time">Tempo:</string>
-    <string name="detail_dose">Dosi per :</string>
-    <string name="detail_category">Categoria :</string>
+    <string name="detail_dose">Dosi per:</string>
+    <string name="detail_category">Categoria:</string>
     <string name="detail_ingredients">Ingredienti:</string>
     <string name="immagine_ricetta">Immagine ricetta</string>
     <string name="detail_procedure">Procedimento:</string>
@@ -70,5 +70,8 @@
     <string name="email">Email</string>
     <string name="inizia_a_scrivere_una_domanda_o_feedback">Feedback...</string>
     <string name="help_descr">Inviaci le tue domande o feedback per ricevere supporto, inserisci la tua email in modo da essere ricontattato</string>
+    <string name="results_title">Risultati</string>
+    <string name="recipelist_Bkey">recipelist</string>
+    <string name="nome_ricetta">Nome ricetta</string>
 
 </resources>

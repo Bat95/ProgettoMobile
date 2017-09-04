@@ -250,7 +250,7 @@
             android:backgroundTint="@android:color/holo_blue_light"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_search_white_24dp"
+            android:src="@mipmap/ic_search_white_24dp"
             app:layout_anchor="@id/scroll_search_container"
             app:layout_anchorGravity="bottom|right|end"/>
 

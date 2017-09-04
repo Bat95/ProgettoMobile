@@ -135,9 +135,8 @@ public class RecipeDetail extends Fragment {
                 break;
         }
 
-        //listIngred.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, recipe.ingredients));
         for (String s : recipe.ingredients){
-            ingredientList.setText(ingredientList.getText()+ "- " + s + "\n");
+            ingredientList.setText(ingredientList.getText()+ "\u2022 " + s + "\n");
         }
 
         for (String item: recipe.steps) {

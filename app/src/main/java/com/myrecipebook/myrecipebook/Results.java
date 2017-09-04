@@ -18,15 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
-
-/**
- * Created by Thomas on 17/08/2017.
- */
-
 public class Results extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLinearLayoutManager;
     private GridLayoutManager mGrid;
 
     ArrayList<Recipe> resultedRecipes ;
@@ -35,10 +29,12 @@ public class Results extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        resultedRecipes  = getArguments().getParcelableArrayList("recipelist");
+        resultedRecipes  = getArguments().getParcelableArrayList(getString(R.string.recipelist_Bkey));
         int resource =  R.layout.results;
-        if (resultedRecipes.size()==0){
-            resource = R.layout.noresults;
+        if (resultedRecipes != null) {
+            if (resultedRecipes.size() == 0) {
+                resource = R.layout.noresults;
+            }
         }
         return inflater.inflate(resource,container,false);
     }
@@ -46,12 +42,11 @@ public class Results extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Risultati");
+        getActivity().setTitle(getString(R.string.results_title));
 
 
         if(resultedRecipes.size()>0) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewResults);
-            //LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false);
             mGrid = new GridLayoutManager(getContext(), 2);
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(mGrid);
