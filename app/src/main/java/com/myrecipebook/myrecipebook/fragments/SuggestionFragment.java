@@ -54,7 +54,7 @@ public class SuggestionFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mGrid);
 
-        mAdapter = new ResultAdapter(suggestedRecipes, getFragmentManager());
+        mAdapter = new ResultAdapter(getContext(), suggestedRecipes, getFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
         getSuggestedRecipes();

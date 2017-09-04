@@ -52,7 +52,7 @@ public class FavouriteFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mGrid);
 
-        mAdapter = new ResultAdapter(favouriteRecipes, getFragmentManager());
+        mAdapter = new ResultAdapter(getContext(), favouriteRecipes, getFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
         getFavouriteRecipes();

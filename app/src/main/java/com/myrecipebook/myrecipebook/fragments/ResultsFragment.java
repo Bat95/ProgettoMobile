@@ -50,7 +50,7 @@ public class ResultsFragment extends Fragment {
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(mGrid);
 
-            final RecyclerView.Adapter mAdapter = new ResultAdapter(resultedRecipes, getFragmentManager());
+            final RecyclerView.Adapter mAdapter = new ResultAdapter(getContext(), resultedRecipes, getFragmentManager());
             mRecyclerView.setAdapter(mAdapter);
         }
 

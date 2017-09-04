@@ -4,6 +4,7 @@ package com.myrecipebook.myrecipebook.adapters;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,21 +18,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.myrecipebook.myrecipebook.utilities.DownloadImageTask;
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.fragments.RecipeDetailFragment;
 import com.myrecipebook.myrecipebook.models.Recipe;
+import com.squareup.picasso.Picasso;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 
+    private Context context;
     private FragmentManager mFragmentManager;
-    private List<String> values;
-    List<Recipe> recipelist;
-    Bitmap img;
+    private List<Recipe> recipelist;
+    private Bitmap img;
 
-    public ResultAdapter(ArrayList<Recipe> recipelist, FragmentManager fm){
+    public ResultAdapter(Context context, ArrayList<Recipe> recipelist, FragmentManager fm){
+        this.context = context;
         this.recipelist = recipelist;
         this.mFragmentManager = fm;
+
+        Picasso.with(context).setIndicatorsEnabled(true);
     }
 
     @Override
@@ -44,19 +48,27 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        new DownloadImageTask(holder.image).execute(recipelist.get(position).mainPic);
+        Recipe currentRecipe = recipelist.get(position);
+
+        // Bind image
+        Picasso.with(context)
+                .load(currentRecipe.mainPic)
+                .placeholder(R.drawable.image_not_available)
+                .into(holder.image);
 
         //recipe name
-        holder.n.setText(recipelist.get(position).name);
+        holder.n.setText(currentRecipe.name);
 
         //time
-        int hours = recipelist.get(position).duration / 60;
-        int minutes = recipelist.get(position).duration % 60;
-        if (hours <= 0) holder.time.setText(Integer.toString(minutes) + " minuti");
-        else holder.time.setText(Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
+        int hours = currentRecipe.duration / 60;
+        int minutes = currentRecipe.duration % 60;
+        if (hours <= 0)
+            holder.time.setText(Integer.toString(minutes) + " minuti");
+        else
+            holder.time.setText(Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
 
         //difficulty
-        switch (recipelist.get(position).difficulty) {
+        switch (currentRecipe.difficulty) {
             case 1 : holder.icon_difficulty1.setVisibility(View.VISIBLE);
                 break;
             case 2 : holder.icon_difficulty1.setVisibility(View.VISIBLE);
