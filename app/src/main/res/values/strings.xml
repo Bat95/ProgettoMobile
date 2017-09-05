@@ -99,5 +99,6 @@
     <string name="dessert">Dolci</string>
     <string name="unique_dish">Piatto Unico</string>
     <string name="server_error">errore durante la connessione al server</string>
+    <string name="txt_loading">Caricamento ricette...</string>
 
 </resources>

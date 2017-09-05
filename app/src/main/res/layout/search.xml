@@ -247,7 +247,7 @@
             android:id="@+id/search_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:backgroundTint="@android:color/holo_blue_light"
+            app:backgroundTint="@android:color/holo_blue_light"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@mipmap/ic_search_white_24dp"

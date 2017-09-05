@@ -20,5 +20,14 @@
         android:text="@string/no_results"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/txtLoading"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/txt_loading"
+        android:visibility="gone"/>
+
 
 </RelativeLayout>

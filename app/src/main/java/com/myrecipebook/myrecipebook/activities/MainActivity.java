@@ -1,5 +1,6 @@
 package com.myrecipebook.myrecipebook.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.fragments.AllergiesFragment;
 import com.myrecipebook.myrecipebook.fragments.FavouriteFragment;
@@ -46,6 +49,14 @@ public class MainActivity extends AppCompatActivity
 
         displaySelectedScreen(R.id.nav_suggestions);
         drawer.openDrawer(Gravity.START);
+
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                drawer.requestFocus();
+                hideSoftKeyboard();
+            }
+        });
 
         //Listen for changes in the back stack
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -162,5 +173,12 @@ public class MainActivity extends AppCompatActivity
                 DrawerLayout.LOCK_MODE_UNLOCKED;
         drawer.setDrawerLockMode(lockMode);
         toggle.syncState();
+    }
+
+    public void hideSoftKeyboard() {
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }

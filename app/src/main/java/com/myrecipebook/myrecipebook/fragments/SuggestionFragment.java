@@ -26,6 +26,7 @@ public class SuggestionFragment extends Fragment {
     private GridLayoutManager mGrid;
     private ArrayList<Recipe> suggestedRecipes;
     private TextView txtNoSuggestion;
+    private TextView txtLoading;
 
     @Nullable
     @Override
@@ -42,6 +43,9 @@ public class SuggestionFragment extends Fragment {
         getActivity().setTitle("Ricette suggerite");
 
         txtNoSuggestion = (TextView) view.findViewById(R.id.txtNoSuggestion);
+        txtLoading = (TextView) view.findViewById(R.id.txtLoading);
+
+        txtLoading.setVisibility(View.VISIBLE);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerSuggested);
         mGrid = new GridLayoutManager(getContext(), 2);
@@ -67,6 +71,7 @@ public class SuggestionFragment extends Fragment {
 
                         @Override
                         public void handleResponse(Recipe[] response) {
+                            txtLoading.setVisibility(View.GONE);
                             suggestedRecipes.clear();
 
                             if (response != null) {
@@ -80,6 +85,7 @@ public class SuggestionFragment extends Fragment {
                         @Override
                         public void handleError(String errorMessage) {
                             super.handleError(errorMessage);
+                            txtLoading.setVisibility(View.GONE);
                             handleNoResults();
                         }
                     });

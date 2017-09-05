@@ -325,6 +325,6 @@
         app:srcCompat="@drawable/star_off"
         app:layout_anchor="@id/header_container"
         app:layout_anchorGravity="bottom|right|end"
-        android:backgroundTint="@android:color/holo_blue_light"/>
+        app:backgroundTint="@android:color/holo_blue_light"/>
 
 </android.support.design.widget.CoordinatorLayout>
