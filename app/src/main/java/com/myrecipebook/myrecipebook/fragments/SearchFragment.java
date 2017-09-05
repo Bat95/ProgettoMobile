@@ -1,9 +1,5 @@
 package com.myrecipebook.myrecipebook.fragments;
 
-/**
- * Created by Sonia
- */
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,7 +19,6 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.myrecipebook.myrecipebook.utilities.BaseHttpResponseHandler;
 import com.myrecipebook.myrecipebook.utilities.HttpHelper;
 import com.myrecipebook.myrecipebook.models.RecipeFilter;
@@ -33,7 +28,6 @@ import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.models.Recipe;
 import com.myrecipebook.myrecipebook.models.RecipesFilterResult;
 import com.myrecipebook.myrecipebook.utilities.Preferences;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +45,6 @@ public class SearchFragment extends Fragment implements Serializable {
 
     IngredientsStore ingredients = new IngredientsStore();
 
-    // lista degli ingredienti tra cui un utente può scegliere
     private ArrayList<String> ingredientsList;
 
 
@@ -248,7 +241,7 @@ public class SearchFragment extends Fragment implements Serializable {
                 }
                 catch (Exception e) {
                     pd.dismiss();
-                    Toast.makeText(getContext(), "errore durante la connessione al server", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.server_error, Toast.LENGTH_SHORT).show();
                 }
 
             }

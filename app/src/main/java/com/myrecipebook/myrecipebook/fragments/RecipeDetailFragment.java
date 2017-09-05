@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.activities.GuidedStepsActivity;
 import com.myrecipebook.myrecipebook.models.Recipe;
@@ -20,11 +19,6 @@ import com.myrecipebook.myrecipebook.utilities.Preferences;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-
-/**
- * Created by Sonia on 23/08/17.
- */
 
 public class RecipeDetailFragment extends Fragment {
 
@@ -98,25 +92,43 @@ public class RecipeDetailFragment extends Fragment {
         //time
         int hours = recipe.duration / 60;
         int minutes = recipe.duration % 60;
-        if (hours <= 0) timeLabel.setText(Integer.toString(minutes) + " minuti");
-        else timeLabel.setText(Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
+        if (hours <= 0) {
+            timeLabel.setText(String.format(getContext().getString(R.string.minutes), minutes));
+        }
+        else {
+            if (minutes == 0) {
+                if (hours == 1) {
+                    timeLabel.setText("1 ora");
+                }
+                else {
+                    timeLabel.setText(String.format(getContext().getString(R.string.hours), hours));
+                }
+            }
+            else {
+                if (hours == 1) {
+                    timeLabel.setText("1 ora e " + Integer.toString(minutes) + " minuti");
+                } else {
+                    timeLabel.setText(Integer.toString(hours) + " ore e " + Integer.toString(minutes) + " minuti");
+                }
+            }
+        }
 
         // dose per person
-        if (recipe.dosePerPerson == 1) doseLabel.setText(Integer.toString(recipe.dosePerPerson) + " persona");
-        else doseLabel.setText(Integer.toString(recipe.dosePerPerson) + " persone");
+        if (recipe.dosePerPerson == 1) doseLabel.setText(String.format(getContext().getString(R.string.dosePersona), recipe.dosePerPerson));
+        else doseLabel.setText(String.format(getContext().getString(R.string.dosePersone), recipe.dosePerPerson));
 
         //category check
         switch (recipe.category) {
 
-            case 1 : categoryLabel.setText("Antipasti");
+            case 1 : categoryLabel.setText(R.string.appetizer);
                 break;
-            case 2: categoryLabel.setText("Primi piatti");
+            case 2: categoryLabel.setText(R.string.first_dish);
                 break;
-            case 3 : categoryLabel.setText("Secondi piatti");
+            case 3 : categoryLabel.setText(R.string.second_dish);
                 break;
-            case 4 : categoryLabel.setText("Dolci");
+            case 4 : categoryLabel.setText(R.string.dessert);
                 break;
-            case 5 : categoryLabel.setText("Piatto Unico");
+            case 5 : categoryLabel.setText(R.string.unique_dish);
                 break;
         }
 
@@ -174,7 +186,7 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     private void removeFromFavorite(Recipe recipe) {
-        if(!isFavoriteRecipe(recipe) || recipe == null || recipe.id <= 0) {
+        if(!isFavoriteRecipe(recipe) || recipe.id <= 0) {
             return;
         }
 

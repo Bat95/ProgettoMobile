@@ -3,10 +3,7 @@ package com.myrecipebook.myrecipebook.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -18,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.fragments.RecipeDetailFragment;
 import com.myrecipebook.myrecipebook.models.Recipe;
@@ -60,10 +56,26 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         //time
         int hours = currentRecipe.duration / 60;
         int minutes = currentRecipe.duration % 60;
-        if (hours <= 0)
-            holder.time.setText(Integer.toString(minutes) + " minuti");
-        else
-            holder.time.setText(Integer.toString(hours) + ":" + Integer.toString(minutes) + " ore");
+        if (hours <= 0) {
+            holder.time.setText(String.format(context.getString(R.string.minutes), minutes));
+        }
+        else {
+            if (minutes == 0) {
+                if (hours == 1) {
+                    holder.time.setText(R.string.one_hour);
+                }
+                else {
+                    holder.time.setText(String.format(context.getString(R.string.hours), hours));
+                }
+            }
+            else {
+                if (hours == 1) {
+                    holder.time.setText("1 ora e " + Integer.toString(minutes) + " minuti");
+                } else {
+                    holder.time.setText(Integer.toString(hours) + " ore e " + Integer.toString(minutes) + " minuti");
+                }
+            }
+        }
 
         //difficulty
         switch (currentRecipe.difficulty) {

@@ -1,10 +1,6 @@
 package com.myrecipebook.myrecipebook.models;
 import java.util.List;
 
-/**
- * Created by Sonia on 11/08/17.
- */
-
 public class RecipeFilter {
 
     public boolean isApetizer;

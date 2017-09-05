@@ -1,11 +1,6 @@
 package com.myrecipebook.myrecipebook.adapters;
 
-/**
- * Created by Thomas on 09/08/2017.
- */
-
 import java.util.List;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.myrecipebook.myrecipebook.R;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
-    private List<String> values;
-    List<String> ingredients;
-    ArrayAdapter<String> adapter;
+
+    private List<String> ingredients;
+    private ArrayAdapter<String> adapter;
 
     public IngredientAdapter(List<String> ingredients, ArrayAdapter<String> adapter){
         this.ingredients = ingredients;
@@ -40,7 +34,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
             @Override
             public void onClick(View view) {
                 int newPosition = holder.getAdapterPosition();
-                adapter.add(ingredients.get(position).toString());
+                adapter.add(ingredients.get(position));
                 ingredients.remove(newPosition);
                 notifyItemRemoved(newPosition);
                 notifyItemRangeChanged(newPosition, ingredients.size());
@@ -60,11 +54,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
+
         public TextView txt;
         public ImageView delete;
 

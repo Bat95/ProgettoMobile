@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.fragments.AllergiesFragment;
 import com.myrecipebook.myrecipebook.fragments.FavouriteFragment;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         displaySelectedScreen(R.id.nav_suggestions);
-        drawer.openDrawer(Gravity.LEFT);
+        drawer.openDrawer(Gravity.START);
 
         //Listen for changes in the back stack
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu - this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -135,15 +134,12 @@ public class MainActivity extends AppCompatActivity
             toggle.setDrawerIndicatorEnabled(false);
             // Show back button
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            // when DrawerToggle is disabled i.e. setDrawerIndicatorEnabled(false), navigation icon
-            // clicks are disabled i.e. the UP button will not work.
-            // We need to add a listener, as in below, so DrawerToggle will forward
-            // click events to this listener.
+
             if(!toolBarNavigationListenerIsRegistered) {
                 toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Doesn't have to be onBackPressed
+
                         onBackPressed();
                     }
                 });
@@ -156,7 +152,7 @@ public class MainActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             // Show hamburger
             toggle.setDrawerIndicatorEnabled(true);
-            // Remove the/any drawer toggle listener
+            // Remove drawer toggle listener
             toggle.setToolbarNavigationClickListener(null);
             toolBarNavigationListenerIsRegistered = false;
         }

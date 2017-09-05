@@ -7,12 +7,8 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
-
 import com.myrecipebook.myrecipebook.R;
 
-/**
- * Created by Sonia on 30/08/17.
- */
 
 public class PermissionHandler {
 

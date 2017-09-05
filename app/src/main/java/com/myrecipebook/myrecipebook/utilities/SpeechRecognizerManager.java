@@ -10,12 +10,8 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
-
 import java.util.ArrayList;
 
-/**
- * Created by Sonia on 30/08/17.
- */
 
 public class SpeechRecognizerManager {
 
@@ -201,16 +197,7 @@ public class SpeechRecognizerManager {
 
     public interface onResultsReady
     {
-        public void onResults(ArrayList<String> results);
+        void onResults(ArrayList<String> results);
     }
 
-    public void mute(boolean mute)
-    {
-        mMute=mute;
-    }
-
-    public boolean isInMuteMode()
-    {
-        return mMute;
-    }
 }

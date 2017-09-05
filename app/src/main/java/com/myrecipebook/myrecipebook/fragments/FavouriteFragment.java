@@ -11,14 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.myrecipebook.myrecipebook.utilities.BaseHttpResponseHandler;
 import com.myrecipebook.myrecipebook.utilities.HttpHelper;
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.models.Recipe;
 import com.myrecipebook.myrecipebook.adapters.ResultAdapter;
 import com.myrecipebook.myrecipebook.utilities.Preferences;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -61,7 +59,7 @@ public class FavouriteFragment extends Fragment {
     private void getFavouriteRecipes() {
 
         final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage("Ricerca ricette in corso...");
+        pd.setMessage(getString(R.string.loading_message));
         pd.setCancelable(false);
         pd.show();
 

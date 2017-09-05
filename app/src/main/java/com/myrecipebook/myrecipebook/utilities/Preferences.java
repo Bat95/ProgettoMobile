@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import java.lang.reflect.Type;
 
-/**
- * Created by Sonia on 30/08/17.
- */
 
 public class Preferences {
 

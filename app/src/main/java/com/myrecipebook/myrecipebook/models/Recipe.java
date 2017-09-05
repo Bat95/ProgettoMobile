@@ -2,13 +2,8 @@ package com.myrecipebook.myrecipebook.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by Sonia on 11/08/17.
- */
 
 public class Recipe implements Parcelable {
 
@@ -22,9 +17,6 @@ public class Recipe implements Parcelable {
     public int duration;
     public int category;
     public List<String> tag;
-
-    public Recipe() {
-    }
 
     protected Recipe(Parcel in) {
         id = in.readInt();
@@ -51,7 +43,7 @@ public class Recipe implements Parcelable {
         category = in.readInt();
 
         if (in.readByte() == 0x01) {
-            tag = new ArrayList<String>();
+            tag = new ArrayList<>();
             in.readList(tag, String.class.getClassLoader());
         } else {
             tag = null;
@@ -94,7 +86,6 @@ public class Recipe implements Parcelable {
         }
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {
         @Override
         public Recipe createFromParcel(Parcel in) {

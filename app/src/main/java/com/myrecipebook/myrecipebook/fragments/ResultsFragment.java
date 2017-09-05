@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.models.Recipe;
 import com.myrecipebook.myrecipebook.adapters.ResultAdapter;

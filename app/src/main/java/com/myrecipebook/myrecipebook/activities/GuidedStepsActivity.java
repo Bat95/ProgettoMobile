@@ -14,18 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.myrecipebook.myrecipebook.utilities.PermissionHandler;
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.utilities.SpeechRecognizerManager;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-/**
- * Created by Thomas on 28/08/2017.
- */
 
 public class GuidedStepsActivity extends AppCompatActivity implements DialogInterface {
 
@@ -68,11 +62,9 @@ public class GuidedStepsActivity extends AppCompatActivity implements DialogInte
             // create alert dialog to make user choose if wants voice recognition
             alertDialog = new AlertDialog.Builder(GuidedStepsActivity.this, R.style.AppCompatAlertDialogStyle).create();
 
-            alertDialog.setMessage("Voice Recognition Use");
-            alertDialog.setMessage("Vuoi utilizzare la lettura automatica del testo ed il riconoscimento vocale?");
+            alertDialog.setMessage(getString(R.string.dialog_message));
             alertDialog.setCancelable(false);
 
-            //alertDialog.setView(alertLayout);
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,"SI", new DialogInterface.OnClickListener() {
 
                 @Override
@@ -98,7 +90,7 @@ public class GuidedStepsActivity extends AppCompatActivity implements DialogInte
 
         currentStep = 0;
 
-        stepN.setText("Passo "+ (currentStep+1));
+        stepN.setText(getString(R.string.steps_title, (currentStep + 1)));
         stepT.setText(steplist.get(currentStep));
 
             prev.setClickable(false);
@@ -109,7 +101,7 @@ public class GuidedStepsActivity extends AppCompatActivity implements DialogInte
                 public void onClick(View view) {
                     if (currentStep > 0) {
                         currentStep--;
-                        stepN.setText("Passo " + (currentStep + 1));
+                        stepN.setText(getString(R.string.steps_title, (currentStep + 1)));
                         stepT.setText(steplist.get(currentStep));
                         next.setClickable(true);
                         next.setVisibility(View.VISIBLE);
@@ -130,7 +122,7 @@ public class GuidedStepsActivity extends AppCompatActivity implements DialogInte
                 public void onClick(View view) {
                     if (currentStep < steplist.size() - 1) {
                         currentStep++;
-                        stepN.setText("Passo " + (currentStep + 1));
+                        stepN.setText(getString(R.string.steps_title, (currentStep + 1)));
                         stepT.setText(steplist.get(currentStep));
                         prev.setClickable(true);
                         prev.setVisibility(View.VISIBLE);

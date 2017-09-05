@@ -1,19 +1,13 @@
 package com.myrecipebook.myrecipebook.fragments;
 
-/**
- * Created by Sonia on 12/05/17.
- */
-
 import android.content.Context;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
-
 import com.myrecipebook.myrecipebook.R;
 import com.myrecipebook.myrecipebook.utilities.Preferences;
 

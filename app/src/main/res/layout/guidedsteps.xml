@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    android:background="@color/primaryBackground">
+
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primaryBackground"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
             <RelativeLayout
@@ -21,7 +25,7 @@
                     android:layout_alignParentStart="true"
                     android:src="@drawable/food_background"
                     android:scaleType="centerCrop"
-                    />
+                    android:contentDescription="@string/background_image_steps" />
 
                 <TextView
                     android:id="@+id/stepNumber"
@@ -30,10 +34,11 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:text="Passo 1"
+                    android:text="@string/first_step"
                     android:padding="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="60dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="24dp"
                     android:layout_alignBottom="@+id/detail_image"/>
 
             </RelativeLayout>
@@ -43,21 +48,22 @@
                 android:layout_height="wrap_content"
                 android:background="@color/primaryBackground"
                 android:orientation="vertical"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 >
 
                 <android.support.v7.widget.CardView
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_height="300dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     >
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:layout_marginStart="15dp"
+                        android:layout_margin="16dp"
                         android:padding="8dp"
                         android:minHeight="100dp"
                         android:gravity="center">
@@ -67,74 +73,88 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="18sp"
-                            android:text="Step text"
-                            />
+                            android:text="@string/step_text" />
 
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="8dp"
-                    >
-
-                    <Button
-                        android:id="@+id/previous"
-                        android:layout_width="174dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/round_button"
-                        android:textColor="@android:color/white"
-                        android:text="Indietro"
-                        android:layout_marginEnd="4dp"
-                        android:drawableStart="@mipmap/ic_arrow_back_white_24dp"
-                        android:paddingStart="16dp"/>
-
-                    <Button
-                        android:id="@+id/next"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/round_button"
-                        android:textColor="@android:color/white"
-                        android:text="Avanti"
-                        android:layout_marginStart="4dp"
-                        android:drawableEnd="@mipmap/ic_arrow_forward_white_24dp"
-                        android:paddingEnd="16dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="8dp"
-                    android:gravity="center_horizontal">
-
-                    <Button
-                        android:id="@+id/repeat"
-                        android:layout_width="174dp"
-                        android:layout_height="wrap_content"
-                        android:text="Ripeti"
-                        android:background="@drawable/round_button"
-                        android:textColor="@android:color/white"
-                        android:layout_marginBottom="8dp"
-                        android:drawableStart="@mipmap/ic_repeat_white_24dp"
-                        android:paddingStart="16dp"/>
-                    <Button
-                        android:id="@+id/exit"
-                        android:layout_width="174dp"
-                        android:layout_height="wrap_content"
-                        android:text="Esci"
-                        android:background="@drawable/round_button"
-                        android:textColor="@android:color/white"
-                        android:drawableStart="@mipmap/ic_exit_to_app_white_24dp"
-                        android:paddingStart="16dp"
-                        />
-
-                </LinearLayout>
-
             </LinearLayout>
 
 </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_above="@+id/layout_btn_steps">
+
+            <Button
+                android:id="@+id/previous"
+                android:layout_width="174dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                android:textColor="@android:color/white"
+                android:text="@string/back_txt_btn"
+                android:layout_marginEnd="4dp"
+                android:drawableStart="@mipmap/ic_arrow_back_white_24dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                android:textColor="@android:color/white"
+                android:text="@string/next_txt_btn"
+                android:layout_marginStart="4dp"
+                android:drawableEnd="@mipmap/ic_arrow_forward_white_24dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:id="@+id/layout_btn_steps"
+            android:layout_alignParentBottom="true"
+            >
+
+            <Button
+                android:id="@+id/repeat"
+                android:layout_width="174dp"
+                android:layout_height="wrap_content"
+                android:text="@string/repeat_txt_btn"
+                android:background="@drawable/round_button"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@mipmap/ic_repeat_white_24dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+            <Button
+                android:id="@+id/exit"
+                android:layout_width="174dp"
+                android:layout_height="wrap_content"
+                android:text="@string/exit_txt_btn"
+                android:background="@drawable/round_button"
+                android:textColor="@android:color/white"
+                android:drawableStart="@mipmap/ic_exit_to_app_white_24dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="8dp"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>

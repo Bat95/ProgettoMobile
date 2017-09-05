@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MyRecipeBook</string>
-    <string name="serverIp">http://myrecipebook.ngrok.io/api/values/</string>
+    <string name="serverIp">http://192.168.43.155:5000/api/values/</string>
 
     <!-- Strings used in the search.xml file -->
     <string name="search">Ricerca</string>
@@ -50,7 +50,7 @@
     <string name="piatto_unico">Piatto Unico</string>
     <string name="difficultyLabel">Difficoltà:</string>
     <string name="timeLabel">Tempo:</string>
-
+    <string name="steps_title">Passo %1$d</string>
     <string name="record_audio_is_required">La registrazione dell audio verrà usata solamente per poter effettuare il riconoscimento vocale dei comandi</string>
     <string name="vocal_recognition">Riconoscimento vocale</string>
     <string name="immagine_stella_preferenze">Immagine stella preferenze</string>
@@ -73,5 +73,31 @@
     <string name="results_title">Risultati</string>
     <string name="recipelist_Bkey">recipelist</string>
     <string name="nome_ricetta">Nome ricetta</string>
+    <string name="ricerca_per_nome_descr">Sai già cosa cucinare? Cerca per nome la tua ricetta</string>
+    <string name="ricerca_per_ingredienti_descr">Seleziona gli ingredienti che hai a disposizione</string>
+    <string name="filter_descr">Personalizza la tua ricerca</string>
+    <string name="dialog_message">Vuoi utilizzare la lettura automatica del testo ed il riconoscimento vocale?</string>
+    <string name="first_step">Passo 1</string>
+    <string name="step_text">Step text</string>
+    <string name="exit_txt_btn">esci</string>
+    <string name="repeat_txt_btn">Ripeti</string>
+    <string name="next_txt_btn">Avanti</string>
+    <string name="back_txt_btn">Indietro</string>
+    <string name="background_image_steps">background image steps</string>
+    <string name="one_hour">1 ora</string>
+    <string name="minutes">%1$d minuti</string>
+    <string name="hours">%1$d ore</string>
+    <string name="dosePersona">%1$d persona</string>
+    <string name="dosePersone">%1$d persone</string>
+    <string name="error_email_txt">Per inviare un feedback è necessario specificare una mail</string>
+    <string name="error_feedback_txt">Per inviare un feedback è necessario specificare un messaggio</string>
+    <string name="thanks_feedback">Grazie per il feedback!</string>
+    <string name="error_send_feedback">Errore durante l\'invio del feedback, per favore riprova</string>
+    <string name="appetizer">Antipasti</string>
+    <string name="first_dish">Primi piatti</string>
+    <string name="second_dish">Secondi piatti</string>
+    <string name="dessert">Dolci</string>
+    <string name="unique_dish">Piatto Unico</string>
+    <string name="server_error">errore durante la connessione al server</string>
 
 </resources>

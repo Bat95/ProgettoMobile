@@ -1,9 +1,5 @@
 package com.myrecipebook.myrecipebook.data;
 
-/**
- * Created by Sonia on 04/09/17.
- */
-
 public class IngredientsStore {
 
     public String[] ingredients = new String[] {
@@ -84,6 +80,4 @@ public class IngredientsStore {
             "olio di semi",
             "strutto",
             "farina di mais"};
-
-
 }
