@@ -21,6 +21,7 @@ import java.util.Arrays;
 
 public class SuggestionFragment extends Fragment {
 
+    private View containerView;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private GridLayoutManager mGrid;
@@ -31,10 +32,13 @@ public class SuggestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        suggestedRecipes = new ArrayList<>();
-
         container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primaryBackground));
-        return inflater.inflate(R.layout.suggestion, container, false);
+
+        if(containerView == null) {
+            containerView = inflater.inflate(R.layout.suggestion, container, false);
+        }
+
+        return containerView;
     }
 
     @Override
@@ -45,7 +49,11 @@ public class SuggestionFragment extends Fragment {
         txtNoSuggestion = (TextView) view.findViewById(R.id.txtNoSuggestion);
         txtLoading = (TextView) view.findViewById(R.id.txtLoading);
 
-        txtLoading.setVisibility(View.VISIBLE);
+        boolean refreshRecipes = suggestedRecipes == null;
+        if(refreshRecipes) {
+            suggestedRecipes = new ArrayList<>();
+            txtLoading.setVisibility(View.VISIBLE);
+        }
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerSuggested);
         mGrid = new GridLayoutManager(getContext(), 2);
@@ -55,10 +63,10 @@ public class SuggestionFragment extends Fragment {
         mAdapter = new ResultAdapter(getContext(), suggestedRecipes, getFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
-        getSuggestedRecipes();
-
-
+        if(refreshRecipes) {
+            getSuggestedRecipes();
         }
+    }
 
     private void getSuggestedRecipes() {
 

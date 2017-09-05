@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 public class ResultsFragment extends Fragment {
 
+    private View containerView;
     private RecyclerView mRecyclerView;
     private GridLayoutManager mGrid;
-
-    ArrayList<Recipe> resultedRecipes ;
+    private ArrayList<Recipe> resultedRecipes;
 
     @Nullable
     @Override
@@ -32,15 +32,20 @@ public class ResultsFragment extends Fragment {
                 resource = R.layout.noresults;
             }
         }
+
         container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primaryBackground));
-        return inflater.inflate(resource,container,false);
+
+        if(containerView == null) {
+            containerView = inflater.inflate(resource,container,false);
+        }
+
+        return containerView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle(getString(R.string.results_title));
-
 
         if(resultedRecipes.size()>0) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewResults);

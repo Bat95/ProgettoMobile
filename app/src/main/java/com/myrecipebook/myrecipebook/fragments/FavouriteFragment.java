@@ -23,6 +23,7 @@ import java.util.Arrays;
 
 public class FavouriteFragment extends Fragment {
 
+    private View containerView;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private GridLayoutManager mGrid;
@@ -32,10 +33,13 @@ public class FavouriteFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        favouriteRecipes = new ArrayList<>();
         container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primaryBackground));
-        return inflater.inflate(R.layout.favourite, container, false);
+
+        if(containerView == null) {
+            containerView = inflater.inflate(R.layout.favourite, container, false);
+        }
+
+        return containerView;
     }
 
     @Override
@@ -50,10 +54,17 @@ public class FavouriteFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mGrid);
 
+        boolean refreshFavorites = favouriteRecipes == null;
+        if(refreshFavorites) {
+            favouriteRecipes = new ArrayList<>();
+        }
+
         mAdapter = new ResultAdapter(getContext(), favouriteRecipes, getFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
-        getFavouriteRecipes();
+        if(refreshFavorites) {
+            getFavouriteRecipes();
+        }
     }
 
     private void getFavouriteRecipes() {
