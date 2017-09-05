@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ricerca per nome"
+            android:text="@string/ricerca_per_nome_descr"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
             android:layout_marginBottom="8dp"
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ricerca per ingredienti"
+            android:text="@string/ricerca_per_ingredienti_descr"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
             android:layout_marginTop="16dp"
@@ -94,7 +94,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filtri"
+            android:text="@string/filter_descr"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
             android:layout_marginTop="16dp"
