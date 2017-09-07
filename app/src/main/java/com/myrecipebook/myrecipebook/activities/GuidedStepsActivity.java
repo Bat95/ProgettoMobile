@@ -33,7 +33,7 @@ public class GuidedStepsActivity extends AppCompatActivity implements DialogInte
     TextView stepN;
     TextView stepT;
     AlertDialog alertDialog;
-    boolean useSpeechRecognizer = true;
+    boolean useSpeechRecognizer = false;
     private SpeechRecognizerManager mSpeechManager;
     private AudioManager myAudioManager;
     int currentVolume;
@@ -57,33 +57,34 @@ public class GuidedStepsActivity extends AppCompatActivity implements DialogInte
         myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         currentVolume = myAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-
         try {
-            // create alert dialog to make user choose if wants voice recognition
-            alertDialog = new AlertDialog.Builder(GuidedStepsActivity.this, R.style.AppCompatAlertDialogStyle).create();
+            if(alertDialog == null) {
+                // create alert dialog to make user choose if wants voice recognition
+                alertDialog = new AlertDialog.Builder(GuidedStepsActivity.this, R.style.AppCompatAlertDialogStyle).create();
 
-            alertDialog.setMessage(getString(R.string.dialog_message));
-            alertDialog.setCancelable(false);
+                alertDialog.setMessage(getString(R.string.dialog_message));
+                alertDialog.setCancelable(false);
 
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,"SI", new DialogInterface.OnClickListener() {
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SI", new DialogInterface.OnClickListener() {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    useSpeechRecognizer = true;
-                    BeginSteps();
-                }
-            });
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        useSpeechRecognizer = true;
+                        BeginSteps();
+                    }
+                });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    useSpeechRecognizer = false;
-                    BeginSteps();
-                }
-            });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        useSpeechRecognizer = false;
+                        BeginSteps();
+                    }
+                });
 
-            // show it
-            alertDialog.show();
+                // show it
+                alertDialog.show();
+            }
         } catch(Exception e) {
 
         }
